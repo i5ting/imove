@@ -1,6 +1,6 @@
 export function randomColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
+  var letters = '0123456789ABCDEF';
+  var color = '#';
   for (var i = 0; i < 6; i += 1) {
     color += letters[Math.floor(Math.random() * 16)];
   }
@@ -8,7 +8,7 @@ export function randomColor() {
 }
 
 export function invertColor(hex: string, bw: boolean) {
-  if (hex.indexOf("#") === 0) {
+  if (hex.indexOf('#') === 0) {
     hex = hex.slice(1);
   }
   // convert 3-digit hex to 6-digits.
@@ -17,7 +17,7 @@ export function invertColor(hex: string, bw: boolean) {
   }
 
   if (hex.length !== 6) {
-    throw new Error("Invalid HEX color.");
+    throw new Error('Invalid HEX color.');
   }
 
   const r = parseInt(hex.slice(0, 2), 16);
@@ -26,7 +26,7 @@ export function invertColor(hex: string, bw: boolean) {
 
   if (bw) {
     // http://stackoverflow.com/a/3943023/112731
-    return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "#000000" : "#FFFFFF";
+    return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? '#000000' : '#FFFFFF';
   }
 
   // invert color components
@@ -35,10 +35,10 @@ export function invertColor(hex: string, bw: boolean) {
   const bb = (255 - b).toString(16);
 
   // pad each with zeros and return
-  return "#" + padZero(rr) + padZero(gg) + padZero(bb);
+  return '#' + padZero(rr) + padZero(gg) + padZero(bb);
 }
 
 function padZero(str: string, len: number = 2) {
-  var zeros = new Array(len).join("0");
+  var zeros = new Array(len).join('0');
   return (zeros + str).slice(-len);
 }
