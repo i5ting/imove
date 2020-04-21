@@ -7,10 +7,7 @@ const timeout = 1000 * 60 * 2;
 const buildCommand = `npm run build`;
 
 function prePublish(packageAlias, packagePath) {
-  const spinner = ora({
-    text: `Building "${packageAlias}" library`,
-    spinner: { interval: 0, frames: ['…'] },
-  }).start();
+  const spinner = ora(`Building "${packageAlias}" library`).start();
 
   try {
     childProcess.execSync(buildCommand, { timeout, cwd: packagePath });
