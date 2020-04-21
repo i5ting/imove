@@ -19,7 +19,7 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "https://registry.npm.taobao.org/"
+    "registry": "https://registry.npm.org/"
   },
   "repository": {
     "type": "git",
