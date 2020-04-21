@@ -1,25 +1,15 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
+    /* Basic Options */
+    "target": "es5",
+    "lib": ["dom", "esnext"],
+    "module": "commonjs",
+    "allowJs": false,
     "jsx": "react",
-    "baseUrl": ".",
-    "importHelpers": true,
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "noImplicitAny": true,
-    "noEmitOnError": true,
-    "noUnusedLocals": true,
-    "strictNullChecks": true,
-    "resolveJsonModule": true,
+    "declaration": true,
+    "types": [],
+    "strict": true,
     "experimentalDecorators": true,
-    "strictPropertyInitialization": false,
-    "allowSyntheticDefaultImports": true,
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    }
+    "skipLibCheck": true
   }
 }
