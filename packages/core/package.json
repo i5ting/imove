@@ -26,6 +26,7 @@
     "url": "git+https://github.com/suanmei/iMove.git"
   },
   "scripts": {
+    "prepublishOnly": "node scripts/prepublishOnly.js",
     "declare-type": "tsc --emitDeclarationOnly",
     "build": "rollup -c & npm run declare-type"
   },
