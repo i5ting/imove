@@ -19,7 +19,7 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "http://registry.npm.org/"
+    "registry": "http://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
