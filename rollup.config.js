@@ -1,9 +1,9 @@
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import strip from '@rollup/plugin-strip';
+import url from '@rollup/plugin-url';
 import babel from 'rollup-plugin-babel';
-import url from 'rollup-plugin-url';
 import svgr from '@svgr/rollup';
-import strip from 'rollup-plugin-strip';
 import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 
 const input = './src/index.tsx';
