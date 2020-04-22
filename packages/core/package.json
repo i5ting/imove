@@ -28,11 +28,13 @@
   },
   "scripts": {
     "prepublishOnly": "node scripts/prepublishOnly.js",
-    "declare-type": "tsc --emitDeclarationOnly",
-    "build": "rollup -c & npm run declare-type"
+    "build": "rollup -c"
   },
   "bugs": {
     "url": "https://github.com/suanmei/iMove/issues"
+  },
+  "dependencies": {
+    "react": "^16.13.1"
   },
   "devDependencies": {
     "@types/react": "^16.9.34",

@@ -1,7 +1,14 @@
 import * as React from 'react';
 
-const Core = (): JSX.Element => {
-  return <div>2</div>;
-};
+const a = new Promise(() => {});
 
-export default Core;
+const b = [12, 3];
+
+export default class App extends React.Component {
+  n = 2;
+  m() {}
+
+  render() {
+    return <div>2</div>;
+  }
+}
