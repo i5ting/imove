@@ -24,6 +24,6 @@ export default {
     }),
     svgr(),
     strip({ debugger: true }),
-    sizeSnapshot(),
+    sizeSnapshot({ printInfo: false }),
   ],
 };
