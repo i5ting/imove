@@ -1,6 +1,6 @@
 {
   "name": "@imove/core",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "流程编排",
   "keywords": [
     "imove",
@@ -35,7 +35,6 @@
   "bugs": {
     "url": "https://github.com/suanmei/iMove/issues"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/react": "^16.9.34",
     "react": "^16.13.1",
