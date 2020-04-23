@@ -12,6 +12,7 @@
   "license": "MIT",
   "main": "dist/core.common.js",
   "module": "dist/core.esm.js",
+  "types": "dist/types/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -28,16 +29,16 @@
   },
   "scripts": {
     "prepublishOnly": "node scripts/prepublishOnly.js",
-    "build": "rollup -c"
+    "declare-type": "tsc --emitDeclarationOnly",
+    "build": "rollup -c & npm run declare-type"
   },
   "bugs": {
     "url": "https://github.com/suanmei/iMove/issues"
   },
-  "dependencies": {
-    "react": "^16.13.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/react": "^16.9.34",
+    "react": "^16.13.1",
     "rollup": "^2.6.1"
   },
   "peerDependencies": {
