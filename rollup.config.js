@@ -11,11 +11,6 @@ const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
 export default {
   input,
-  output: {
-    file: 'lib/index.js',
-    format: 'cjs',
-    sourcemap: true,
-  },
   plugins: [
     resolve({ extensions }),
     commonjs(),

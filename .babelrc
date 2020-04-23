@@ -3,8 +3,7 @@
     [
       "@babel/preset-env",
       {
-        "useBuiltIns": "usage",
-        "corejs": 3,
+        "loose": true,
         "modules": false
       }
     ],
@@ -14,11 +13,6 @@
   "plugins": [
     "@babel/proposal-class-properties",
     "@babel/proposal-object-rest-spread",
-    [
-      "@babel/plugin-transform-runtime",
-      {
-        "useESModules": true
-      }
-    ]
+    "@babel/plugin-transform-runtime"
   ]
 }
