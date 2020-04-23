@@ -29,7 +29,8 @@
   "scripts": {
     "prepublishOnly": "node scripts/prepublishOnly.js",
     "declare-type": "tsc --emitDeclarationOnly",
-    "build": "rollup -c & npm run declare-type"
+    "build": "rollup -c & npm run declare-type",
+    "watch": "watch 'rollup -c' ./src"
   },
   "bugs": {
     "url": "https://github.com/suanmei/iMove/issues"
@@ -37,7 +38,8 @@
   "devDependencies": {
     "@types/react": "^16.9.34",
     "react": "^16.13.1",
-    "rollup": "^2.6.1"
+    "rollup": "^2.6.1",
+    "watch": "^1.0.2"
   },
   "peerDependencies": {
     "react": "^16.13.1"
