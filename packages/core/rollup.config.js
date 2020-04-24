@@ -12,5 +12,5 @@ export default Object.assign(rollupBaseConfig, {
       format: 'es',
     },
   ],
-  external: Object.keys(pkg.peerDependencies),
+  external: Object.keys(pkg.peerDependencies).concat(/^antd\//),
 });

@@ -13,7 +13,7 @@ export default {
   input,
   plugins: [
     resolve({ extensions }),
-    commonjs(),
+    commonjs({}),
     babel({
       extensions,
       exclude: 'node_modules/**',
@@ -26,4 +26,5 @@ export default {
     strip({ debugger: true }),
     sizeSnapshot({ printInfo: false }),
   ],
+  context: null,
 };
