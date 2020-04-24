@@ -15,7 +15,7 @@
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
-    "@rollup/plugin-commonjs": "^11.1.0",
+    "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^7.1.3",
     "@rollup/plugin-strip": "^1.3.2",
     "@rollup/plugin-url": "^4.0.2",
