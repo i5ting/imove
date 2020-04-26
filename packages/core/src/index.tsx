@@ -4,6 +4,7 @@ import { Graph, Shape, DomEvent } from '@antv/x6';
 import { ReactShape } from '@antv/x6-react-shape';
 import styled from '@emotion/styled';
 import Sidebar from './components/sidebar';
+import Toolbar from './components/toolbar';
 import createGraph from './utils/create-graph';
 import 'antd/lib/layout/style';
 
@@ -20,11 +21,30 @@ const IMoveLayout = styled(Layout)`
 `;
 
 const IMoveHeader = styled(Header)`
+  height: 50px;
   background: #fff;
   border-bottom: 1px solid #ddd;
 `;
 
+const IMoveTitle = styled.h2`
+  line-height: 50px;
+`;
+
 const IMoveSider = styled(Sider)`
+  background: #fff;
+`;
+
+const IMoveContent = styled(Content)`
+  position: relative;
+  padding-top: 35px;
+`;
+
+const ToolWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
   background: #fff;
 `;
 
@@ -57,13 +77,14 @@ class Core extends React.Component<{}, CoreState> {
     return (
       <IMoveLayout>
         <IMoveHeader>
-          <h2>iMove</h2>
+          <IMoveTitle>iMove</IMoveTitle>
         </IMoveHeader>
         <IMoveLayout>
           <IMoveSider>{this.graph && inited && <Sidebar graph={this.graph} />}</IMoveSider>
-          <Content>
+          <IMoveContent>
+            <ToolWrapper>{this.graph && inited && <Toolbar graph={this.graph} />}</ToolWrapper>
             <div ref={this.container} />
-          </Content>
+          </IMoveContent>
           <IMoveSider>Sider</IMoveSider>
         </IMoveLayout>
       </IMoveLayout>
