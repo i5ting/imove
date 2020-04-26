@@ -59,7 +59,7 @@ export default function patchDnd(
         component: <Cell scale={scale} />,
       });
 
-      graph.selectCell(cell);
+      graph.unSelectCells(graph.getSelectedCells()).selectCell(cell);
     });
   });
 }

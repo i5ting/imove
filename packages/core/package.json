@@ -36,6 +36,7 @@
     "url": "https://github.com/suanmei/iMove/issues"
   },
   "devDependencies": {
+    "@ant-design/icons": "^4.0.6",
     "@antv/x6": "^0.3.4",
     "@antv/x6-react-shape": "^0.2.2",
     "@emotion/core": "^10.0.28",
@@ -47,6 +48,7 @@
     "watch": "^1.0.2"
   },
   "peerDependencies": {
+    "@ant-design/icons": "^4.0.6",
     "@antv/x6": "^0.3.4",
     "@antv/x6-react-shape": "^0.2.2",
     "@emotion/core": "^10.0.28",

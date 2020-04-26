@@ -1,4 +1,4 @@
-import { Style, Point } from '@antv/x6';
+import { Style } from '@antv/x6';
 import { CellTypes } from '../components/cells';
 
 interface CellStyle extends Style {
@@ -8,13 +8,12 @@ interface CellStyle extends Style {
 export interface DataItem {
   label?: string;
   title: string;
-  data?: any;
   width: number;
   height: number;
   scale: number;
+  data?: any;
   style: CellStyle;
   isEdge?: boolean;
-  points?: Point[];
 }
 
 export const generals: DataItem[] = [

@@ -6,6 +6,7 @@ export default function createGraph(container: HTMLDivElement): Graph {
     rotate: false,
     resize: false,
     infinite: true,
+    rubberband: true,
     backgroundColor: '#f8f9fa',
     grid: {
       type: 'dot',
@@ -55,7 +56,9 @@ export default function createGraph(container: HTMLDivElement): Graph {
     shouldRedrawOnDataChange(): boolean {
       return true;
     },
-    getAnchors(cell): [number, number][] {
+    getAnchors(cell): [number, number][] | null {
+      if (!cell || !cell.data) return null;
+
       if (cell.data.style.type === 'start') {
         return [[0.5, 1]];
       }
