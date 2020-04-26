@@ -35,6 +35,7 @@
     "prettier": "^2.0.4",
     "rollup": "^2.6.1",
     "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-size-snapshot": "^0.11.0",
     "typescript": "^3.8.3"
   },
