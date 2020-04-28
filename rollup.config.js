@@ -1,5 +1,4 @@
 import resolve from '@rollup/plugin-node-resolve';
-import builtins from 'rollup-plugin-node-builtins';
 import commonjs from '@rollup/plugin-commonjs';
 import strip from '@rollup/plugin-strip';
 import url from '@rollup/plugin-url';
@@ -14,12 +13,7 @@ export default {
   input,
   plugins: [
     resolve({ extensions, preferBuiltins: true }),
-    commonjs({
-      namedExports: {
-        'react-dom/server': ['renderToString'],
-      },
-    }),
-    builtins(),
+    commonjs(),
     babel({
       extensions,
       exclude: 'node_modules/**',

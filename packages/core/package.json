@@ -42,8 +42,10 @@
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7",
     "antd": "^4.1.4",
     "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "rollup": "^2.6.1",
     "watch": "^1.0.2"
   },
@@ -54,7 +56,8 @@
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "antd": "^4.1.4",
-    "react": "^16.13.1"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "gitHead": "9fafd8c5390fa001e7b661ccccfaf65f636d721a"
 }

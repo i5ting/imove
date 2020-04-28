@@ -1,5 +1,6 @@
+import * as React from 'react';
+import * as ReactDom from 'react-dom';
 import { Graph } from '@antv/x6';
-// import Start from '../components/cells/start';
 
 export default function createGraph(container: HTMLDivElement): Graph {
   return new Graph(container, {
@@ -57,13 +58,13 @@ export default function createGraph(container: HTMLDivElement): Graph {
       return true;
     },
     getAnchors(cell): [number, number][] | null {
-      if (!cell || !cell.data) return null;
+      if (cell === null || cell.data === null) return null;
 
-      if (cell.data.style.type === 'start') {
+      if (cell.data.type === 'start') {
         return [[0.5, 1]];
       }
 
-      if (cell.data.style.type === 'end') {
+      if (cell.data.type === 'end') {
         return [[0.5, 0]];
       }
 
@@ -74,6 +75,14 @@ export default function createGraph(container: HTMLDivElement): Graph {
         [1, 0.5],
         [0.5, 1],
       ];
+    },
+    getLabel: (cell): HTMLElement | string => {
+      if (cell.isEdge()) {
+        const div = document.createElement('div');
+        ReactDom.render(<div>{cell.data.label}</div>, div);
+        return div;
+      }
+      return '';
     },
   });
 }

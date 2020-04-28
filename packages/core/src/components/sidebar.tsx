@@ -13,6 +13,13 @@ const { Panel } = Collapse;
 
 const ToolCollapse = styled(Collapse)`
   border: none;
+
+  > .ant-collapse-item > .ant-collapse-header {
+    height: 36px;
+    line-height: 12px;
+    font-size: 12px;
+    color: #666;
+  }
 `;
 
 const ToolPanel = styled(Panel)`
@@ -42,6 +49,10 @@ const CellWrapper = ({ data, children }: { data: DataItem; children: ReactNode }
         vertical-align: top;
         border-right: 1px solid #ddd;
         border-bottom: 1px solid #ddd;
+
+        :hover {
+          box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+        }
       `}
     >
       <div
@@ -60,7 +71,7 @@ const CellWrapper = ({ data, children }: { data: DataItem; children: ReactNode }
           line-height: 19px;
         `}
       >
-        {data.title}
+        {data.label}
       </span>
     </div>
   );
@@ -82,13 +93,13 @@ const Sidebar = ({ graph }: SidebarProps): JSX.Element => {
         border-right: 1px solid #ddd;
       `}
     >
-      <ToolCollapse defaultActiveKey={['1']}>
-        <ToolPanel header="General" key="1">
+      <ToolCollapse defaultActiveKey={['general']}>
+        <ToolPanel header="General" key="general">
           <div ref={generalRef}>
             {generals.map((cell) => {
-              const Cell = Cells[cell.style.type];
+              const Cell = Cells[cell.type];
               return (
-                <CellWrapper key={cell.style.type} data={cell}>
+                <CellWrapper key={cell.type} data={cell}>
                   <Cell />
                 </CellWrapper>
               );
