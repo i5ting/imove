@@ -9,25 +9,26 @@ import {
   DeleteOutlined,
   SaveOutlined,
 } from '@ant-design/icons';
-import { Graph, UndoManager } from '@antv/x6';
+import { Graph, UndoManager, Platform } from '@antv/x6';
 import * as Tool from '../utils/tool';
 import { Commands } from '../model';
 
 export default function getCommands(graph: Graph, undoManager: UndoManager): Commands {
+  const ctrlKey = Platform.IS_MAC ? 'Cmd' : 'Ctrl';
   return [
     [
       {
         name: 'undo',
         icon: <UndoOutlined />,
         tooltip: '撤销',
-        shortcut: 'Cmd + Z',
+        shortcut: `${ctrlKey} + Z`,
         handler: (): void => undoManager.undo(),
       },
       {
         name: 'redo',
         icon: <RedoOutlined />,
         tooltip: '重做',
-        shortcut: 'Cmd + Shift + Z',
+        shortcut: `${ctrlKey} + Shift + Z`,
         handler: (): void => undoManager.redo(),
       },
     ],
@@ -78,9 +79,10 @@ export default function getCommands(graph: Graph, undoManager: UndoManager): Com
         name: 'save',
         icon: <SaveOutlined />,
         tooltip: '保存',
-        shortcut: 'Cmd + S',
+        shortcut: `${ctrlKey} + S`,
         handler: (): void => {
-          // code
+          const graphData = graph.toJSON();
+          console.log(JSON.stringify(graphData));
         },
       },
     ],

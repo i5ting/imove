@@ -19,7 +19,7 @@ export default function patchDnd(
         const elem = document.createElement('div');
         if (typeof data === 'undefined') return elem;
 
-        const { width, height, scale } = data;
+        const { width, height, scale } = data.style;
         elem.style.width = `${width * scale}px`;
         elem.style.height = `${height * scale}px`;
         elem.style.border = '1px dashed #000';
@@ -30,7 +30,7 @@ export default function patchDnd(
         const elem = document.createElement('div');
         if (typeof data === 'undefined') return elem;
 
-        const { width, height, scale } = data;
+        const { width, height, scale } = data.style;
         elem.style.width = `${width * scale}px`;
         elem.style.height = `${height * scale}px`;
         elem.style.border = '1px dashed #000';
@@ -46,9 +46,9 @@ export default function patchDnd(
     dnd.on('drop', ({ data, targetPosition }) => {
       if (typeof data === 'undefined') return;
 
-      const { width, height, scale } = data;
+      const { width, height, scale } = data.style;
       const { x, y } = targetPosition;
-      const Cell = CellMap[data.style.type];
+      const Cell = CellMap[data.type];
       const cell = graph.addNode({
         x,
         y,
@@ -56,7 +56,11 @@ export default function patchDnd(
         width: width * scale,
         height: height * scale,
         shape: 'react',
-        component: <Cell scale={scale} />,
+        component: (newData) => {
+          if (!cell) return null;
+          const { label } = newData.data;
+          return <Cell label={label} scale={scale} />;
+        },
       });
 
       graph.unSelectCells(graph.getSelectedCells()).selectCell(cell);

@@ -3,7 +3,7 @@ import { jsx, css } from '@emotion/core';
 import { CellProps } from '../../model';
 import Label from '../../utils/styles/cells';
 
-const DecisionCell = ({ label, scale = 1 }: CellProps): JSX.Element => {
+const StateCell = ({ label, scale = 1 }: CellProps): JSX.Element => {
   const width = 48 * scale;
   const height = 30 * scale;
   return (
@@ -14,14 +14,15 @@ const DecisionCell = ({ label, scale = 1 }: CellProps): JSX.Element => {
           height: ${height}px;
         `}
       >
-        <polygon
+        <rect
           css={css`
-            fill: #fef0dd;
-            stroke: #fccd8e;
+            fill: #daeffa;
+            stroke: #82caed;
           `}
-          points={`${1 * scale},${15 * scale} ${24 * scale},${29 * scale} ${47 * scale},${
-            15 * scale
-          } ${24 * scale},${1 * scale}`}
+          x="1"
+          y="1"
+          width={width - 2}
+          height={height - 2}
           strokeWidth="2"
         />
       </svg>
@@ -30,4 +31,4 @@ const DecisionCell = ({ label, scale = 1 }: CellProps): JSX.Element => {
   );
 };
 
-export default DecisionCell;
+export default StateCell;

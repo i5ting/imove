@@ -5,6 +5,7 @@ import { ReactShape } from '@antv/x6-react-shape';
 import styled from '@emotion/styled';
 import Sidebar from './components/sidebar';
 import Toolbar from './components/toolbar';
+import Setting from './components/setting';
 import createGraph from './utils/create-graph';
 import 'antd/lib/layout/style';
 
@@ -83,9 +84,11 @@ class Core extends React.Component<{}, CoreState> {
           <IMoveSider>{this.graph && inited && <Sidebar graph={this.graph} />}</IMoveSider>
           <IMoveContent>
             <ToolWrapper>{this.graph && inited && <Toolbar graph={this.graph} />}</ToolWrapper>
-            <div ref={this.container} />
+            <div ref={this.container} tabIndex={-1} />
           </IMoveContent>
-          <IMoveSider>Sider</IMoveSider>
+          <IMoveSider width="300">
+            {this.graph && inited && <Setting graph={this.graph} />}
+          </IMoveSider>
         </IMoveLayout>
       </IMoveLayout>
     );

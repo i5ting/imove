@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import { CellProps } from '../../model';
 
-const StartCell = ({ scale = 1 }: { scale?: number }): JSX.Element => {
+const EndCell = ({ scale = 1 }: CellProps): JSX.Element => {
   const width = 20 * scale;
   const radius = 10 * scale;
   return (
@@ -23,4 +24,4 @@ const StartCell = ({ scale = 1 }: { scale?: number }): JSX.Element => {
   );
 };
 
-export default StartCell;
+export default EndCell;

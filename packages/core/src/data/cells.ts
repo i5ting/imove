@@ -1,47 +1,54 @@
-import { Style } from '@antv/x6';
 import { CellTypes } from '../components/cells';
 
-interface CellStyle extends Style {
-  type: CellTypes;
-}
-
-export interface DataItem {
-  label?: string;
-  title: string;
+interface Style {
   width: number;
   height: number;
   scale: number;
+}
+
+export interface DataItem {
+  label: string;
+  type: CellTypes;
+  style: Style;
   data?: any;
-  style: CellStyle;
   isEdge?: boolean;
 }
 
 export const generals: DataItem[] = [
   {
-    title: 'Start Event',
-    width: 20,
-    height: 20,
-    scale: 2,
+    label: 'Start Event',
+    type: 'start',
     style: {
-      type: 'start',
+      width: 20,
+      height: 20,
+      scale: 2,
     },
   },
   {
-    title: 'Decision',
-    width: 48,
-    height: 30,
-    scale: 2,
+    label: 'Action',
+    type: 'action',
     style: {
-      type: 'decision',
+      width: 48,
+      height: 30,
+      scale: 2,
     },
   },
   {
-    title: 'End Event',
-    width: 20,
-    height: 20,
-    scale: 2,
+    label: 'End Event',
+    type: 'end',
     style: {
-      type: 'end',
+      width: 20,
+      height: 20,
+      scale: 2,
+    },
+  },
+  {
+    label: 'Decision',
+    type: 'decision',
+    style: {
+      width: 48,
+      height: 30,
+      scale: 2,
     },
   },
 ];
