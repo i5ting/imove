@@ -1,11 +1,11 @@
-# `transform`
+# `builder`
 
 > TODO: description
 
 ## Usage
 
 ```
-const transform = require('transform');
+const builder = require('builder');
 
 // TODO: DEMONSTRATE API
 ```

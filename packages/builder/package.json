@@ -1,0 +1,54 @@
+{
+  "name": "@imove/builder",
+  "version": "0.1.10",
+  "description": "build cells for your flow",
+  "keywords": [
+    "react-monaco-editor",
+    "json-schema"
+  ],
+  "author": "suanmei <mr_suanmei@163.com>",
+  "homepage": "https://github.com/suanmei/iMove#readme",
+  "license": "MIT",
+  "main": "dist/core.common.js",
+  "module": "dist/core.esm.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suanmei/iMove.git"
+  },
+  "scripts": {
+    "prepublishOnly": "node scripts/prepublishOnly.js",
+    "declare-type": "tsc --emitDeclarationOnly",
+    "build": "rollup -c & npm run declare-type",
+    "watch": "watch 'npm run build' ./src"
+  },
+  "bugs": {
+    "url": "https://github.com/suanmei/iMove/issues"
+  },
+  "devDependencies": {
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
+    "@types/react": "^16.9.34",
+    "antd": "^4.1.5",
+    "json-schema-editor-visual": "^1.1.1",
+    "react": "^16.13.1",
+    "rollup": "^2.7.3",
+    "watch": "^1.0.2"
+  },
+  "peerDependencies": {
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
+    "antd": "^4.1.5",
+    "json-schema-editor-visual": "^1.1.1",
+    "react": "^16.13.1"
+  }
+}
