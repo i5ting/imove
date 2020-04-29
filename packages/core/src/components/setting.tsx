@@ -1,14 +1,17 @@
 /** @jsx jsx */
-import { useState } from 'react';
+import { Component } from 'react';
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Graph, Cell } from '@antv/x6';
 import { Collapse, Form, Input } from 'antd';
+import SchemaForm from './schema-form';
 import 'antd/lib/form/style';
 import 'antd/lib/input/style';
 
 const { Panel } = Collapse;
 const { Item } = Form;
+
+const labelCol = { span: 7 };
 
 const Header = styled.h3`
   margin-bottom: 0;
@@ -36,55 +39,123 @@ interface SettingProps {
   graph: Graph;
 }
 
-const Setting = ({ graph }: SettingProps): JSX.Element => {
-  const [cell, setCell] = useState<Cell<any> | null>(null);
+interface SettingState {
+  cell: Cell<any> | null;
+}
 
-  graph.on('selection:changed', () => {
-    const cells = graph.getSelectedCells();
-    setCell(cells.length > 0 ? cells[0] : null);
-  });
+class Setting extends Component<SettingProps, SettingState> {
+  constructor(props: SettingProps) {
+    super(props);
 
-  let cellType = '';
+    this.state = {
+      cell: null,
+    };
 
-  if (cell) {
-    if (cell.isNode()) {
-      cellType = cell.data.type.toUpperCase();
-    } else {
-      cellType = 'EDGE';
-    }
-  } else {
-    cellType = 'FLOW';
+    const { graph } = this.props;
+    graph.on('selection:changed', () => {
+      const cells = graph.getSelectedCells();
+      if (cells.length === 0) {
+        this.setState({ cell: null });
+        return;
+      }
+
+      const cell = cells[0];
+
+      if (cell.isEdge()) {
+        cell.data = {};
+      }
+
+      this.setState({ cell });
+    });
   }
 
-  return (
-    <div
-      css={css`
-        height: 100%;
-        overflow: auto;
-        border-left: 1px solid #ddd;
-      `}
-    >
-      <Header>{cellType}</Header>
-      {cell && cell.isNode() && ['decision', 'action'].includes(cell.data.type) && (
-        <SettingCollapse defaultActiveKey={['general']}>
-          <Panel header="General" key="general">
-            <Form initialValues={{ label: cell.data.label }}>
-              <Item label="名称" name="label">
-                <Input
-                  onChange={(e): void => {
-                    console.log(`first: ${cell.data.label}`);
-                    cell.data.label = e.target.value.trim();
-                    console.log(`then: ${cell.data.label}`);
-                    graph.setCellData(cell, cell.data);
-                  }}
-                />
-              </Item>
-            </Form>
-          </Panel>
-        </SettingCollapse>
-      )}
-    </div>
-  );
-};
+  render(): JSX.Element {
+    const { graph } = this.props;
+    const { cell } = this.state;
+    let cellType = '';
+
+    if (cell) {
+      if (cell.isNode()) {
+        cellType = cell.data.type.toUpperCase();
+      } else {
+        cellType = 'EDGE';
+      }
+    } else {
+      cellType = 'FLOW';
+    }
+
+    return (
+      <div
+        css={css`
+          height: 100%;
+          overflow: auto;
+          border-left: 1px solid #ddd;
+        `}
+      >
+        <Header>{cellType}</Header>
+        {cell && !['start', 'end'].includes(cell.data.type) && (
+          <SettingCollapse
+            defaultActiveKey={['general', 'event', 'input', 'output']}
+            key={cell && cell.id ? cell.id : ''}
+          >
+            <Panel header="General" key="general">
+              <Form labelCol={labelCol} initialValues={{ label: cell.data.label }}>
+                <Item label="名称" name="label">
+                  <Input
+                    onChange={(e): void => {
+                      cell.data.label = e.target.value.trim();
+                      graph.setCellData(cell, cell.data);
+                    }}
+                  />
+                </Item>
+              </Form>
+            </Panel>
+            {/* <Panel header="Event" key="event">
+              <Form
+                labelCol={labelCol}
+                initialValues={{ event: cell.data && cell.data.data && cell.data.data.event }}
+              >
+                <Item label="触发事件" name="event">
+                  <Input
+                    onChange={(e): void => {
+                      if (!cell.data.data) {
+                        cell.data.data = {};
+                      }
+                      cell.data.data.event = e.target.value.trim();
+                      graph.setCellData(cell, cell.data);
+                    }}
+                  />
+                </Item>
+              </Form>
+            </Panel> */}
+            {cell.data && cell.data.schema && (
+              <Panel header="Input" key="input">
+                <SchemaForm schema={cell.data.schema} data={cell.data.data} />
+              </Panel>
+            )}
+            <Panel header="Output" key="output">
+              <Form
+                labelCol={labelCol}
+                initialValues={{ event: cell.data && cell.data.data && cell.data.data.contextKey }}
+              >
+                <Item label="存储字段" name="contextKey">
+                  <Input
+                    onChange={(e): void => {
+                      if (!cell.data.data) {
+                        cell.data.data = {};
+                      }
+                      cell.data.data.contextKey = e.target.value.trim();
+                      graph.setCellData(cell, cell.data);
+                    }}
+                  />
+                </Item>
+              </Form>
+            </Panel>
+          </SettingCollapse>
+        )}
+      </div>
+    );
+  }
+}
 
 export default Setting;

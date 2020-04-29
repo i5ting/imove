@@ -4,7 +4,7 @@ import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Graph } from '@antv/x6';
 import { Collapse } from 'antd';
-import { generals, DataItem } from '../data/cells';
+import { generals, gists, DataItem } from '../data/cells';
 import patchDnd from '../utils/patch-dnd';
 import Cells from './cells';
 import 'antd/lib/collapse/style';
@@ -79,10 +79,14 @@ const CellWrapper = ({ data, children }: { data: DataItem; children: ReactNode }
 
 const Sidebar = ({ graph }: SidebarProps): JSX.Element => {
   const generalRef = useRef<HTMLDivElement>(null);
+  const gistRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const generalContainer = generalRef.current;
     patchDnd(generalContainer, graph, generals);
+
+    const gistContainer = gistRef.current;
+    patchDnd(gistContainer, graph, gists);
   });
 
   return (
@@ -93,13 +97,25 @@ const Sidebar = ({ graph }: SidebarProps): JSX.Element => {
         border-right: 1px solid #ddd;
       `}
     >
-      <ToolCollapse defaultActiveKey={['general']}>
+      <ToolCollapse defaultActiveKey={['general', 'gist']}>
         <ToolPanel header="General" key="general">
           <div ref={generalRef}>
             {generals.map((cell) => {
               const Cell = Cells[cell.type];
               return (
                 <CellWrapper key={cell.type} data={cell}>
+                  <Cell />
+                </CellWrapper>
+              );
+            })}
+          </div>
+        </ToolPanel>
+        <ToolPanel header="业务元件" key="gist">
+          <div ref={gistRef}>
+            {gists.map((cell) => {
+              const Cell = Cells[cell.type];
+              return (
+                <CellWrapper key={`${cell.type}${cell.label}`} data={cell}>
                   <Cell />
                 </CellWrapper>
               );

@@ -30,7 +30,7 @@
     "prepublishOnly": "node scripts/prepublishOnly.js",
     "declare-type": "tsc --emitDeclarationOnly",
     "build": "rollup -c & npm run declare-type",
-    "watch": "watch 'rollup -c' ./src"
+    "watch": "watch 'npm run build' ./src"
   },
   "bugs": {
     "url": "https://github.com/suanmei/iMove/issues"
