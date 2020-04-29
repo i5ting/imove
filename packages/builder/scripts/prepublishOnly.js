@@ -3,4 +3,4 @@
 const path = require('path');
 const prePublish = require('../../../scripts/prepublish');
 
-prePublish('@imove/transform', path.join(__dirname, '../'));
+prePublish('@imove/builder', path.join(__dirname, '../'));
