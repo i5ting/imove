@@ -12,6 +12,7 @@ export interface DataItem {
   style: Style;
   data?: any;
   isEdge?: boolean;
+  schema?: any;
 }
 
 export const generals: DataItem[] = [
@@ -25,15 +26,6 @@ export const generals: DataItem[] = [
     },
   },
   {
-    label: 'Action',
-    type: 'action',
-    style: {
-      width: 48,
-      height: 30,
-      scale: 2,
-    },
-  },
-  {
     label: 'End Event',
     type: 'end',
     style: {
@@ -42,13 +34,48 @@ export const generals: DataItem[] = [
       scale: 2,
     },
   },
+];
+
+export const gists: DataItem[] = [
   {
-    label: 'Decision',
+    label: '查询库存',
+    type: 'action',
+    style: {
+      width: 48,
+      height: 30,
+      scale: 2,
+    },
+    data: {
+      code: '',
+      dependencies: [],
+    },
+    schema: {
+      type: 'object',
+      properties: {
+        activity: {
+          type: 'string',
+          title: 'activity',
+        },
+        initAmount: {
+          type: 'string',
+          title: 'initAmount',
+        },
+      },
+      required: ['initAmount', 'activity'],
+      title: '参数',
+    },
+  },
+  {
+    label: '判断是否登录',
     type: 'decision',
     style: {
       width: 48,
       height: 30,
       scale: 2,
+    },
+    data: {
+      code: '',
+      dependencies: [],
     },
   },
 ];
