@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Form, Input, InputNumber } from 'antd';
+import 'antd/lib/input-number/style';
 
 const { Item } = Form;
 
@@ -26,13 +27,19 @@ class SchemaForm extends React.Component<SchemaFormProps, SchemaFormState> {
   changeValue = (e: React.ChangeEvent<HTMLInputElement>, key: string): void => {
     const { data } = this.state;
     const value = e.target.value.trim();
-    data[key] = value;
+    if (!data.input) {
+      data.input = {};
+    }
+    data.input[key] = value;
     this.setState({ data });
   };
 
   changeNumValue = (value: number | undefined, key: string): void => {
     const { data } = this.state;
-    data[key] = value;
+    if (!data.input) {
+      data.input = {};
+    }
+    data.input[key] = value;
     this.setState({ data });
   };
 
@@ -45,7 +52,11 @@ class SchemaForm extends React.Component<SchemaFormProps, SchemaFormState> {
     return (
       <Form labelCol={labelCol} initialValues={data}>
         {Object.keys(properties).map((key) => (
-          <Item label={properties[key].title} name={properties[key].title}>
+          <Item
+            key={properties[key].title}
+            label={properties[key].title}
+            name={`input.${properties[key].title}`}
+          >
             {properties[key].type === 'string' ? (
               <Input
                 onChange={(e): void => {

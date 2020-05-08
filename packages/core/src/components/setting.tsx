@@ -128,7 +128,7 @@ class Setting extends Component<SettingProps, SettingState> {
                 </Item>
               </Form>
             </Panel> */}
-            {cell.data && cell.data.schema && (
+            {cell.data && cell.data.schema && Object.keys(cell.data.schema.properties).length && (
               <Panel header="Input" key="input">
                 <SchemaForm schema={cell.data.schema} data={cell.data.data} />
               </Panel>
@@ -138,13 +138,16 @@ class Setting extends Component<SettingProps, SettingState> {
                 labelCol={labelCol}
                 initialValues={{ event: cell.data && cell.data.data && cell.data.data.contextKey }}
               >
-                <Item label="存储字段" name="contextKey">
+                <Item label="存储字段" name="output.contextKey">
                   <Input
                     onChange={(e): void => {
                       if (!cell.data.data) {
                         cell.data.data = {};
                       }
-                      cell.data.data.contextKey = e.target.value.trim();
+                      if (!cell.data.data.output) {
+                        cell.data.data.output = {};
+                      }
+                      cell.data.data.output.contextKey = e.target.value.trim();
                       graph.setCellData(cell, cell.data);
                     }}
                   />

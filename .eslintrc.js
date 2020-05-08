@@ -18,13 +18,6 @@ module.exports = {
     // 修复 tsx 文件引用 tsx 文件报错的问题
     'react/jsx-filename-extension': ['error', { extensions: ['.ts', '.tsx'] }],
     'unicorn/prevent-abbreviations': 'off',
-    'unicorn/filename-case': [
-      'off',
-      {
-        case: 'pascalCase',
-        ignore: [/prepublish/i],
-      },
-    ],
   },
   overrides: [
     {

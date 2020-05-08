@@ -36,46 +36,33 @@ export const generals: DataItem[] = [
   },
 ];
 
-export const gists: DataItem[] = [
-  {
-    label: '查询库存',
-    type: 'action',
+const items: any = [];
+
+new Array(localStorage.length).fill(1).forEach((val, index) => {
+  const item = localStorage.key(index);
+  if (item && item?.startsWith('cell')) {
+    let data: any = localStorage.getItem(item);
+    if (data) {
+      data = JSON.parse(data);
+      (data as any).type = data.type.toLowerCase();
+      items.push(data);
+    }
+  }
+});
+
+export const gists: DataItem[] = items.map((item: any) => {
+  return {
+    label: item.label,
+    type: item.type,
     style: {
       width: 48,
       height: 30,
       scale: 2,
     },
     data: {
-      code: '',
-      dependencies: [],
+      code: item.code,
+      dependencies: [{ '@ali/rax-base': '^2.1.9' }],
     },
-    schema: {
-      type: 'object',
-      properties: {
-        activity: {
-          type: 'string',
-          title: 'activity',
-        },
-        initAmount: {
-          type: 'string',
-          title: 'initAmount',
-        },
-      },
-      required: ['initAmount', 'activity'],
-      title: '参数',
-    },
-  },
-  {
-    label: '判断是否登录',
-    type: 'decision',
-    style: {
-      width: 48,
-      height: 30,
-      scale: 2,
-    },
-    data: {
-      code: '',
-      dependencies: [],
-    },
-  },
-];
+    schema: item.schema,
+  };
+});
