@@ -1,3 +1,5 @@
 {
-  "home": "首页"
+  "translation": {
+    "import_json": "导入 JSON"
+  }
 }

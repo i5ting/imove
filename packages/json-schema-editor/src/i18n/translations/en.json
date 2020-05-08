@@ -1,3 +1,5 @@
 {
-  "home": "home"
+  "translation": {
+    "import_json": "Import JSON"
+  }
 }

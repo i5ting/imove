@@ -2,6 +2,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import strip from '@rollup/plugin-strip';
 import url from '@rollup/plugin-url';
+import json from '@rollup/plugin-json';
 import babel from 'rollup-plugin-babel';
 import svgr from '@svgr/rollup';
 import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
@@ -14,6 +15,7 @@ export default {
   plugins: [
     resolve({ extensions, preferBuiltins: true }),
     commonjs(),
+    json(),
     babel({
       extensions,
       exclude: 'node_modules/**',

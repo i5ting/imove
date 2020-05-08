@@ -10,6 +10,8 @@ i18n
     resources: {
       en,
       zh,
+      'en-US': en,
+      'zh-CN': zh,
     },
     keySeparator: false, // we do not use keys in form messages.welcome
     interpolation: {
