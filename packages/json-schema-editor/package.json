@@ -1,9 +1,9 @@
 {
-  "name": "@imove/builder",
+  "name": "@imove/json-schema-editor",
   "version": "0.2.1",
-  "description": "build cells for your flow",
+  "description": "visual editor for json schema",
   "keywords": [
-    "react-monaco-editor",
+    "ace-editor",
     "json-schema"
   ],
   "author": "suanmei <mr_suanmei@163.com>",
@@ -11,6 +11,7 @@
   "license": "MIT",
   "main": "dist/core.common.js",
   "module": "dist/core.esm.js",
+  "types": "dist/types/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -27,7 +28,7 @@
     "url": "git+https://github.com/suanmei/iMove.git"
   },
   "scripts": {
-    "prepublishOnly": "node scripts/prepublishOnly.js",
+    "prepublishOnly": "node scripts/prepublish.js",
     "declare-type": "tsc --emitDeclarationOnly",
     "build": "rollup -c & npm run declare-type",
     "watch": "watch 'npm run build' ./src"
@@ -39,9 +40,11 @@
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7",
     "antd": "^4.1.5",
     "json-schema-editor-visual": "^1.1.1",
     "react": "^16.13.1",
+    "react-monaco-editor": "^0.36.0",
     "rollup": "^2.7.3",
     "watch": "^1.0.2"
   },
@@ -50,7 +53,13 @@
     "@emotion/styled": "^10.0.27",
     "antd": "^4.1.5",
     "json-schema-editor-visual": "^1.1.1",
-    "react": "^16.13.1"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-monaco-editor": "^0.36.0"
   },
-  "gitHead": "60b114ff262513544204f33a9bbcb6220d6c1c5d"
+  "gitHead": "60b114ff262513544204f33a9bbcb6220d6c1c5d",
+  "dependencies": {
+    "i18next": "^19.4.4",
+    "react-i18next": "^11.4.0"
+  }
 }
