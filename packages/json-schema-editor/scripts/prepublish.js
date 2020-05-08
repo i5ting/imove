@@ -3,4 +3,4 @@
 const path = require('path');
 const prePublish = require('../../../scripts/prepublish');
 
-prePublish('@imove/builder', path.join(__dirname, '../'));
+prePublish('@imove/json-schema-editor', path.join(__dirname, '../'));
