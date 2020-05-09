@@ -37,25 +37,23 @@
     "url": "https://github.com/suanmei/iMove/issues"
   },
   "devDependencies": {
+    "@ant-design/icons": "^4.1.0",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
     "antd": "^4.1.5",
-    "json-schema-editor-visual": "^1.1.1",
     "react": "^16.13.1",
-    "react-monaco-editor": "^0.36.0",
     "rollup": "^2.7.3",
     "watch": "^1.0.2"
   },
   "peerDependencies": {
+    "@ant-design/icons": "^4.1.0",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "antd": "^4.1.5",
-    "json-schema-editor-visual": "^1.1.1",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-monaco-editor": "^0.36.0"
+    "react-dom": "^16.13.1"
   },
   "gitHead": "60b114ff262513544204f33a9bbcb6220d6c1c5d",
   "dependencies": {
