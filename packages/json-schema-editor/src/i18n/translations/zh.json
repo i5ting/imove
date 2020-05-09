@@ -1,5 +1,6 @@
 {
   "translation": {
-    "import_json": "导入 JSON"
+    "import_json": "导入 JSON",
+    "select_all": "全选"
   }
 }
