@@ -7,12 +7,12 @@ const globalStyles = css`
     }
 
     .ant-col {
-      :nth-child(2) {
+      :nth-of-type(2) {
         text-align: center;
       }
 
-      :nth-child(3),
-      :nth-child(4) {
+      :nth-of-type(3),
+      :nth-of-type(4) {
         padding-right: 10px;
       }
     }

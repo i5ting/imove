@@ -1,6 +1,8 @@
 {
   "translation": {
     "import_json": "导入 JSON",
-    "select_all": "全选"
+    "select_all": "全选",
+    "setting": "高级设置",
+    "add_child_node": "添加子节点"
   }
 }
