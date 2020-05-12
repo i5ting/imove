@@ -1,6 +1,8 @@
 {
   "translation": {
     "import_json": "Import JSON",
-    "select_all": "Select All"
+    "select_all": "Select All",
+    "setting": "Advanced Setting",
+    "add_child_node": "Add child node"
   }
 }
