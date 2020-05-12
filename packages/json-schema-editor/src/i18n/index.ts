@@ -13,6 +13,7 @@ i18n
       'en-US': en,
       'zh-CN': zh,
     },
+    lng: 'en',
     keySeparator: false, // we do not use keys in form messages.welcome
     interpolation: {
       escapeValue: false, // react already safes from xss
