@@ -1,5 +1,6 @@
+import produce, { Draft } from 'immer';
 import { get, set, unset, remove, cloneDeep } from 'lodash-es';
-import { SchemaType, SchemaState, SchemaAction, KeyRoute } from '../model';
+import { SchemaType, SchemaItem, SchemaState, SchemaAction, KeyRoute } from '../model';
 import { defaultSchema, setAllFieldRequired } from '../utils/schema';
 
 let fieldNum = 0;
@@ -8,169 +9,154 @@ const setSchema = (schema: SchemaState): SchemaState => {
   return schema;
 };
 
-const addRequired = (state: SchemaState, keyRoute: KeyRoute): SchemaState => {
-  const schema = cloneDeep(state);
-
-  const field = keyRoute[keyRoute.length - 1];
+const addRequired = (state: SchemaState, keyRoute: KeyRoute): void => {
+  const field = keyRoute.slice(-1)[0];
   const requiredKeyRoute = keyRoute.slice(0, -2).concat('required');
-  const required = get(schema, requiredKeyRoute) || [];
+  const required = get(state, requiredKeyRoute) || [];
   required.push(field);
-  set(schema, requiredKeyRoute, required);
-
-  return schema;
+  set(state, requiredKeyRoute, required);
 };
 
-const removeRequired = (state: SchemaState, keyRoute: KeyRoute): SchemaState => {
-  const schema = cloneDeep(state);
-
-  const field = keyRoute[keyRoute.length - 1];
+const removeRequired = (state: SchemaState, keyRoute: KeyRoute): void => {
+  const field = keyRoute.slice(-1)[0];
   const requiredKeyRoute = keyRoute.slice(0, -2).concat('required');
-  const required = get(schema, requiredKeyRoute) || [];
+  const required = get(state, requiredKeyRoute) || [];
   remove(required, (item) => item === field);
-  set(schema, requiredKeyRoute, required);
-
-  return schema;
+  set(state, requiredKeyRoute, required);
 };
 
-const toggleAllChecked = (state: SchemaState, checked: boolean): SchemaState => {
-  const schema = cloneDeep(state);
-
-  setAllFieldRequired(schema, checked);
-
-  return schema;
+const toggleAllChecked = (state: SchemaState, checked: boolean): void => {
+  setAllFieldRequired(state, checked);
 };
 
-const addChildField = (state: SchemaState, keyRoute: KeyRoute): SchemaState => {
+const addChildField = (state: Draft<SchemaState>, keyRoute: KeyRoute): void => {
   fieldNum += 1;
 
   const newField = `field_${fieldNum}`;
-  let schema = cloneDeep(state);
 
   // add new field - string
   const newKeyRoute = keyRoute.concat(newField);
-  set(schema, newKeyRoute, defaultSchema.string);
+  set(state, newKeyRoute, defaultSchema.string);
 
   // add new filed to its parent's required
-  schema = addRequired(schema, newKeyRoute);
-
-  return schema;
+  addRequired(state, newKeyRoute);
 };
 
-const addSiblingField = (state: SchemaState, keyRoute: KeyRoute): SchemaState => {
+const addSiblingField = (state: SchemaState, keyRoute: KeyRoute): void => {
   fieldNum += 1;
 
   const newField = `field_${fieldNum}`;
-  let schema = cloneDeep(state);
 
   // add new field - string
   const newKeyRoute = keyRoute.slice(0, -1).concat(newField);
-  set(schema, newKeyRoute, defaultSchema.string);
+  set(state, newKeyRoute, defaultSchema.string);
 
   // add new filed to its parent's required
-  schema = addRequired(schema, newKeyRoute);
-
-  return schema;
+  addRequired(state, newKeyRoute);
 };
 
-const removeField = (state: SchemaState, keyRoute: KeyRoute): SchemaState => {
-  let schema = cloneDeep(state);
-
+const removeField = (state: SchemaState, keyRoute: KeyRoute): void => {
   // remove field
-  unset(schema, keyRoute);
+  unset(state, keyRoute);
 
   // remove filed from its parent's required
-  schema = removeRequired(schema, keyRoute);
-
-  return schema;
+  removeRequired(state, keyRoute);
 };
 
-const changeField = (state: SchemaState, keyRoute: KeyRoute, field: string): SchemaState => {
-  let schema = cloneDeep(state);
+const changeField = (state: SchemaState, keyRoute: KeyRoute, newField: string): void => {
+  const oldField = keyRoute.slice(-1)[0];
+  const parentKeyRoute = keyRoute.slice(0, -1);
+  const properties = get(state, parentKeyRoute);
+  const newProperties: { [key: string]: SchemaItem } = {};
 
-  // temp old field's value and remove old field
-  const temp = get(schema, keyRoute);
-  unset(schema, keyRoute);
+  // keep the order of fields
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const field in properties) {
+    if (field === oldField) {
+      newProperties[newField] = properties[field];
+    } else {
+      newProperties[field] = properties[field];
+    }
+  }
+
+  set(state, parentKeyRoute, newProperties);
 
   // remove old filed from its parent's required
-  schema = removeRequired(schema, keyRoute);
-
-  // point to new field and add temp to it
-  const fieldKeyRoute = keyRoute.slice(0, -1).concat(field);
-  set(schema, fieldKeyRoute, temp);
+  removeRequired(state, keyRoute);
 
   // add new filed to its parent's required
-  schema = addRequired(schema, fieldKeyRoute);
-
-  return schema;
+  const fieldKeyRoute = parentKeyRoute.concat(newField);
+  addRequired(state, fieldKeyRoute);
 };
 
-const changeType = (state: SchemaState, keyRoute: KeyRoute, fieldType: SchemaType): SchemaState => {
-  const schema = cloneDeep(state);
-
+const changeType = (state: SchemaState, keyRoute: KeyRoute, fieldType: SchemaType): void => {
   // set field new value
-  set(schema, keyRoute, defaultSchema[fieldType]);
-
-  return schema;
+  set(state, keyRoute, defaultSchema[fieldType]);
 };
 
-const changeTitle = (state: SchemaState, keyRoute: KeyRoute, title: string): SchemaState => {
-  const schema = cloneDeep(state);
-
+const changeTitle = (state: SchemaState, keyRoute: KeyRoute, title: string): void => {
   // point to title and set new value
   const titleKeyRoute = keyRoute.concat('title');
-  set(schema, titleKeyRoute, title);
-
-  return schema;
+  set(state, titleKeyRoute, title);
 };
 
-const changeDesc = (state: SchemaState, keyRoute: KeyRoute, desc: string): SchemaState => {
-  const schema = cloneDeep(state);
-
+const changeDesc = (state: SchemaState, keyRoute: KeyRoute, desc: string): void => {
   // point to desc and set new value
   const descKeyRoute = keyRoute.concat('description');
-  set(schema, descKeyRoute, desc);
-
-  return schema;
+  set(state, descKeyRoute, desc);
 };
 
-const reducer = (state: SchemaState, action: SchemaAction): SchemaState => {
-  switch (action.type) {
-    case 'SET_SCHEMA':
-      return setSchema(action.schema);
+const reducer = (state: SchemaState, action: SchemaAction): SchemaState =>
+  produce(state, (draft: Draft<SchemaState>) => {
+    switch (action.type) {
+      case 'SET_SCHEMA':
+        setSchema(action.schema);
+        break;
 
-    case 'ADD_CHILD_FIELD':
-      return addChildField(state, action.keyRoute);
+      case 'ADD_CHILD_FIELD':
+        addChildField(draft, action.keyRoute);
+        break;
 
-    case 'ADD_SIBLING_FIELD':
-      return addSiblingField(state, action.keyRoute);
+      case 'ADD_SIBLING_FIELD':
+        addSiblingField(draft, action.keyRoute);
+        break;
 
-    case 'REMOVE_FIELD':
-      return removeField(state, action.keyRoute);
+      case 'REMOVE_FIELD':
+        removeField(draft, action.keyRoute);
+        break;
 
-    case 'TOGGLE_ALL_CHECKED':
-      return toggleAllChecked(state, action.checked);
+      case 'TOGGLE_ALL_CHECKED':
+        toggleAllChecked(draft, action.checked);
+        break;
 
-    case 'ADD_REQUIRED':
-      return addRequired(state, action.keyRoute);
+      case 'ADD_REQUIRED':
+        addRequired(draft, action.keyRoute);
+        break;
 
-    case 'REMOVE_REQUIRED':
-      return removeRequired(state, action.keyRoute);
+      case 'REMOVE_REQUIRED':
+        removeRequired(draft, action.keyRoute);
+        break;
 
-    case 'CHANGE_FIELD':
-      return changeField(state, action.keyRoute, action.field);
+      case 'CHANGE_FIELD':
+        changeField(draft, action.keyRoute, action.field);
+        break;
 
-    case 'CHANGE_TYPE':
-      return changeType(state, action.keyRoute, action.fieldType);
+      case 'CHANGE_TYPE':
+        changeType(draft, action.keyRoute, action.fieldType);
+        break;
 
-    case 'CHANGE_TITLE':
-      return changeTitle(state, action.keyRoute, action.title);
+      case 'CHANGE_TITLE':
+        changeTitle(draft, action.keyRoute, action.title);
+        break;
 
-    case 'CHANGE_DESC':
-      return changeDesc(state, action.keyRoute, action.desc);
+      case 'CHANGE_DESC':
+        changeDesc(draft, action.keyRoute, action.desc);
+        break;
 
-    default:
-      return state;
-  }
-};
+      default:
+        break;
+    }
+  });
 
 export default reducer;

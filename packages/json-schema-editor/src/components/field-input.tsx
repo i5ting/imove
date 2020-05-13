@@ -15,7 +15,8 @@ const CustomInput = styled(Input)`
   }
 `;
 
-function FieldInput({ value: initValue, changeField, addonAfter }: FieldInputProps): JSX.Element {
+function FieldInput(props: FieldInputProps, ref: React.Ref<Input>): JSX.Element {
+  const { value: initValue, changeField, addonAfter } = props;
   const [value, setValue] = React.useState(initValue);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -37,6 +38,7 @@ function FieldInput({ value: initValue, changeField, addonAfter }: FieldInputPro
 
   return (
     <CustomInput
+      ref={ref}
       value={value}
       onChange={handleChange}
       onBlur={handleBlur}
@@ -46,4 +48,4 @@ function FieldInput({ value: initValue, changeField, addonAfter }: FieldInputPro
   );
 }
 
-export default FieldInput;
+export default React.forwardRef(FieldInput);
