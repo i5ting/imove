@@ -1,13 +1,10 @@
 import { useState, Dispatch, SetStateAction } from 'react';
 import { createContainer } from 'react-tracked';
+import { UIState } from '../model';
 
-export type State = {
-  formVisible: boolean;
-};
+const initialData = { properties: true };
 
-const initialData = { formVisible: true };
-
-const useValue = (): [State, Dispatch<SetStateAction<State>>] => useState<State>(initialData);
+const useValue = (): [UIState, Dispatch<SetStateAction<UIState>>] => useState<UIState>(initialData);
 
 export const {
   Provider: UIProvider,

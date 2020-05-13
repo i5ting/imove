@@ -1,9 +1,12 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { useState } from 'react';
+import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Row, Col, Tooltip, Input, Checkbox, Select } from 'antd';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import { useTranslation } from 'react-i18next';
 import { useUIState, useSetUIState } from '../store/ui';
+import { useSchemaDispatch } from '../store/schema';
 import {
   CaretDownIcon,
   CaretRightIcon,
@@ -23,26 +26,35 @@ const FieldInput = styled(Input)`
 
 function EditorHead(): JSX.Element {
   const { t } = useTranslation();
-  const uiState = useUIState();
+  const schemaDispatch = useSchemaDispatch();
   const setUIState = useSetUIState();
-  const { formVisible } = uiState;
+  const uiState = useUIState();
+  const key = 'properties';
+  const visible = uiState[key];
+
+  const [checked, setChecked] = useState(false);
 
   const toggleFormVisible = (): void => {
-    setUIState((prev) => ({ ...prev, formVisible: !formVisible }));
+    setUIState((prev) => ({ ...prev, [key]: !visible }));
+  };
+
+  const addChildField = (): void => {
+    schemaDispatch({ type: 'ADD_CHILD_FIELD', keyRoute: ['properties'] });
+  };
+
+  const toggleAllChecked = (e: CheckboxChangeEvent): void => {
+    setChecked(e.target.checked);
+    schemaDispatch({ type: 'TOGGLE_ALL_CHECKED', checked: e.target.checked });
   };
 
   return (
-    <Row
-      css={css`
-        margin-top: 10px;
-      `}
-    >
+    <Row css={{ marginTop: '10px' }}>
       <Col span="24">
         <Row align="middle">
           <Col span="8">
             <Row align="middle">
               <Col span="2">
-                {formVisible ? (
+                {visible ? (
                   <CaretDownIcon onClick={toggleFormVisible} />
                 ) : (
                   <CaretRightIcon onClick={toggleFormVisible} />
@@ -54,12 +66,7 @@ function EditorHead(): JSX.Element {
                   value="root"
                   addonAfter={
                     <Tooltip placement="top" title={t('select_all')}>
-                      <Checkbox
-                        checked={false}
-                        onChange={(): void => {
-                          // code
-                        }}
-                      />
+                      <Checkbox checked={checked} onChange={toggleAllChecked} />
                     </Tooltip>
                   }
                 />
@@ -82,7 +89,7 @@ function EditorHead(): JSX.Element {
               <SettingIcon />
             </Tooltip>
             <Tooltip placement="top" title={t('add_child_node')}>
-              <PlusIcon />
+              <PlusIcon onClick={addChildField} />
             </Tooltip>
           </Col>
         </Row>

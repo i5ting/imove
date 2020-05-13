@@ -1,15 +1,35 @@
 /** @jsx jsx */
+import { useEffect } from 'react';
 import { jsx, css } from '@emotion/core';
 import { Button } from 'antd';
 import { useTranslation } from 'react-i18next';
-import EditorHead from './editor-head';
+import EditorHead from './schema-head';
 import SchemaForm from './schema-form';
 import { useUIState } from '../store/ui';
+import { useSchemaState } from '../store/schema';
+import { SchemaState } from '../model';
 
-function Layout(): JSX.Element {
+let temp: SchemaState | null = null;
+
+interface AA {
+  onChange: (value: SchemaState) => void;
+}
+
+function Layout({ onChange }: AA): JSX.Element {
   const { t } = useTranslation();
+
   const uiState = useUIState();
-  const { formVisible } = uiState;
+  const key = 'properties';
+  const visible = uiState[key] !== false;
+
+  const schemaState = useSchemaState();
+
+  useEffect(() => {
+    if (temp !== schemaState) {
+      temp = schemaState;
+      onChange(schemaState);
+    }
+  });
 
   return (
     <div
@@ -20,7 +40,7 @@ function Layout(): JSX.Element {
     >
       <Button type="primary">{t('import_json')}</Button>
       <EditorHead />
-      {formVisible && <SchemaForm />}
+      {visible && <SchemaForm data={schemaState} keyRoute={['properties']} />}
     </div>
   );
 }
