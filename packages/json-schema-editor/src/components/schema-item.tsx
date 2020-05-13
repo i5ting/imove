@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { useRef } from 'react';
 import { jsx } from '@emotion/core';
 import { Row, Col, Tooltip, Input, Checkbox, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -34,6 +35,8 @@ function SchemaFormItem({
   keyRoute,
   children,
 }: SchemaItemProps): JSX.Element {
+  const fieldRef = useRef<Input>(null);
+
   const { t } = useTranslation();
   const schemaDispatch = useSchemaDispatch();
   const setUIState = useSetUIState();
@@ -46,10 +49,15 @@ function SchemaFormItem({
   };
 
   const toggleRequired = (): void => {
+    if (!fieldRef.current) return;
+
+    const newField = fieldRef.current.state.value;
+    const fieldKeyRoute = keyRoute.slice(0, -1).concat(newField);
+
     if (required) {
-      schemaDispatch({ type: 'REMOVE_REQUIRED', keyRoute });
+      schemaDispatch({ type: 'REMOVE_REQUIRED', keyRoute: fieldKeyRoute });
     } else {
-      schemaDispatch({ type: 'ADD_REQUIRED', keyRoute });
+      schemaDispatch({ type: 'ADD_REQUIRED', keyRoute: fieldKeyRoute });
     }
   };
 
@@ -66,9 +74,7 @@ function SchemaFormItem({
   };
 
   const changeField = (value: string): void => {
-    setTimeout(() => {
-      schemaDispatch({ type: 'CHANGE_FIELD', keyRoute, field: value });
-    }, 500);
+    schemaDispatch({ type: 'CHANGE_FIELD', keyRoute, field: value });
   };
 
   const changeType = (value: SchemaType): void => {
@@ -94,6 +100,7 @@ function SchemaFormItem({
             </Col>
             <Col span="22">
               <FieldInput
+                ref={fieldRef}
                 value={field}
                 changeField={changeField}
                 addonAfter={
