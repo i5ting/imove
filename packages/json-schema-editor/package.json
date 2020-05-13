@@ -1,6 +1,6 @@
 {
   "name": "@imove/json-schema-editor",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "visual editor for json schema",
   "keywords": [
     "ace-editor",
