@@ -25,15 +25,6 @@ const globalStyles = css`
       width: 80%;
       text-align: left;
     }
-
-    .editor-icon {
-      cursor: pointer;
-
-      svg {
-        margin: 0 5px;
-        font-size: 14px;
-      }
-    }
   }
 `;
 
