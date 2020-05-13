@@ -6,13 +6,15 @@ import {
   EditOutlined,
   SettingOutlined,
   PlusOutlined,
+  CloseOutlined,
 } from '@ant-design/icons';
 
-const cursorStyle = css`
+const iconStyle = css`
+  vertical-align: middle;
   cursor: pointer;
 `;
 
-const IconStyle = css`
+const actionStyle = css`
   margin: 0 5px;
   svg {
     font-size: 14px;
@@ -20,25 +22,31 @@ const IconStyle = css`
 `;
 
 export const CaretDownIcon = styled(CaretDownOutlined)`
-  ${cursorStyle}
+  ${iconStyle}
 `;
 
 export const CaretRightIcon = styled(CaretRightOutlined)`
-  ${cursorStyle}
+  ${iconStyle}
 `;
 
 export const EditIcon = styled(EditOutlined)`
-  ${cursorStyle}
+  ${iconStyle}
 `;
 
 export const SettingIcon = styled(SettingOutlined)`
   color: #00a854;
-  ${cursorStyle}
-  ${IconStyle}
+  ${iconStyle}
+  ${actionStyle}
 `;
 
 export const PlusIcon = styled(PlusOutlined)`
   color: #2395f1;
-  ${cursorStyle}
-  ${IconStyle}
+  ${iconStyle}
+  ${actionStyle}
+`;
+
+export const CloseIcon = styled(CloseOutlined)`
+  color: #ff561b;
+  ${iconStyle}
+  ${actionStyle}
 `;
