@@ -14,14 +14,15 @@ function SchemaForm({ data, keyRoute }: SchemaFormProps): JSX.Element {
 
   return (
     <div>
-      {Object.keys(properties).map((field) => {
+      {Object.keys(properties).map((field, index) => {
         const itemData = properties[field];
         const isRequired = required && required.includes(field);
         const fieldKeyRoute = keyRoute.concat(field);
 
         return (
           <SchemaItem
-            key={field}
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
             field={field}
             data={itemData}
             required={isRequired}

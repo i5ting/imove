@@ -11,11 +11,11 @@ import { SchemaState } from '../model';
 
 let temp: SchemaState | null = null;
 
-interface AA {
+interface LayoutProps {
   onChange: (value: SchemaState) => void;
 }
 
-function Layout({ onChange }: AA): JSX.Element {
+function Layout({ onChange }: LayoutProps): JSX.Element {
   const { t } = useTranslation();
 
   const uiState = useUIState();

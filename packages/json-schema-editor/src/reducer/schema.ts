@@ -1,5 +1,5 @@
 import produce, { Draft } from 'immer';
-import { get, set, unset, remove, cloneDeep } from 'lodash-es';
+import { get, set, unset, remove } from 'lodash-es';
 import { SchemaType, SchemaItem, SchemaState, SchemaAction, KeyRoute } from '../model';
 import { defaultSchema, setAllFieldRequired } from '../utils/schema';
 
@@ -23,6 +23,19 @@ const removeRequired = (state: SchemaState, keyRoute: KeyRoute): void => {
   const required = get(state, requiredKeyRoute) || [];
   remove(required, (item) => item === field);
   set(state, requiredKeyRoute, required);
+};
+
+const changeRequiredField = (state: SchemaState, oldKeyRoute: KeyRoute, newField: string): void => {
+  const oldField = oldKeyRoute.slice(-1)[0];
+  const requiredKeyRoute = oldKeyRoute.slice(0, -2).concat('required');
+  const required = get(state, requiredKeyRoute) || [];
+  const oldFieldIndex = required.indexOf(oldField);
+
+  // new field extend the old field
+  if (oldFieldIndex > -1) {
+    required.splice(oldFieldIndex, 1, newField);
+    set(state, requiredKeyRoute, required);
+  }
 };
 
 const toggleAllChecked = (state: SchemaState, checked: boolean): void => {
@@ -82,12 +95,8 @@ const changeField = (state: SchemaState, keyRoute: KeyRoute, newField: string): 
 
   set(state, parentKeyRoute, newProperties);
 
-  // remove old filed from its parent's required
-  removeRequired(state, keyRoute);
-
-  // add new filed to its parent's required
-  const fieldKeyRoute = parentKeyRoute.concat(newField);
-  addRequired(state, fieldKeyRoute);
+  // replace old field with new field in required
+  changeRequiredField(state, keyRoute, newField);
 };
 
 const changeType = (state: SchemaState, keyRoute: KeyRoute, fieldType: SchemaType): void => {
