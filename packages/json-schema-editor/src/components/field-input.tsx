@@ -1,11 +1,13 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Input } from 'antd';
+import { Tooltip, Input, Checkbox } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 interface FieldInputProps {
   value: string;
+  required: boolean;
   changeField: (value: string) => void;
-  addonAfter: JSX.Element;
+  toggleRequired: (value: string) => void;
 }
 
 const CustomInput = styled(Input)`
@@ -15,9 +17,18 @@ const CustomInput = styled(Input)`
   }
 `;
 
-function FieldInput(props: FieldInputProps, ref: React.Ref<Input>): JSX.Element {
-  const { value: initValue, changeField, addonAfter } = props;
+function FieldInput(props: FieldInputProps): JSX.Element {
+  const { value: initValue, changeField, required, toggleRequired } = props;
   const [value, setValue] = React.useState(initValue);
+  const [prevInitValue, setPrevInitValue] = React.useState(initValue);
+
+  const { t } = useTranslation();
+
+  // mock getDerivedStateFromProps
+  if (initValue !== prevInitValue) {
+    setValue(initValue);
+    setPrevInitValue(initValue);
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(e.target.value);
@@ -38,14 +49,22 @@ function FieldInput(props: FieldInputProps, ref: React.Ref<Input>): JSX.Element 
 
   return (
     <CustomInput
-      ref={ref}
       value={value}
       onChange={handleChange}
       onBlur={handleBlur}
       onKeyUp={handleKeyUp}
-      addonAfter={addonAfter}
+      addonAfter={
+        <Tooltip placement="top" title={t('required')}>
+          <Checkbox
+            checked={required}
+            onChange={(): void => {
+              toggleRequired(value);
+            }}
+          />
+        </Tooltip>
+      }
     />
   );
 }
 
-export default React.forwardRef(FieldInput);
+export default React.memo(FieldInput);
