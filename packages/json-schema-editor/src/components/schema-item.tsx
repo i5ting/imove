@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import { useRef } from 'react';
 import { jsx } from '@emotion/core';
-import { Row, Col, Tooltip, Input, Checkbox, Select } from 'antd';
+import { Row, Col, Tooltip, Input, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useUIState, useSetUIState } from '../store/ui';
 import { useSchemaDispatch } from '../store/schema';
@@ -28,15 +27,8 @@ interface SchemaItemProps {
   children: React.ReactChild | null;
 }
 
-function SchemaFormItem({
-  field,
-  data,
-  required,
-  keyRoute,
-  children,
-}: SchemaItemProps): JSX.Element {
-  const fieldRef = useRef<Input>(null);
-
+function SchemaFormItem(props: SchemaItemProps): JSX.Element {
+  const { field, data, required, keyRoute, children } = props;
   const { t } = useTranslation();
   const schemaDispatch = useSchemaDispatch();
   const setUIState = useSetUIState();
@@ -48,11 +40,8 @@ function SchemaFormItem({
     setUIState((prev) => ({ ...prev, [key]: !visible }));
   };
 
-  const toggleRequired = (): void => {
-    if (!fieldRef.current) return;
-
-    const newField = fieldRef.current.state.value;
-    const fieldKeyRoute = keyRoute.slice(0, -1).concat(newField);
+  const toggleRequired = (value: string): void => {
+    const fieldKeyRoute = keyRoute.slice(0, -1).concat(value);
 
     if (required) {
       schemaDispatch({ type: 'REMOVE_REQUIRED', keyRoute: fieldKeyRoute });
@@ -100,14 +89,10 @@ function SchemaFormItem({
             </Col>
             <Col span="22">
               <FieldInput
-                ref={fieldRef}
                 value={field}
+                required={required}
                 changeField={changeField}
-                addonAfter={
-                  <Tooltip placement="top" title={t('required')}>
-                    <Checkbox checked={required} onChange={toggleRequired} />
-                  </Tooltip>
-                }
+                toggleRequired={toggleRequired}
               />
             </Col>
           </Row>
