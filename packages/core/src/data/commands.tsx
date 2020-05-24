@@ -81,8 +81,7 @@ export default function getCommands(graph: Graph, undoManager: UndoManager): Com
         tooltip: '保存',
         shortcut: `${ctrlKey} + S`,
         handler: (): void => {
-          const graphData = graph.toJSON();
-          console.log(JSON.stringify(graphData));
+          // code
         },
       },
     ],

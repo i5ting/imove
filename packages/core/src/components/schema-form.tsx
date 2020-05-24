@@ -52,11 +52,7 @@ class SchemaForm extends React.Component<SchemaFormProps, SchemaFormState> {
     return (
       <Form labelCol={labelCol} initialValues={data}>
         {Object.keys(properties).map((key) => (
-          <Item
-            key={properties[key].title}
-            label={properties[key].title}
-            name={`input.${properties[key].title}`}
-          >
+          <Item key={key} label={properties[key].title} name={`input.${properties[key].title}`}>
             {properties[key].type === 'string' ? (
               <Input
                 onChange={(e): void => {
