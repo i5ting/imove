@@ -4,7 +4,7 @@ import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Graph } from '@antv/x6';
 import { Collapse } from 'antd';
-import { generals, gists, DataItem } from '../data/cells';
+import { generals, DataItem } from '../data/cells';
 import patchDnd from '../utils/patch-dnd';
 import Cells from './cells';
 import 'antd/lib/collapse/style';
@@ -34,6 +34,7 @@ const ToolPanel = styled(Panel)`
 
 interface SidebarProps {
   graph: Graph;
+  cells: DataItem[];
 }
 
 const CellWrapper = ({ data, children }: { data: DataItem; children: ReactNode }): JSX.Element => {
@@ -77,7 +78,7 @@ const CellWrapper = ({ data, children }: { data: DataItem; children: ReactNode }
   );
 };
 
-const Sidebar = ({ graph }: SidebarProps): JSX.Element => {
+const Sidebar = ({ graph, cells }: SidebarProps): JSX.Element => {
   const generalRef = useRef<HTMLDivElement>(null);
   const gistRef = useRef<HTMLDivElement>(null);
 
@@ -86,7 +87,7 @@ const Sidebar = ({ graph }: SidebarProps): JSX.Element => {
     patchDnd(generalContainer, graph, generals);
 
     const gistContainer = gistRef.current;
-    patchDnd(gistContainer, graph, gists);
+    patchDnd(gistContainer, graph, cells);
   });
 
   return (
@@ -112,7 +113,7 @@ const Sidebar = ({ graph }: SidebarProps): JSX.Element => {
         </ToolPanel>
         <ToolPanel header="业务元件" key="gist">
           <div ref={gistRef}>
-            {gists.map((cell) => {
+            {cells.map((cell) => {
               const Cell = Cells[cell.type];
               return (
                 <CellWrapper key={`${cell.type}${cell.label}`} data={cell}>

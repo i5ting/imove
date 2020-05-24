@@ -7,13 +7,10 @@ import Sidebar from './components/sidebar';
 import Toolbar from './components/toolbar';
 import Setting from './components/setting';
 import createGraph from './utils/create-graph';
+import { DataItem } from './data/cells';
 import 'antd/lib/layout/style';
 
 Shape.register('react', ReactShape, true);
-
-export interface CoreState {
-  inited: boolean;
-}
 
 const { Header, Sider, Content } = Layout;
 
@@ -49,12 +46,21 @@ const ToolWrapper = styled.div`
   background: #fff;
 `;
 
-class Core extends React.Component<{}, CoreState> {
+interface CoreProps {
+  cells: DataItem[];
+  onSave: (data: { nodes: any; edges: any }) => void;
+}
+
+interface CoreState {
+  inited: boolean;
+}
+
+class Core extends React.Component<CoreProps, CoreState> {
   private graph: Graph | null = null;
 
   private container = React.createRef<HTMLDivElement>();
 
-  constructor(props: {}) {
+  constructor(props: CoreProps) {
     super(props);
     this.state = {
       inited: false,
@@ -75,15 +81,20 @@ class Core extends React.Component<{}, CoreState> {
 
   render(): JSX.Element {
     const { inited } = this.state;
+    const { cells, onSave } = this.props;
     return (
       <IMoveLayout>
         <IMoveHeader>
           <IMoveTitle>iMove</IMoveTitle>
         </IMoveHeader>
         <IMoveLayout>
-          <IMoveSider>{this.graph && inited && <Sidebar graph={this.graph} />}</IMoveSider>
+          <IMoveSider>
+            {this.graph && inited && <Sidebar graph={this.graph} cells={cells} />}2
+          </IMoveSider>
           <IMoveContent>
-            <ToolWrapper>{this.graph && inited && <Toolbar graph={this.graph} />}</ToolWrapper>
+            <ToolWrapper>
+              {this.graph && inited && <Toolbar graph={this.graph} onSave={onSave} />}
+            </ToolWrapper>
             <div ref={this.container} tabIndex={-1} />
           </IMoveContent>
           <IMoveSider width="300">
