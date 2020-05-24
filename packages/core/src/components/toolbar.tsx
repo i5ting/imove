@@ -8,6 +8,7 @@ import 'antd/lib/tooltip/style';
 
 export interface ToolbarProps {
   graph: Graph;
+  onSave: (data: { nodes: any; edges: any }) => void;
 }
 
 const Group = styled.div`
@@ -48,7 +49,7 @@ const Item = styled.span`
   }
 `;
 
-const Toolbar = ({ graph }: ToolbarProps): JSX.Element => {
+const Toolbar = ({ graph, onSave }: ToolbarProps): JSX.Element => {
   const undoManager = UndoManager.create(graph);
   const commands = getCommands(graph, undoManager);
 
@@ -60,7 +61,18 @@ const Toolbar = ({ graph }: ToolbarProps): JSX.Element => {
         <Group key={items.map((i) => i.name).join('-')}>
           {items.map((item) => (
             <Tooltip title={item.tooltip} key={item.name}>
-              <Item onClick={item.handler}>{item.icon}</Item>
+              <Item
+                onClick={(): void => {
+                  if (item.name === 'save') {
+                    const graphData = graph.toJSON();
+                    onSave(graphData);
+                    return;
+                  }
+                  item.handler();
+                }}
+              >
+                {item.icon}
+              </Item>
             </Tooltip>
           ))}
         </Group>

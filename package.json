@@ -42,7 +42,6 @@
   "dependencies": {
     "@babel/runtime": "^7.9.2",
     "@babel/runtime-corejs3": "^7.9.2",
-    "@imove/core": "^0.1.6",
     "core-js": "^3.6.5",
     "ora": "^4.0.3"
   }
