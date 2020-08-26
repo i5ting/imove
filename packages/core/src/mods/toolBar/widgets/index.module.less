@@ -1,0 +1,91 @@
+.btnWidget {
+
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 4px;
+  padding: 0 8px;
+  min-width: 34px;
+  height: 34px;
+  font-size: 16px;
+  border-radius: 2px;
+  border: 0.5px solid transparent;
+
+  .caret {
+    margin-left: 4px;
+    font-size: 10px;
+  }
+
+  &:last-child {
+    margin-right: 4px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    border: 0.5px solid #CCC;
+  }
+
+  &.selected {
+    border: 0.5px solid #CCC;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    background-color: #EEE;
+    background-image: linear-gradient(top,#eee,#e0e0e0);
+  }
+
+  &.disabled {
+    color: #CCC;
+  }
+
+  &.disabled:hover {
+    cursor: default;
+    border: 0.5px solid transparent;
+  }
+}
+
+.zoomContainer {
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .zoomText {
+    margin-left: 4px;
+    width: 45px;
+    text-align: center;
+  }
+}
+
+.bgColorContainer, .textColorContainer, .lineColorContainer {
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .fillIcon {
+    position: relative;
+    top: -2px;
+    font-size: 15px;
+  }
+
+  .textIcon {
+    position: relative;
+    top: -2px;
+    font-size: 15px;
+  }
+
+  .lineIcon {
+    position: relative;
+    top: -2px;
+    font-size: 15px;
+  }
+
+  .colorPreview {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1.6px;
+  }
+}

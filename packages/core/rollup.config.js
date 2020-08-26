@@ -1,7 +1,13 @@
-import rollupBaseConfig from '../../rollup.config';
 import pkg from './package.json';
+import postcss from 'rollup-plugin-postcss';
+import typescript from 'rollup-plugin-typescript';
+import rollupBaseConfig from '../../rollup.config';
 
 export default Object.assign(rollupBaseConfig, {
+  plugins: [
+    postcss(),
+    typescript(),
+  ],
   output: [
     {
       file: pkg.main,
@@ -12,5 +18,5 @@ export default Object.assign(rollupBaseConfig, {
       format: 'es',
     },
   ],
-  external: Object.keys(pkg.peerDependencies).concat(/^antd\//),
+  external: Object.keys(pkg.peerDependencies),
 });

@@ -1,0 +1,35 @@
+.container {
+
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: 100%;
+  border-left: 1px solid #D9D9D9;
+
+  &.center {
+    justify-content: center;
+    align-items: center;
+  }
+
+  :global {
+
+    .ant-tabs-nav {
+      margin-bottom: 0;
+    }
+
+    .ant-tabs-nav-list {
+      display: flex;
+      flex: 1;
+    }
+    
+    .ant-tabs-tab {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+      background-color: #FAFAFA;
+      border-bottom: 1px solid #D9D9D9;
+    }
+  }
+}
