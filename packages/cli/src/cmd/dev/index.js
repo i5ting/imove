@@ -1,9 +1,11 @@
 const path = require('path');
 const fs = require('fs-extra');
+const mergePkg = require('./mergePkg');
 const simplifyDSL = require('./simplifyDSL');
 const extractCodes = require('./extractCodes');
 const {createServer} = require('../../utils/server');
 
+const PROJECT_ROOT_PATH = process.cwd();
 const TPL_PATH = path.join(__dirname, './template');
 const LOGIC_BASE_PATH = path.join(process.cwd(), './src/logic');
 
@@ -20,6 +22,7 @@ const setup = () => {
     // compile
     try {
       const {dsl} = req.body;
+      await mergePkg(dsl, PROJECT_ROOT_PATH);
       await simplifyDSL(dsl, LOGIC_BASE_PATH);
       await extractCodes(dsl, LOGIC_BASE_PATH);
       await fs.copy(TPL_PATH, LOGIC_BASE_PATH);
