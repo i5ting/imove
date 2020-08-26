@@ -66,9 +66,10 @@ interface IEditorModalProps {
 
 const CODE_EDITOR_STYLE = {
   width: '100%',
-  height: 400
+  height: 600
 };
 const CODE_EDITOR_OPTIONS = {
+  fontSize: 14,
   useWorker: false
 };
 
