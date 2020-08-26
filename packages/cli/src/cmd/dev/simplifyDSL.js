@@ -7,7 +7,7 @@ const extractObj = (obj = {}, keys = []) => {
   return ret;
 };
 
-const simpily = (dsl) => {
+const simplify = (dsl) => {
   const {cells = []} = dsl;
   return {
     cells: cells.map(cell => {
@@ -21,7 +21,7 @@ const simpily = (dsl) => {
 };
 
 const setup = async (dsl, logicBasePath) => {
-  const simpilifiedDSL = simpily(dsl);
+  const simpilifiedDSL = simplify(dsl);
   const dslFilePath = path.join(logicBasePath, 'dsl.json');
   await fs.writeFile(dslFilePath, JSON.stringify(simpilifiedDSL, null, 2));
 };
