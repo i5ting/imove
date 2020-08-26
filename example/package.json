@@ -20,7 +20,8 @@
     ]
   },
   "dependencies": {
-    "@antv/x6": "^0.4.7",
+    "@ant-design/icons": "^4.2.2",
+    "@antv/x6": "^0.4.8",
     "@antv/x6-react-shape": "^0.2.2",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
@@ -28,11 +29,13 @@
     "@imove/json-schema-editor": "^0.3.2",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.2.2",
-    "antd": "^4.2.4",
+    "antd": "^4.4.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-runtime": "^6.26.0",
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "umi": "^3.2.2",
     "yorkie": "^2.0.0"
   }
