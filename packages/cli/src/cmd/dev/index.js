@@ -10,7 +10,7 @@ const TPL_PATH = path.join(__dirname, './template');
 
 class Dev extends Base {
 
-  async save(req, res) {
+  save = async (req, res) => {
 
     const {outputPath} = this.config;
 
@@ -40,7 +40,7 @@ class Dev extends Base {
 
   run() {
     const app = createServer();
-    app.post('/api/save', save);
+    app.post('/api/save', this.save);
   }
 }
 

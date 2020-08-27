@@ -14,7 +14,7 @@ program
 Object.keys(cmds).forEach((cmd) => {
   const CmdCtor = cmds[cmd];
   if(program[cmd]) {
-    const cmdInst = new CmdCtor(getConfig());
+    const cmdInst = new CmdCtor({config: getConfig()});
     cmdInst.run();
   }
 });
