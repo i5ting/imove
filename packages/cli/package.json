@@ -4,7 +4,7 @@
   "description": "imove client",
   "main": "index.js",
   "bin": {
-    "imove-cli": "index.js"
+    "imove": "index.js"
   },
   "keywords": [
     "imove",

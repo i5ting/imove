@@ -1,41 +1,47 @@
 const path = require('path');
 const fs = require('fs-extra');
+const Base = require('../base');
 const mergePkg = require('./mergePkg');
 const simplifyDSL = require('./simplifyDSL');
 const extractCodes = require('./extractCodes');
 const {createServer} = require('../../utils/server');
 
-const PROJECT_ROOT_PATH = process.cwd();
 const TPL_PATH = path.join(__dirname, './template');
-const LOGIC_BASE_PATH = path.join(process.cwd(), './src/logic');
 
-const setup = () => {
-  const app = createServer();
-  app.post('/api/save', async (req, res) => {
-  
+class Dev extends Base {
+
+  async save(req, res) {
+
+    const {outputPath} = this.config;
+
+    // check outputPath whether exsited
+    await fs.ensureDir(outputPath);
+
     // check dsl whether existed
     if (!req.body || !req.body.dsl) {
       res.status(500).json({isCompiled: false}).end();
       return;
     }
-  
+
     // compile
     try {
       const {dsl} = req.body;
-      await mergePkg(dsl, PROJECT_ROOT_PATH);
-      await simplifyDSL(dsl, LOGIC_BASE_PATH);
-      await extractCodes(dsl, LOGIC_BASE_PATH);
-      await fs.copy(TPL_PATH, LOGIC_BASE_PATH);
+      await simplifyDSL(dsl, outputPath);
+      await extractCodes(dsl, outputPath);
+      await fs.copy(TPL_PATH, outputPath);
+      await mergePkg(dsl, this.projectPath);
       res.status(200).json({isCompiled: true}).end();
       console.log('compile successfully!');
     } catch(err) {
       res.status(500).json({isCompiled: false}).end();
       console.log('compile failed! the error is:', err.message);
     }
-  });
+  }
+
+  run() {
+    const app = createServer();
+    app.post('/api/save', save);
+  }
 }
 
-module.exports = function() {
-  fs.ensureDirSync(LOGIC_BASE_PATH);
-  setup();
-};
+module.exports = Dev;
