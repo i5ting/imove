@@ -33,7 +33,7 @@ const Core: React.FC<IProps> = props => {
 
   return (
     <div className={styles.container}>
-      <Header title={'iMove'}/>
+      <Header flowChart={flowChart}/>
       <div className={styles.body}>
         <SideBar flowChart={flowChart}/>
         <div className={styles.full}>

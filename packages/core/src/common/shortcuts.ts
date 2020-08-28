@@ -1,5 +1,6 @@
 import {Graph} from '@antv/x6';
 import {safeGet} from '../utils';
+import {localSave} from '../api';
 
 interface Shortcut {
   keys: string | string[];
@@ -14,15 +15,7 @@ const shortcuts: {[key: string]: Shortcut} = {
   save: {
     keys: `meta + s`,
     handler(flowChart: Graph) {
-      // TODO: save data
-      console.log(JSON.stringify(flowChart.toJSON(), null, 2));
-      fetch('http://localhost:3456/api/save', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({dsl: flowChart.toJSON()})
-      });
+      localSave({dsl: flowChart.toJSON()});
       return false;
     }
   },

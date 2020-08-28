@@ -1,0 +1,22 @@
+.container {
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 20px;
+
+  .error {
+    cursor: pointer;
+  }
+}
+
+.editModal {
+
+  width: 450px;
+
+  :global {
+    .ant-form-item:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
