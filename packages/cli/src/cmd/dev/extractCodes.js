@@ -15,7 +15,7 @@ const writeEntryFile = async (basePath, fileIds) => {
     `export default nodeFns;`
   ].join('\n');
   const entryFilePath = path.join(basePath, 'index.js');
-  await fs.writeFile(entryFilePath, fileContent, {encoding: 'utf8', flag:'w'});
+  await fs.outputFile(entryFilePath, fileContent, {encoding: 'utf8', flag:'w'});
 };
 
 const writeNodeCodes = async (basePath, dsl) => {
@@ -25,14 +25,14 @@ const writeNodeCodes = async (basePath, dsl) => {
   for(const {id, data: {code}} of nodes) {
     fileIds.push(id);
     const filePath = path.join(basePath, id + '.js');
-    await fs.writeFile(filePath, code, {encoding: 'utf8', flag:'w'});
+    await fs.outputFile(filePath, code, {encoding: 'utf8', flag:'w'});
   }
   return fileIds;
 };
 
 const setup = async (dsl, logicBasePath) => {
   const nodeCodesPath = path.join(logicBasePath, 'nodeFns');
-  await fs.ensureDir(nodeCodesPath);
+  await fs.remove(nodeCodesPath);
   const fileIds = await writeNodeCodes(nodeCodesPath, dsl);
   await writeEntryFile(nodeCodesPath, fileIds);
 };
