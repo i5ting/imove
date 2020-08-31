@@ -1,20 +1,6 @@
 import nodeFns from './nodeFns';
-
-class Context {
-
-  constructor(opts) {
-    this.curNode = null;
-  }
-
-  transitionToNode(node) {
-    this.curNode = node;
-  }
-
-  getConfig() {
-
-  }
-
-}
+import Context from './context';
+import EventEmitter from 'eventemitter3';
 
 const SHAPES = {
   START: 'imove-start',
@@ -22,11 +8,13 @@ const SHAPES = {
   BEHAVIOR: 'imove-behavior'
 }
 
-class Logic {
+export default class Logic {
 
   constructor(opts = {}) {
-    this.ctx = null;
     this.dsl = opts.dsl;
+    this.ctx = new Context();
+    this.events = new EventEmitter();
+    this.ctx.emit = this.events.emit.bind(this.events);
   }
 
   get cells() {
@@ -77,27 +65,30 @@ class Logic {
     }
   }
 
-  _initCtx(data) {
-
+  _resetCtx(data) {
+    this.ctx._reset({payload: data});
   }
 
-  _prepareCtx() {
-
+  _prepareCtx(node, lastRet) {
+    this.ctx._transitTo(node, lastRet);
   }
 
   async invoke(trigger, data) {
     let curNode = this._getStartNode(trigger);
     if(!curNode) {
-      return Promise.reject(`Invoke failed, because no logic-start named ${trigger} found!`);
+      return Promise.reject(`Invoke failed! No logic-start named ${trigger} found!`);
     }
-    this._initCtx(data);
+    let lastRet;
+    this._resetCtx(data);
     while(curNode) {
-      this._prepareCtx();
+      this._prepareCtx(curNode, lastRet);
       const fn = nodeFns[curNode.id];
-      const ret = await fn(this.ctx);
-      curNode = this._getNextNode(curNode, ret);
+      lastRet = await fn(this.ctx);
+      curNode = this._getNextNode(curNode, lastRet);
     }
   }
-}
 
-module.exports = Logic;
+  on(...args) {
+    this.events.on(...args);
+  }
+}

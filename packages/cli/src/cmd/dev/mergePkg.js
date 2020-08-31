@@ -1,6 +1,10 @@
 const path = require('path');
 const fs = require('fs-extra');
 
+const builtinDependencies = {
+  "eventemitter3": "^4.0.7"
+};
+
 const extractDep = (dsl) => {
   const mergedDependencies = {};
   const {cells = []} = dsl;
@@ -26,6 +30,9 @@ const setup = async (dsl, projectRootPath) => {
   } else {
     Object.keys(dslDependencies).forEach(key => {
       pkgJson.dependencies[key] = dslDependencies[key];
+    });
+    Object.keys(builtinDependencies).forEach(key => {
+      pkgJson.dependencies[key] = builtinDependencies[key];
     });
   }
   await fs.writeFile(pkgPath, JSON.stringify(pkgJson, null, 2));
