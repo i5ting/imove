@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig",
   "compilerOptions": {
+    "target": "ESNext",
     "outDir": "dist/types",
     "jsx": "react",
     "esModuleInterop": true

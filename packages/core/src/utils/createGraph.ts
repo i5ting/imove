@@ -1,7 +1,8 @@
-import {Graph} from '@antv/x6';
+import {Graph, Cell} from '@antv/x6';
 import shortcuts from '../common/shortcuts';
 import baseCellSchemaMap from '../common/baseCell';
 import previewCellSchemaMap from '../common/previewCell';
+import MiniMapSimpleNode from '../components/miniMapSimpleNode';
 
 // X6 register base/preview cell shape
 [baseCellSchemaMap, previewCellSchemaMap]
@@ -11,6 +12,9 @@ import previewCellSchemaMap from '../common/previewCell';
   }));
 
 const createGraph = (container: HTMLDivElement, miniMapContainer: HTMLDivElement): Graph => {
+
+  // NOTE: calculate the width/height ratio of flowchart
+  const ratio = container.offsetWidth / container.offsetHeight;
 
   // create graph instance
   const graph = new Graph({
@@ -62,13 +66,26 @@ const createGraph = (container: HTMLDivElement, miniMapContainer: HTMLDivElement
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/minimap
     minimap: {
-      enabled: true,
-      padding: 0,
-      width: 200,
-      height: 160,
+      width: 150 * ratio,
+      height: 150,
       minScale: 0.5,
       maxScale: 1.5,
+      enabled: true,
+      scalable: false,
       container: miniMapContainer,
+      graphOptions: {
+        async: true,
+        getCellView(cell: Cell) {
+          if(cell.isNode()){
+            return MiniMapSimpleNode;
+          }
+        },
+        createCellView(cell: Cell) {
+          if (cell.isEdge()) {
+            return null;
+          }
+        }
+      }
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/scroller
     scroller: {
