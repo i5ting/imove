@@ -32,8 +32,8 @@ const EditModal: React.FC<IEditorModalProps> = props => {
   // events
   const onClickOk = (): void => {
     formRef.current && formRef.current.validateFields().then((formValues) => {
-      onOk();
       updateLocalConfig(formValues as ILocalConfig);
+      onOk();
     }).catch(err => {
       console.log(err.message);
     });

@@ -49,7 +49,7 @@ const ConnectStatus: React.FC<IProps> = (props) => {
   };
   const confirmToSync = () => {
     syncLocal().then(data => {
-      const {dsl} = data;
+      const {dsl} = data || {};
       dsl && Modal.confirm({
         title: '本地连接成功，是否将数据同步至当前项目？',
         onOk() {
@@ -75,18 +75,16 @@ const ConnectStatus: React.FC<IProps> = (props) => {
     confirmToSync();
   };
 
+  let tagText = '本地连接失败 点击修改配置';
+  if(status === Status.connected) {
+    tagText = [projectName, '本地连接成功'].join(' ');
+  }
+
   return (
     <div className={styles.container}>
-      {status === Status.connected && (
-        <Tag color={'success'}>
-          {[projectName, '本地连接成功'].join(' ')}
-        </Tag>
-      )}
-      {status === Status.disconnected && (
-        <Tag className={styles.error} color={'error'} onClick={onOpenEditModal}>
-          本地连接失败 点击修改配置
-        </Tag>
-      )}
+      <Tag className={styles.tag} color={status} onClick={onOpenEditModal}>
+        {tagText}
+      </Tag>
       <EditModal
         visible={visible}
         onOk={onOk}
