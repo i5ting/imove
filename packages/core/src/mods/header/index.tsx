@@ -6,7 +6,7 @@ import {Graph} from '@antv/x6';
 import ConnectStatus from './connectStatus';
 
 interface IProps {
-  flowChart: Graph | undefined;
+  flowChart: Graph;
 }
 
 const Header: React.FC<IProps> = props => {

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 
 import '@antv/x6/dist/x6.css';
-import styles from './index.module.less';
 
 import {Graph} from '@antv/x6';
+import Layout from './mods/layout';
 import Header from './mods/header';
 import SideBar from './mods/sideBar';
 import ToolBar from './mods/toolBar';
@@ -32,17 +32,15 @@ const Core: React.FC<IProps> = props => {
   };
 
   return (
-    <div className={styles.container}>
-      <Header flowChart={flowChart}/>
-      <div className={styles.body}>
-        <SideBar flowChart={flowChart}/>
-        <div className={styles.full}>
-          <ToolBar flowChart={flowChart}/>
-          <FlowChart onReady={onFlowChartReady}/>
-        </div>
-        <SettingBar flowChart={flowChart}/>
-      </div>
-    </div>
+    <Layout
+      flowChart={flowChart}
+      Header={Header}
+      SideBar={SideBar}
+      ToolBar={ToolBar}
+      SettingBar={SettingBar}
+    >
+      <FlowChart onReady={onFlowChartReady}/>
+    </Layout>
   );
 };
 

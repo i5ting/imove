@@ -16,7 +16,7 @@ enum Status {
 }
 
 interface IProps {
-  flowChart: Graph | undefined;
+  flowChart: Graph;
 }
 
 const PULSE_RATE = 10 * 1000;   // try to connect to local servet per 10 seconds 
@@ -30,12 +30,10 @@ const ConnectStatus: React.FC<IProps> = (props) => {
 
   // life
   useEffect(() => {
-    if(flowChart) {
-      confirmToSync();
-      const timer = setInterval(syncLocal, PULSE_RATE);
-      return () => clearInterval(timer);
-    }
-  }, [flowChart]);
+    confirmToSync();
+    const timer = setInterval(syncLocal, PULSE_RATE);
+    return () => clearInterval(timer);
+  }, []);
 
   // network
   const syncLocal = () => {
@@ -56,8 +54,7 @@ const ConnectStatus: React.FC<IProps> = (props) => {
         title: '本地连接成功，是否将数据同步至当前项目？',
         onOk() {
           try {
-            console.log(props.flowChart);
-            flowChart && flowChart.fromJSON(dsl);
+            flowChart.fromJSON(dsl);
           } catch(err) {
             message.error('同步失败！');
           }

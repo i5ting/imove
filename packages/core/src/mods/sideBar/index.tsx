@@ -28,11 +28,11 @@ interface IGroupItem {
   cells: string[];
 }
 
-interface ISideBarPorps {
-  flowChart: Graph | undefined;
+interface ISideBarProps {
+  flowChart: Graph;
 }
 
-const SideBar: React.FC<ISideBarPorps> = props => {
+const SideBar: React.FC<ISideBarProps> = props => {
 
   const {flowChart} = props;
   const [dnd, setDnd] = useState<Addon.Dnd>();
@@ -42,20 +42,16 @@ const SideBar: React.FC<ISideBarPorps> = props => {
   useEffect(() => {
     // TODO: fetch to get custom group data
     setGroups([GENERAL_GROUP]);
+    setDnd(new Dnd({target: flowChart, scaled: true}));
   }, []);
-  useEffect(() => {
-    if(flowChart) {
-      setDnd(new Dnd({target: flowChart, scaled: true}));
-    }
-  }, [flowChart]);
 
   return (
     <div className={styles.container}>
-      {flowChart && dnd && (
+      {dnd && (
         <Collapse className={styles.collapse} defaultActiveKey={['general', 'custom']}>
           {groups.map(group => (
             <Panel key={group.key} header={group.name}>
-              <PanelContent dnd={dnd} cells={group.cells} flowChart={flowChart}/>
+              <PanelContent dnd={dnd} cells={group.cells}/>
             </Panel>
           ))}
         </Collapse>
@@ -67,14 +63,13 @@ const SideBar: React.FC<ISideBarPorps> = props => {
 interface IPanelContentProps {
   dnd: Addon.Dnd;
   cells: string[];
-  flowChart: Graph;
 }
 
 const PanelContent: React.FC<IPanelContentProps> = props => {
-  const {dnd, cells, flowChart} = props;
+  const {dnd, cells} = props;
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if(ref.current && flowChart) {
+    if(ref.current) {
       const graph = new Graph({
         container: ref.current,
         width: ref.current.offsetWidth,
@@ -102,7 +97,7 @@ const PanelContent: React.FC<IPanelContentProps> = props => {
         dnd.start(newNode, e);
       });
     }
-  }, [flowChart]);
+  }, []);
   return <div className={styles.chart} ref={ref}/>;
 };
 
