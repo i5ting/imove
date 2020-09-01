@@ -30,10 +30,12 @@ const ConnectStatus: React.FC<IProps> = (props) => {
 
   // life
   useEffect(() => {
-    confirmToSync();
-    const timer = setInterval(syncLocal, PULSE_RATE);
-    return () => clearInterval(timer);
-  }, []);
+    if(flowChart) {
+      confirmToSync();
+      const timer = setInterval(syncLocal, PULSE_RATE);
+      return () => clearInterval(timer);
+    }
+  }, [flowChart]);
 
   // network
   const syncLocal = () => {
