@@ -8,13 +8,11 @@ const SHAPES = {
   BEHAVIOR: 'imove-behavior'
 }
 
-export default class Logic {
+export default class Logic extends EventEmitter{
 
   constructor(opts = {}) {
+    super();
     this.dsl = opts.dsl;
-    this.ctx = new Context();
-    this.events = new EventEmitter();
-    this.ctx.emit = this.events.emit.bind(this.events);
   }
 
   get cells() {
@@ -41,7 +39,7 @@ export default class Logic {
     }
   }
 
-  _getNextNode(curNode, lastRet) {
+  _getNextNode(ctx, curNode, lastRet) {
     for(const edge of this.edges) {
       let isMatched = edge.source.cell === curNode.id;
       // NOTE: if it is a imove-branch node, each port's condition should be tested whether it is matched
@@ -50,7 +48,7 @@ export default class Logic {
         const {ports} = curNode.data;
         for(const key in ports) {
           const {condition} = ports[key];
-          const ret = new Function('ctx', 'return ' + condition)(this.ctx);
+          const ret = new Function('ctx', 'return ' + condition)(ctx);
           if(ret === lastRet) {
             matchedPort = key;
             break;
@@ -65,12 +63,10 @@ export default class Logic {
     }
   }
 
-  _resetCtx(data) {
-    this.ctx._reset({payload: data});
-  }
-
-  _prepareCtx(node, lastRet) {
-    this.ctx._transitTo(node, lastRet);
+  _createCtx() {
+    const ctx = new Context();
+    ctx.emit = this.emit.bind(this);
+    return ctx;
   }
 
   async invoke(trigger, data) {
@@ -79,16 +75,13 @@ export default class Logic {
       return Promise.reject(`Invoke failed! No logic-start named ${trigger} found!`);
     }
     let lastRet;
-    this._resetCtx(data);
+    const ctx = this._createCtx();
+    ctx._reset({payload: data});
     while(curNode) {
-      this._prepareCtx(curNode, lastRet);
+      ctx._transitTo(curNode, lastRet);
       const fn = nodeFns[curNode.id];
-      lastRet = await fn(this.ctx);
-      curNode = this._getNextNode(curNode, lastRet);
+      lastRet = await fn(ctx);
+      curNode = this._getNextNode(ctx, curNode, lastRet);
     }
-  }
-
-  on(...args) {
-    this.events.on(...args);
   }
 }
