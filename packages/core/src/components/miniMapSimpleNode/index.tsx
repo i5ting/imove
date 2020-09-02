@@ -9,6 +9,10 @@ class MiniMapSimpleNode extends NodeView {
     });
   }
 
+  protected renderPorts() {
+    return null;
+  }
+
   update() {
     super.update({
       body: {
