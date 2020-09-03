@@ -12,6 +12,7 @@ import BgColor from './bgColor';
 import FontSize from './fontSize';
 import TextColor from './textColor';
 import LineColor from './lineColor';
+import LineStyle from './lineStyle';
 import Underline from './underline';
 import FitWindow from './fitWindow';
 import BringToTop from './bringToTop';
@@ -28,7 +29,7 @@ const tools: React.FC<IProps>[][] = [
   [Zoom],
   [FontSize, Bold, Italic, Underline, TextColor],
   [HorizontalAlign, VerticalAlign],
-  [BgColor, LineColor],
+  [BgColor, LineColor, LineStyle],
   [BringToTop, BringToBack]
 ];
 
