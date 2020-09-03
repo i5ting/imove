@@ -3,10 +3,11 @@ import React, {ReactElement} from 'react';
 import 'antd/es/menu/style';
 
 import {Menu} from 'antd';
-import {Graph, Cell} from '@antv/x6';
+import {Graph} from '@antv/x6';
 import {safeGet} from '../../../utils';
 import XIcon from '../../../components/xIcon';
-import makeDropdownWidget from './makeDropdownWidget';
+import makeDropdownWidget from './common/makeDropdownWidget';
+import {hasEdgeSelected, getSelectedEdges} from '../../../utils/flowChartUtils';
 
 interface IProps {
   flowChart: Graph;
@@ -45,9 +46,9 @@ const LineStyle: React.FC<IProps> = makeDropdownWidget({
   tooltip: '线条样式',
   getIcon(flowChart: Graph) {
     let lineType = 'straight';
-    const cells = flowChart.getSelectedCells();
-    if(cells.length > 0) {
-      lineType = safeGet(cells, '0.attrs.line.type', 'straight');
+    const edges = getSelectedEdges(flowChart);
+    if(edges.length > 0) {
+      lineType = safeGet(edges, '0.attrs.line.type', 'straight');
     }
     return LINE_STYLE_MAP[lineType].icon;
   },
@@ -64,15 +65,10 @@ const LineStyle: React.FC<IProps> = makeDropdownWidget({
     );
   },
   handler: (flowChart: Graph, value: any) => {
-    const edges = flowChart.getSelectedCells().filter((cell: Cell) => cell.isEdge());
-    if(edges.length > 0) {
-      edges.forEach(edge => edge.setAttrs({line: value}));
-      flowChart.trigger('toolBar:forceUpdate');
-    }
+    getSelectedEdges(flowChart).forEach(edge => edge.setAttrs({line: value}));
   },
   disabled(flowChart: Graph) {
-    const edges = flowChart.getSelectedCells().filter((cell: Cell) => cell.isEdge());
-    return edges.length === 0;
+    return !hasEdgeSelected(flowChart);
   },
 });
 

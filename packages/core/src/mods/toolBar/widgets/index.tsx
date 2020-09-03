@@ -11,12 +11,12 @@ import Italic from './italic';
 import BgColor from './bgColor';
 import FontSize from './fontSize';
 import TextColor from './textColor';
-import LineColor from './lineColor';
 import LineStyle from './lineStyle';
 import Underline from './underline';
 import FitWindow from './fitWindow';
 import BringToTop from './bringToTop';
 import BringToBack from './bringToBack';
+import BorderColor from './borderColor';
 import VerticalAlign from './verticalAlign';
 import HorizontalAlign from './horizontalAlign';
 
@@ -27,9 +27,9 @@ interface IProps {
 const tools: React.FC<IProps>[][] = [
   [Save, FitWindow, Undo, Redo],
   [Zoom],
-  [FontSize, Bold, Italic, Underline, TextColor],
+  [FontSize, Bold, Italic, Underline],
+  [TextColor, BgColor, BorderColor, LineStyle],
   [HorizontalAlign, VerticalAlign],
-  [BgColor, LineColor, LineStyle],
   [BringToTop, BringToBack]
 ];
 

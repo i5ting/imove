@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Graph} from '@antv/x6';
-import makeBtnWidget from './makeBtnWidget';
+import makeBtnWidget from './common/makeBtnWidget';
 import {FullscreenExitOutlined} from '@ant-design/icons';
 
 interface IProps {

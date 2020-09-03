@@ -5,7 +5,7 @@ import 'antd/es/menu/style';
 import {Menu} from 'antd';
 import {Graph} from '@antv/x6';
 import {safeGet} from '../../../utils';
-import makeDropdownWidget from './makeDropdownWidget';
+import makeDropdownWidget from './common/makeDropdownWidget';
 
 interface IProps {
   flowChart: Graph
@@ -38,11 +38,7 @@ const FontSize: React.FC<IProps> = makeDropdownWidget({
     );
   },
   handler: (flowChart: Graph, value: any) => {
-    const cells = flowChart.getSelectedCells();
-    if(cells.length > 0) {
-      cells.forEach(cell => cell.setAttrs({label: {fontSize: value}}));
-      flowChart.trigger('toolBar:forceUpdate');
-    }
+    flowChart.getSelectedCells().forEach(cell => cell.setAttrs({label: {fontSize: value}}));
   },
   disabled(flowChart: Graph) {
     return flowChart.getSelectedCellCount() === 0;

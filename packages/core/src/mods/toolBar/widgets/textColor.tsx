@@ -6,21 +6,26 @@ import styles from './index.module.less';
 import {Graph} from '@antv/x6';
 import {safeGet} from '../../../utils';
 import XIcon from '../../../components/xIcon';
-import makeDropdownWidget from './makeDropdownWidget';
 import ColorPicker from '../../../components/colorPicker';
+import makeDropdownWidget from './common/makeDropdownWidget';
+import {hasNodeSelected, getSelectedNodes} from '../../../utils/flowChartUtils';
 
 interface IProps {
   flowChart: Graph;
 }
 
-const TextColor: React.FC<IProps> = makeDropdownWidget({
+const options = {
   tooltip: '文本颜色',
-  getIcon(flowChart: Graph) {
+  getCurTextColor(flowChart: Graph) {
     let textColor = '#DDD';
-    const cells = flowChart.getSelectedCells();
-    if(cells.length > 0) {
-      textColor = safeGet(cells, '0.attrs.label.fill', '#575757');
+    const nodes = getSelectedNodes(flowChart);
+    if(nodes.length > 0) {
+      textColor = safeGet(nodes, '0.attrs.label.fill', '#575757');
     }
+    return textColor;
+  },
+  getIcon(flowChart: Graph) {
+    const textColor = options.getCurTextColor(flowChart);
     return (
       <div className={styles.textColorContainer}>
         <XIcon className={styles.textIcon} type={'icon-A'}/>
@@ -29,26 +34,20 @@ const TextColor: React.FC<IProps> = makeDropdownWidget({
     );
   },
   getOverlay(flowChart: Graph, onChange: (data: any) => void) {
-    let textColor = '#DDD';
-    const cells = flowChart.getSelectedCells();
-    if(cells.length > 0) {
-      textColor = safeGet(cells, '0.attrs.label.fill', '#575757');
-    }
+    const textColor = options.getCurTextColor(flowChart);
     const onChangeComplete = (color: string) => onChange(color);
     return (
       <ColorPicker color={textColor} onChangeComplete={onChangeComplete}/>
     );
   },
   handler: (flowChart: Graph, value: any) => {
-    const cells = flowChart.getSelectedCells();
-    if(cells.length > 0) {
-      cells.forEach(cell => cell.setAttrs({label: {fill: value}}));
-      flowChart.trigger('toolBar:forceUpdate');
-    }
+    flowChart.getSelectedCells().forEach(node => node.setAttrs({label: {fill: value}}));
   },
   disabled(flowChart: Graph) {
-    return flowChart.getSelectedCellCount() === 0;
+    return !hasNodeSelected(flowChart);
   },
-});
+};
+
+const TextColor: React.FC<IProps> = makeDropdownWidget(options);
 
 export default TextColor;

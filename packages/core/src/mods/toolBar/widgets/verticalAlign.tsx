@@ -5,7 +5,8 @@ import 'antd/es/menu/style';
 import {Menu} from 'antd';
 import {Graph} from '@antv/x6';
 import {safeGet} from '../../../utils';
-import makeDropdownWidget from './makeDropdownWidget';
+import makeDropdownWidget from './common/makeDropdownWidget';
+import {hasNodeSelected, getSelectedNodes} from '../../../utils/flowChartUtils';
 import {VerticalAlignTopOutlined, VerticalAlignMiddleOutlined, VerticalAlignBottomOutlined} from '@ant-design/icons';
 
 interface IProps {
@@ -69,9 +70,9 @@ const VerticalAlign: React.FC<IProps> = makeDropdownWidget({
   tooltip: '垂直对齐',
   getIcon(flowChart: Graph) {
     let alignType = 'center';
-    const cells = flowChart.getSelectedCells();
-    if(cells.length > 0) {
-      alignType = safeGet(cells, '0.attrs.label.align.vertical', 'center');
+    const nodes = getSelectedNodes(flowChart);
+    if(nodes.length > 0) {
+      alignType = safeGet(nodes, '0.attrs.label.align.vertical', 'center');
     }
     return ALIGN_MAP[alignType].icon;
   },
@@ -88,14 +89,10 @@ const VerticalAlign: React.FC<IProps> = makeDropdownWidget({
     );
   },
   handler: (flowChart: Graph, value: any) => {
-    const cells = flowChart.getSelectedCells();
-    if(cells.length > 0) {
-      cells.forEach(cell => cell.setAttrs({label: value}));
-      flowChart.trigger('toolBar:forceUpdate');
-    }
+    getSelectedNodes(flowChart).forEach(node => node.setAttrs({label: value}));
   },
   disabled(flowChart: Graph) {
-    return flowChart.getSelectedCellCount() === 0;
+    return !hasNodeSelected(flowChart);
   },
 });
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Graph} from '@antv/x6';
 import {safeGet} from '../../../utils';
-import makeBtnWidget from './makeBtnWidget';
+import makeBtnWidget from './common/makeBtnWidget';
 import {ItalicOutlined} from '@ant-design/icons';
 import shortcuts from '../../../common/shortcuts';
 

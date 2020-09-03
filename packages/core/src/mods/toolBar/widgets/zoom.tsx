@@ -3,8 +3,8 @@ import React, {useState, useEffect} from 'react';
 import styles from './index.module.less';
 
 import {Graph} from '@antv/x6';
-import makeBtnWidget from './makeBtnWidget';
 import shortcuts from '../../../common/shortcuts';
+import makeBtnWidget from './common/makeBtnWidget';
 import {ZoomOutOutlined, ZoomInOutlined} from '@ant-design/icons';
 
 interface IProps {

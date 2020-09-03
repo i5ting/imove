@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react';
 
 import 'antd/es/tooltip/style';
 import 'antd/es/dropdown/style';
-import styles from './index.module.less';
+import styles from '../index.module.less';
 
 import {Graph} from '@antv/x6';
 import {Tooltip, Dropdown} from 'antd';

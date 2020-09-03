@@ -5,7 +5,7 @@ import styles from './index.module.less';
 
 import {Graph} from '@antv/x6';
 import {safeGet} from '../../../utils';
-import XIcon from '../../../components/xIcon';
+import {HighlightOutlined} from '@ant-design/icons';
 import ColorPicker from '../../../components/colorPicker';
 import makeDropdownWidget from './common/makeDropdownWidget';
 import {hasNodeSelected, getSelectedNodes} from '../../../utils/flowChartUtils';
@@ -15,39 +15,39 @@ interface IProps {
 }
 
 const options = {
-  tooltip: '填充颜色',
-  getCurBgColor(flowChart: Graph) {
-    let bgColor = '#DDD';
+  tooltip: '边框颜色',
+  getCurBorderColor(flowChart: Graph) {
+    let borderColor = '#DDD';
     const nodes = getSelectedNodes(flowChart);
     if(!options.disabled(flowChart) && nodes.length > 0) {
-      bgColor = safeGet(nodes, '0.attrs.body.fill', '#575757');
+      borderColor = safeGet(nodes, '0.attrs.body.stroke', '#333');
     }
-    return bgColor;
+    return borderColor;
   },
   getIcon(flowChart: Graph) {
-    const bgColor = options.getCurBgColor(flowChart);
+    const borderColor = options.getCurBorderColor(flowChart);
     return (
-      <div className={styles.bgColorContainer}>
-        <XIcon className={styles.fillIcon} type={'icon-tianchong'}/>
-        <div className={styles.colorPreview} style={{backgroundColor: bgColor}}/>
+      <div className={styles.borderColorContainer}>
+        <HighlightOutlined className={styles.borderColorIcon}/>
+        <div className={styles.colorPreview} style={{backgroundColor: borderColor}}/>
       </div>
     );
   },
   getOverlay(flowChart: Graph, onChange: (data: any) => void) {
-    const bgColor = options.getCurBgColor(flowChart);
+    const borderColor = options.getCurBorderColor(flowChart);    
     const onChangeComplete = (color: string) => onChange(color);
     return (
-      <ColorPicker color={bgColor} onChangeComplete={onChangeComplete}/>
+      <ColorPicker color={borderColor} onChangeComplete={onChangeComplete}/>
     );
   },
   handler: (flowChart: Graph, value: any) => {
-    getSelectedNodes(flowChart).forEach(node => node.setAttrs({body: {fill: value}}));
+    getSelectedNodes(flowChart).forEach(node => node.setAttrs({body: {stroke: value}}));
   },
   disabled(flowChart: Graph) {
     return !hasNodeSelected(flowChart);
   },
 };
 
-const BgColor: React.FC<IProps> = makeDropdownWidget(options);
+const BorderColor: React.FC<IProps> = makeDropdownWidget(options);
 
-export default BgColor;
+export default BorderColor;

@@ -2,9 +2,9 @@ import React from 'react';
 
 import {Graph} from '@antv/x6';
 import {safeGet} from '../../../utils';
-import makeBtnWidget from './makeBtnWidget';
-import {UnderlineOutlined} from '@ant-design/icons';
 import shortcuts from '../../../common/shortcuts';
+import makeBtnWidget from './common/makeBtnWidget';
+import {UnderlineOutlined} from '@ant-design/icons';
 
 interface IProps {
   flowChart: Graph

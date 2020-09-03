@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
 
 import 'antd/es/tooltip/style';
-import styles from './index.module.less';
+import styles from '../index.module.less';
 
 import {Tooltip} from 'antd';
 import {Graph} from '@antv/x6';
