@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 
+import './global.index.less';
 import '@antv/x6/dist/x6.css';
 
 import {Graph} from '@antv/x6';

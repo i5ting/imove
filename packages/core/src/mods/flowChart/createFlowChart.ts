@@ -20,7 +20,7 @@ const registerEvents = (flowChart: Graph): void => {
     flowChart.trigger('toolBar:forceUpdate');
     flowChart.trigger('settingBar:forceUpdate');
   });
-  flowChart.on("edge:connected", (args) => {
+  flowChart.on('edge:connected', (args) => {
     const edge = args.edge as Edge;
     const sourceNode = edge.getSourceNode() as Node;
     if(sourceNode && sourceNode.shape === 'imove-branch') {
