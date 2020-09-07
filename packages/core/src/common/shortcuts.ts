@@ -1,6 +1,6 @@
-import {Graph} from '@antv/x6';
 import {safeGet} from '../utils';
 import {localSave} from '../api';
+import {Cell, Edge, Graph, Node} from '@antv/x6';
 
 interface Shortcut {
   keys: string | string[];
@@ -73,6 +73,25 @@ const shortcuts: {[key: string]: Shortcut} = {
   delete: {
     keys: ['backspace', 'del'],
     handler(flowChart: Graph) {
+      const toDelCells = flowChart.getSelectedCells();
+      const onEdgeDel = (edge: Edge) => {
+        const srcNode = edge.getSourceNode() as Node;
+        const isSrcNodeInDelCells = !!toDelCells.find(c => c === srcNode);
+        if(srcNode && srcNode.shape === 'imove-branch' && !isSrcNodeInDelCells) {
+          const portId = edge.getSourcePortId();
+          if(portId === 'right' || portId === 'bottom') {
+            const edgeLabel = safeGet(edge.getLabelAt(0), 'attrs.label.text', '');
+            srcNode.setPortProp(portId, 'attrs/text/text', edgeLabel);
+          }
+        }
+      };
+      toDelCells.forEach((cell: Cell) => {
+        if(cell.isEdge()) {
+          onEdgeDel(cell);
+        } else {
+          flowChart.getConnectedEdges(cell).forEach(onEdgeDel);
+        }
+      });
       flowChart.removeCells(flowChart.getSelectedCells());
       flowChart.trigger('toolBar:forceUpdate');
       return false;

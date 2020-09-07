@@ -1,8 +1,8 @@
-import {Graph, Cell} from '@antv/x6';
-import shortcuts from '../common/shortcuts';
-import baseCellSchemaMap from '../common/baseCell';
-import previewCellSchemaMap from '../common/previewCell';
-import MiniMapSimpleNode from '../components/miniMapSimpleNode';
+import shortcuts from '../../common/shortcuts';
+import {Cell, Edge, Graph, Node} from '@antv/x6';
+import baseCellSchemaMap from '../../common/baseCell';
+import previewCellSchemaMap from '../../common/previewCell';
+import MiniMapSimpleNode from '../../components/miniMapSimpleNode';
 
 // X6 register base/preview cell shape
 [baseCellSchemaMap, previewCellSchemaMap]
@@ -11,13 +11,37 @@ import MiniMapSimpleNode from '../components/miniMapSimpleNode';
     base.define(rest);
   }));
 
-const createGraph = (container: HTMLDivElement, miniMapContainer: HTMLDivElement): Graph => {
+const registerEvents = (flowChart: Graph): void => {
+  flowChart.on('node:added', (args) => {
+    flowChart.cleanSelection();
+    flowChart.select(args.cell);
+  });
+  flowChart.on('selection:changed', () => {
+    flowChart.trigger('toolBar:forceUpdate');
+    flowChart.trigger('settingBar:forceUpdate');
+  });
+  flowChart.on("edge:connected", (args) => {
+    const edge = args.edge as Edge;
+    const sourceNode = edge.getSourceNode() as Node;
+    if(sourceNode && sourceNode.shape === 'imove-branch') {
+      const portId = edge.getSourcePortId();
+      if(portId === 'right' || portId === 'bottom') {
+        edge.setLabelAt(0, sourceNode.getPortProp(portId, 'attrs/text/text'));
+        sourceNode.setPortProp(portId, 'attrs/text/text', '');
+      }
+    }
+  });
+};
 
-  // NOTE: calculate the width/height ratio of flowchart
-  const ratio = container.offsetWidth / container.offsetHeight;
+const registerShortcuts = (flowChart: Graph): void => {
+  Object.values(shortcuts).forEach(shortcut => {
+    const {keys, handler} = shortcut;
+    flowChart.bindKey(keys, () => handler(flowChart));
+  });
+};
 
-  // create graph instance
-  const graph = new Graph({
+const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivElement): Graph => {
+  const flowChart = new Graph({
     container,
     rotating: false,
     resizing: true,
@@ -66,7 +90,7 @@ const createGraph = (container: HTMLDivElement, miniMapContainer: HTMLDivElement
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/minimap
     minimap: {
-      width: 150 * ratio,
+      width: 150 * container.offsetWidth / container.offsetHeight,
       height: 150,
       minScale: 0.5,
       maxScale: 1.5,
@@ -92,14 +116,9 @@ const createGraph = (container: HTMLDivElement, miniMapContainer: HTMLDivElement
       enabled: true
     }
   });
+  registerEvents(flowChart);
+  registerShortcuts(flowChart);
+  return flowChart;
+};
 
-  // register shortcuts
-  Object.values(shortcuts).forEach(shortcut => {
-    const {keys, handler} = shortcut;
-    graph.bindKey(keys, () => handler(graph));
-  });
-
-  return graph;
-}
-
-export default createGraph;
+export default createFlowChart;

@@ -3,7 +3,7 @@ import React, {useRef, useEffect} from 'react';
 import styles from './index.module.less';
 
 import {Graph} from '@antv/x6';
-import createGraph from '../../utils/createGraph';
+import createFlowChart from './createFlowChart';
 
 interface IProps {
   onReady: (graph: Graph) => void;
@@ -15,7 +15,7 @@ const FlowChart: React.FC<IProps> = props => {
   const miniMapRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if(graphRef.current && miniMapRef.current) {
-      const graph = createGraph(graphRef.current, miniMapRef.current);
+      const graph = createFlowChart(graphRef.current, miniMapRef.current);
       onReady(graph);
     }
   }, []);

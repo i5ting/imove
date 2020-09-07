@@ -6,7 +6,7 @@ export const safeParse = (json: string): Object => {
   }
 };
 
-export const safeGet = (obj: any, keyChain: string, defaultVal: any): any => {
+export const safeGet = (obj: any, keyChain: string, defaultVal?: any): any => {
 
   if(typeof obj !== 'object' || obj === null) {
     return defaultVal;

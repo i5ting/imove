@@ -15,22 +15,9 @@ interface IProps {
 }
 
 const Core: React.FC<IProps> = props => {
-
   const {onSave} = props;
-  const [flowChart, setGraph] = useState<Graph>();
-
-  const onFlowChartReady = (flowChart: Graph): void => {
-    setGraph(flowChart);
-    flowChart.on('node:added', (args) => {
-      flowChart.cleanSelection();
-      flowChart.select(args.cell);
-    });
-    flowChart.on('selection:changed', () => {
-      flowChart.trigger('toolBar:forceUpdate');
-      flowChart.trigger('settingBar:forceUpdate');
-    });
-  };
-
+  const [flowChart, setFlowChart] = useState<Graph>();
+  const onFlowChartReady = (flowChart: Graph): void => setFlowChart(flowChart);
   return (
     <Layout
       flowChart={flowChart}

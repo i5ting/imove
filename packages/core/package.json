@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.0.6",
-    "@antv/x6": "^0.10.59",
+    "@antv/x6": "^0.10.63",
     "ace-builds": "^1.4.12",
     "antd": "^4.5.3",
     "react-ace": "^9.1.3",
