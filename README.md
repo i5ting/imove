@@ -3,7 +3,7 @@
 > 通过面向函数的流程可视化提高逻辑元件（ui、api）复用
 
 <center>
-    <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3874775950,1064987171&fm=26&gp=0.jpg" width="150px">
+    <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3874775950,1064987171&fm=26&gp=0.jpg" width="200px">
 </center>
 
 ## Features
