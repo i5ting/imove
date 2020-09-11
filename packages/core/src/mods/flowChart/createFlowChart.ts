@@ -51,11 +51,19 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
       snap: true,
       dangling: true,
       highlight: true,
+      anchor: 'center',
+      connectionPoint: 'anchor',
       router: {
         name: 'manhattan'
       },
-      validateConnection({sourceView, targetView}) {
-        return sourceView !== targetView;
+      validateConnection({sourceView, targetView, sourceMagnet, targetMagnet}) {
+        if(!sourceMagnet) {
+          return false;
+        } else if(!targetMagnet) {
+          return false;
+        } else {
+          return sourceView !== targetView;
+        }
       }
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/background
