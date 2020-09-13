@@ -31,6 +31,25 @@ const registerEvents = (flowChart: Graph): void => {
       }
     }
   });
+  flowChart.on('edge:mouseenter', (args) => {
+    const cell = args.cell as Cell;
+    cell.addTools([
+      {
+        name: 'target-arrowhead',
+        args: {
+          attrs: {
+            d: 'M -10.5 -6 1 0 -10.5 6 Z',
+            'stroke-width': 0,
+            fill: '#333'
+          }
+        }
+      }
+    ]);
+  });
+  flowChart.on('edge:mouseleave', (args) => {
+    const cell = args.cell as Cell;
+    cell.removeTools(['target-arrowhead']);
+  });
 };
 
 const registerShortcuts = (flowChart: Graph): void => {
