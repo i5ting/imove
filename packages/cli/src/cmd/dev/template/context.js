@@ -1,11 +1,12 @@
 export default class Context {
 
-  constructor() {
-    this.curNode = null;
+  constructor(opts) {
+    this._init(opts);
   }
 
-  _reset(opts = {}) {
+  _init(opts = {}) {
     const {payload = {}} = opts;
+    this.curNode = null;
     this.context = Object.create(null);
     this.payload = Object.freeze({...payload});
   }

@@ -2,6 +2,9 @@ import nodeFns from './nodeFns';
 import Context from './context';
 import EventEmitter from 'eventemitter3';
 
+const LIFECYCLE = [
+  'ctxCreated'
+];
 const SHAPES = {
   START: 'imove-start',
   BRANCH: 'imove-branch',
@@ -13,6 +16,7 @@ export default class Logic extends EventEmitter{
   constructor(opts = {}) {
     super();
     this.dsl = opts.dsl;
+    this.lifeCycleEvents = {};
   }
 
   get cells() {
@@ -31,9 +35,17 @@ export default class Logic extends EventEmitter{
     return this.cells.filter(cell => cell.shape === 'edge');
   }
 
-  _createCtx() {
-    const ctx = new Context();
+  _runLifecycleEvent(eventName, ctx) {
+    if(LIFECYCLE.indexOf(eventName) === -1) {
+      return console.warn(`Lifecycle ${eventName} is not supported!`);
+    }
+    this.lifeCycleEvents[eventName].forEach(fn => fn.call(this, ctx));
+  }
+
+  _createCtx(opts) {
+    const ctx = new Context(opts);
     ctx.emit = this.emit.bind(this);
+    this._runLifecycleEvent('ctxCreated', ctx);
     return ctx;
   }
 
@@ -72,6 +84,26 @@ export default class Logic extends EventEmitter{
     return nodes;
   }
 
+  use(plugin) {
+    if(typeof plugin !== 'object' || plugin === null) {
+      console.error('imove plugin must be an object.');
+      return;
+    }
+    for (let eventName in plugin) {
+      if(!plugin.hasOwnProperty(eventName)) {
+        continue;
+      }
+      if(LIFECYCLE.indexOf(eventName) === -1) {
+        console.warn(`Lifecycle ${eventName} is not supported in imove.`);
+        continue;
+      }
+      if(!this.lifeCycleEvents[eventName]) {
+        this.lifeCycleEvents[eventName] = [];
+      }
+      this.lifeCycleEvents[eventName].push(plugin[eventName]);
+    }
+  }
+
   async _execNode(ctx, curNode, lastRet) {
     ctx._transitTo(curNode, lastRet);
     const fn = nodeFns[curNode.id];
@@ -89,8 +121,7 @@ export default class Logic extends EventEmitter{
     if(!curNode) {
       return Promise.reject(`Invoke failed! No logic-start named ${trigger} found!`);
     }
-    const ctx = this._createCtx();
-    ctx._reset({payload: data});
+    const ctx = this._createCtx({payload: data});
     await this._execNode(ctx, curNode);
   }
 }
