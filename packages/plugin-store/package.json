@@ -1,0 +1,45 @@
+{
+  "name": "@imove/plugin-store",
+  "version": "0.0.1",
+  "description": "iMove plugin that supports persisting data",
+  "keywords": [
+    "imove",
+    "plugin",
+    "store"
+  ],
+  "author": "smallstonesk <575913857@qq.com>",
+  "homepage": "https://github.com/suanmei/iMove#readme",
+  "license": "MIT",
+  "main": "dist/core.common.js",
+  "module": "dist/core.esm.js",
+  "types": "dist/types/index.d.ts",
+  "directories": {
+    "dist": "dist"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suanmei/iMove.git"
+  },
+  "scripts": {
+    "prepublishOnly": "node scripts/prepublish.js",
+    "declare-type": "tsc --emitDeclarationOnly",
+    "build": "rollup -c & npm run declare-type",
+    "watch": "watch 'npm run build' ./src"
+  },
+  "bugs": {
+    "url": "https://github.com/suanmei/iMove/issues"
+  },
+  "devDependencies": {
+    "rollup": "^2.7.3",
+    "watch": "^1.0.2"
+  },
+  "dependencies": {
+  }
+}
