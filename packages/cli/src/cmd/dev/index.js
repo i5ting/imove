@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const Base = require('../base');
 const mergePkg = require('./mergePkg');
+const addPlugins = require('./addPlugins');
 const simplifyDSL = require('./simplifyDSL');
 const extractCodes = require('./extractCodes');
 const {createServer} = require('../../utils/server');
@@ -32,7 +33,7 @@ class Dev extends Base {
       await simplifyDSL(dsl, outputPath);
       await extractCodes(dsl, outputPath);
       await fs.copy(TPL_PATH, outputPath);
-      await addPlugons(plugins, outputPath);
+      await addPlugins(plugins, outputPath);
       await mergePkg(dsl, this.projectPath);
       await fs.outputFile(CACHE_DSL_FILE, JSON.stringify(dsl, null, 2));
       res.status(200).json({isCompiled: true}).end();
