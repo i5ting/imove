@@ -39,7 +39,7 @@ export default class Logic extends EventEmitter{
     if(LIFECYCLE.indexOf(eventName) === -1) {
       return console.warn(`Lifecycle ${eventName} is not supported!`);
     }
-    this.lifeCycleEvents[eventName].forEach(fn => fn.call(this, ctx));
+    this.lifeCycleEvents[eventName].forEach(fn => fn(ctx));
   }
 
   _createCtx(opts) {
@@ -84,9 +84,14 @@ export default class Logic extends EventEmitter{
     return nodes;
   }
 
-  use(plugin) {
+  use(pluginCreator) {
+    if(typeof pluginCreator !== 'function') {
+      console.error('imove plugin must be a function.');
+      return;
+    }
+    const plugin = pluginCreator(this);
     if(typeof plugin !== 'object' || plugin === null) {
-      console.error('imove plugin must be an object.');
+      console.error('imove plugin must return an object.');
       return;
     }
     for (let eventName in plugin) {
