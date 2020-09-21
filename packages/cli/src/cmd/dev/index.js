@@ -15,7 +15,7 @@ class Dev extends Base {
 
   save = async (req, res) => {
 
-    const {outputPath} = this.config;
+    const {outputPath, plugins} = this.config;
 
     // check outputPath whether exsited
     await fs.ensureDir(outputPath);
@@ -32,6 +32,7 @@ class Dev extends Base {
       await simplifyDSL(dsl, outputPath);
       await extractCodes(dsl, outputPath);
       await fs.copy(TPL_PATH, outputPath);
+      await addPlugons(plugins, outputPath);
       await mergePkg(dsl, this.projectPath);
       await fs.outputFile(CACHE_DSL_FILE, JSON.stringify(dsl, null, 2));
       res.status(200).json({isCompiled: true}).end();
