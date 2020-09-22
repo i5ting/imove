@@ -6,7 +6,7 @@ const INSERT_USE_PLUGINS_COMMENT = '\/\/ use plugins here';
 
 const setup = async (plugins, logicBasePath) => {
   const entryFilePath = path.join(logicBasePath, 'index.js');
-  const codes = await fs.readFile(entryFilePath);
+  const codes = await fs.readFile(entryFilePath, 'utf8');
   const modifiedContent = codes
     .replace(new RegExp(INSERT_IMPORT_PLUGINS_COMMENT), () => {
       return plugins
