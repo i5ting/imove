@@ -39,7 +39,9 @@ export default class Logic extends EventEmitter{
     if(LIFECYCLE.indexOf(eventName) === -1) {
       return console.warn(`Lifecycle ${eventName} is not supported!`);
     }
-    this.lifeCycleEvents[eventName].forEach(fn => fn(ctx));
+    if(this.lifeCycleEvents[eventName]) {
+      this.lifeCycleEvents[eventName].forEach(fn => fn(ctx));
+    }
   }
 
   _createCtx(opts) {
@@ -57,7 +59,7 @@ export default class Logic extends EventEmitter{
     }
   }
 
-  _getNextNodes(ctx, curNode, lastRet) {
+  _getNextNodes(ctx, curNode, curRet) {
     const nodes = [];
     for(const edge of this.edges) {
       let isMatched = edge.source.cell === curNode.id;
@@ -68,7 +70,7 @@ export default class Logic extends EventEmitter{
         for(const key in ports) {
           const {condition} = ports[key];
           const ret = new Function('ctx', 'return ' + condition)(ctx);
-          if(ret === lastRet) {
+          if(ret === Boolean(curRet)) {
             matchedPort = key;
             break;
           }
@@ -112,8 +114,11 @@ export default class Logic extends EventEmitter{
   async _execNode(ctx, curNode, lastRet) {
     ctx._transitTo(curNode, lastRet);
     const fn = nodeFns[curNode.id];
-    lastRet = await fn(ctx);
-    const nextNodes = this._getNextNodes(ctx, curNode, lastRet);
+    const curRet = await fn(ctx);
+    if(curNode.shape !== SHAPES.BRANCH) {
+      lastRet = curRet;
+    }
+    const nextNodes = this._getNextNodes(ctx, curNode, curRet);
     if(nextNodes.length > 0) {
       nextNodes.forEach(async node => {
         await this._execNode(ctx, node, lastRet);

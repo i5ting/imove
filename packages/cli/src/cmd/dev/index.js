@@ -16,7 +16,7 @@ class Dev extends Base {
 
   save = async (req, res) => {
 
-    const {outputPath, plugins} = this.config;
+    const {outputPath, plugins = []} = this.config;
 
     // check outputPath whether exsited
     await fs.ensureDir(outputPath);
@@ -40,7 +40,7 @@ class Dev extends Base {
       console.log('compile successfully!');
     } catch(err) {
       res.status(500).json({isCompiled: false}).end();
-      console.log('compile failed! the error is:', err.message);
+      console.log('compile failed! the error is:', err);
     }
   }
 
