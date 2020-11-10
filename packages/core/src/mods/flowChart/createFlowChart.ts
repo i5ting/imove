@@ -64,7 +64,11 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
     container,
     rotating: false,
     resizing: true,
-    clipboard: true,
+    // https://x6.antv.vision/zh/docs/tutorial/basic/clipboard
+    clipboard: {
+      enabled: true,
+      useLocalStorage: true
+    },
     // https://x6.antv.vision/zh/docs/tutorial/intermediate/connector
     connecting: {
       snap: true,
