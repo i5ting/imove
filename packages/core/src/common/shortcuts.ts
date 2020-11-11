@@ -1,15 +1,12 @@
 import {safeGet} from '../utils';
 import {localSave} from '../api';
 import {Cell, Edge, Graph, Node} from '@antv/x6';
+import {MIN_ZOOM, MAX_ZOOM, ZOOM_STEP} from './const';
 
 interface Shortcut {
   keys: string | string[];
   handler: (flowChart: Graph) => void;
 }
-
-const MIN_ZOOM = 0.5;
-const MAX_ZOOM = 1.5;
-const ZOOM_STEP = 0.1;
 
 const shortcuts: {[key: string]: Shortcut} = {
   save: {

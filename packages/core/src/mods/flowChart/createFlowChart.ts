@@ -1,5 +1,6 @@
 import shortcuts from '../../common/shortcuts';
 import {Cell, Edge, Graph, Node} from '@antv/x6';
+import {MIN_ZOOM, MAX_ZOOM} from '../../common/const';
 import baseCellSchemaMap from '../../common/baseCell';
 import previewCellSchemaMap from '../../common/previewCell';
 import MiniMapSimpleNode from '../../components/miniMapSimpleNode';
@@ -123,8 +124,8 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
     minimap: {
       width: 150 * container.offsetWidth / container.offsetHeight,
       height: 150,
-      minScale: 0.5,
-      maxScale: 1.5,
+      minScale: MIN_ZOOM,
+      maxScale: MAX_ZOOM,
       enabled: true,
       scalable: false,
       container: miniMapContainer,
@@ -145,7 +146,13 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
     // https://x6.antv.vision/zh/docs/tutorial/basic/scroller
     scroller: {
       enabled: true
-    }
+    },
+    mousewheel: {
+      enabled: true,
+      minScale: MIN_ZOOM,
+      maxScale: MAX_ZOOM,
+      modifiers: ['ctrl', 'meta']
+    },
   });
   registerEvents(flowChart);
   registerShortcuts(flowChart);
