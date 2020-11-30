@@ -1,8 +1,11 @@
-import React, {useRef, useEffect} from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import styles from './index.module.less';
 
-import {Graph} from '@antv/x6';
+import { message } from 'antd';
+import { Graph } from '@antv/x6';
+import { queryGraph } from '../../api';
+import { parseQuery } from '../../utils';
 import createFlowChart from './createFlowChart';
 
 interface IProps {
@@ -10,15 +13,29 @@ interface IProps {
 }
 
 const FlowChart: React.FC<IProps> = props => {
+
   const {onReady} = props;
   const graphRef = useRef<HTMLDivElement>(null);
   const miniMapRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    if(graphRef.current && miniMapRef.current) {
+    if (graphRef.current && miniMapRef.current) {
       const graph = createFlowChart(graphRef.current, miniMapRef.current);
       onReady(graph);
+      fetchData(graph);
     }
   }, []);
+
+  const fetchData = (graph: Graph) => {
+    const { projectId } = parseQuery();
+    queryGraph(projectId as string).then(res => {
+      const { data: dsl } = res;
+      graph.fromJSON(dsl);
+    }).catch(err => {
+      message.error(err.msg);
+    });
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.flowChart} ref={graphRef}/>

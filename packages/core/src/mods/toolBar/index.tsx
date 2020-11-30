@@ -5,6 +5,7 @@ import styles from './index.module.less';
 
 import {Graph} from '@antv/x6';
 import widgets from './widgets';
+import ModifyStatus from './widgets/modifyStatus';
 
 interface IProps {
   flowChart: Graph;
@@ -31,6 +32,7 @@ const ToolBar: React.FC<IProps> = props => {
           })}
         </div>
       ))}
+      <ModifyStatus flowChart={flowChart}/>
     </div>
   );
 };

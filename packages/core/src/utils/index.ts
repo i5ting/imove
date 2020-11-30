@@ -1,3 +1,5 @@
+import { parse } from 'query-string';
+
 export const safeParse = (json: string): Object => {
   try {
     return JSON.parse(json);
@@ -23,4 +25,15 @@ export const safeGet = (obj: any, keyChain: string, defaultVal?: any): any => {
   }
 
   return retVal;
+};
+
+const PARSE_CONFIG = {
+  skipNull: true,
+  skipEmptyString: true,
+  parseNumbers: false,
+  parseBooleans: false,
+};
+
+export const parseQuery = (): {[key: string]: any} => {
+  return parse(location.search, PARSE_CONFIG);
 };

@@ -3,6 +3,7 @@ import {Cell, Edge, Graph, Node} from '@antv/x6';
 import {MIN_ZOOM, MAX_ZOOM} from '../../common/const';
 import baseCellSchemaMap from '../../common/baseCell';
 import previewCellSchemaMap from '../../common/previewCell';
+import {registerServerStorage} from './registerServerStorage';
 import MiniMapSimpleNode from '../../components/miniMapSimpleNode';
 
 // X6 register base/preview cell shape
@@ -31,25 +32,6 @@ const registerEvents = (flowChart: Graph): void => {
         sourceNode.setPortProp(portId, 'attrs/text/text', '');
       }
     }
-  });
-  flowChart.on('edge:mouseenter', (args) => {
-    const cell = args.cell as Cell;
-    cell.addTools([
-      {
-        name: 'target-arrowhead',
-        args: {
-          attrs: {
-            d: 'M -10.5 -6 1 0 -10.5 6 Z',
-            'stroke-width': 0,
-            fill: '#333'
-          }
-        }
-      }
-    ]);
-  });
-  flowChart.on('edge:mouseleave', (args) => {
-    const cell = args.cell as Cell;
-    cell.removeTools(['target-arrowhead']);
   });
 };
 
@@ -156,6 +138,7 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
   });
   registerEvents(flowChart);
   registerShortcuts(flowChart);
+  registerServerStorage(flowChart);
   return flowChart;
 };
 
