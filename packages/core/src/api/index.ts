@@ -1,15 +1,56 @@
+import axios from 'axios';
+import { message} from 'antd';
+
 export interface ILocalConfig {
   ip: string;
   port: string;
 }
 
-export type ActionType = 'create' | 'update' | 'remove';
+export enum ActionType {
+  create = 'create',
+  update = 'update',
+  remove = 'remove'
+}
 
 export interface IModifyGraphAction {
   type: string;
   actionType: ActionType;
   data: any;
 }
+
+interface RequestConfig {
+  url: string;
+  method?: 'get' | 'post';
+  params?: {[key: string]: any};
+  headers?: {[key: string]: string};
+}
+
+const request = (function() {
+  const instance = axios.create();
+  instance.interceptors.response.use((response: any) => {
+    const {data} = response || {};
+    const {success, msg} = data || {};
+    if(success) {
+      return data;
+    } else {
+      message.error(msg);
+      return Promise.reject(data);
+    }
+  });
+  return (config: RequestConfig) => {
+    const {url, method = 'post', params, headers = {}} = config;
+    return instance.request({
+      url,
+      method,
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        ...headers
+      },
+      data: params,
+      timeout: 3000
+    });
+  };
+})();
 
 export const localConfig: ILocalConfig = {
   ip: '127.0.0.1',
@@ -37,29 +78,20 @@ export const localSave = (data: any) => {
 }
 
 export const queryGraph = (projectId: string) => {
-  return fetch('/api/queryGraph', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json;charset=utf-8'},
-    body: JSON.stringify({
+  return request({
+    url: '/api/queryGraph',
+    params: {
       projectId
-    })
-  }).then(res => res.json()).then(res => {
-    const {success} = res;
-    if(success) {
-      return res;
-    } else {
-      return Promise.reject(res);
     }
-  })
+  });
 }
 
 export const modifyGraph = (projectId: string, actions: IModifyGraphAction[]) => {
-  return fetch('/api/modifyGraph', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json;charset=utf-8'},
-    body: JSON.stringify({
+  return request({
+    url: '/api/modifyGraph',
+    params: {
       projectId,
       actions
-    })
+    }
   });
 }

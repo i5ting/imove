@@ -50,10 +50,10 @@ const save = (flowChart: Graph, type: string, actionType: ActionType, data: any)
 };
 
 type ActionEventMap = {[key: string]: string[]};
-const NODE_ACTION_EVENT_MAP: ActionEventMap = {
-  create: ['node:added'],
-  remove: ['node:removed'],
-  update: [
+const nodeActionEventMap: ActionEventMap = {
+  [ActionType.create]: ['node:added'],
+  [ActionType.remove]: ['node:removed'],
+  [ActionType.update]: [
     'node:moved',
     'node:resized',
     'node:rotated',
@@ -64,18 +64,18 @@ const NODE_ACTION_EVENT_MAP: ActionEventMap = {
   ]
 };
 
-const EDGE_ACTION_EVENT_MAP: ActionEventMap = {
-  create: ['edge:connected'],
-  remove: ['edge:removed'],
-  update: [
+const edgeActionEventMap: ActionEventMap = {
+  [ActionType.create]: ['edge:connected'],
+  [ActionType.remove]: ['edge:removed'],
+  [ActionType.update]: [
     'edge:moved',
   ]
 };
 
 export const registerServerStorage = (flowChart: Graph) => {
 
-  Object.keys(NODE_ACTION_EVENT_MAP).forEach((actionType) => {
-    const events = NODE_ACTION_EVENT_MAP[actionType];
+  Object.keys(nodeActionEventMap).forEach((actionType) => {
+    const events = nodeActionEventMap[actionType];
     events.forEach(event => {
       flowChart.on(event, (args: any) => {
         console.log('node event:', event, 'args:', args);
@@ -84,8 +84,8 @@ export const registerServerStorage = (flowChart: Graph) => {
     });
   });
 
-  Object.keys(EDGE_ACTION_EVENT_MAP).forEach((actionType) => {
-    const events = EDGE_ACTION_EVENT_MAP[actionType];
+  Object.keys(edgeActionEventMap).forEach((actionType) => {
+    const events = edgeActionEventMap[actionType];
     events.forEach(event => {
       flowChart.on(event, (args: any) => {
         console.log('edge event:', event, 'args:', args);

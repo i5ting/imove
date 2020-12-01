@@ -40,6 +40,7 @@
     "@antv/x6": "^0.13.0",
     "ace-builds": "^1.4.12",
     "antd": "^4.5.3",
+    "axios": "^0.21.0",
     "lodash.merge": "^4.6.2",
     "query-string": "^6.13.7",
     "react-ace": "^9.1.3",

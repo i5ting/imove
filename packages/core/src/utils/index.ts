@@ -14,20 +14,20 @@ export const safeGet = (obj: any, keyChain: string, defaultVal?: any): any => {
     return defaultVal;
   }
 
-  let retVal = obj;
+  let val = obj;
   const keys = keyChain.split('.');
   for(const key of keys) {
-    if(retVal[key] === undefined) {
+    if(val[key] === undefined) {
       return defaultVal;
     } else {
-      retVal = retVal[key];
+      val = val[key];
     }
   }
 
-  return retVal;
+  return val;
 };
 
-const PARSE_CONFIG = {
+const parseConfig = {
   skipNull: true,
   skipEmptyString: true,
   parseNumbers: false,
@@ -35,5 +35,5 @@ const PARSE_CONFIG = {
 };
 
 export const parseQuery = (): {[key: string]: any} => {
-  return parse(location.search, PARSE_CONFIG);
+  return parse(location.search, parseConfig);
 };

@@ -32,7 +32,7 @@ const FlowChart: React.FC<IProps> = props => {
       const { data: dsl } = res;
       graph.fromJSON(dsl);
     }).catch(err => {
-      message.error(err.msg);
+      console.log('query graph data failed, the error is:', err);
     });
   };
 

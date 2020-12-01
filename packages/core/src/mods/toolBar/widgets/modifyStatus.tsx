@@ -15,8 +15,11 @@ interface IProps {
   flowChart: Graph
 }
 
-const STATUS_TEXT_MAP = {
-  [Status.pending]: '',
+const statusMap = {
+  [Status.pending]: {
+    color: '',
+    text: ''
+  },
   [Status.syncing]: {
     color: '#999',
     text: '正在保存...'
@@ -54,16 +57,12 @@ const ModifyStatus: React.FC<IProps> = (props) => {
     };
   }, []);
 
-  if(status === Status.pending) {
-    return null;
-  } else {
-    const {color, text} = STATUS_TEXT_MAP[status];
-    return (
-      <div className={styles.modifyStatusContainer}>
-        <span style={{color}}>{text}</span>
-      </div>
-    );
-  }
+  const {color, text} = statusMap[status];
+  return status === Status.pending ? null : (
+    <div className={styles.modifyStatusContainer}>
+      <span style={{color}}>{text}</span>
+    </div>
+  );
 };
 
 export default ModifyStatus;
