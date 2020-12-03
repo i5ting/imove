@@ -1,0 +1,47 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # 恢复缓存
+      - restore_cache:
+          key: node-modules-{{ checksum "package.json" }}
+      # 安装依赖
+      - run:
+          name: Install Dependencies
+          command: yarn --frozen-lockfile
+      # 格式化代码
+      - run:
+          name: Format Code
+          command: yarn lint
+      # 写缓存
+      - save_cache:
+          key: node-modules-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+            - ~/.cache/yarn
+      # 代码打包构建
+    #   - run:
+    #       name: Run Build
+    #       command: yarn build
+      # 跑单元测试代码
+      - run:
+          name: Run Tests
+          command: yarn test
+          no_output_timeout: 300m
+      # 跑端对端测试代码
+      - run:
+          name: Run E2E Tests
+          command: yarn e2e
+          no_output_timeout: 300m
+      # 集成文档
+      - run:
+          name: Generate Doc
+          command: yarn doc
+          no_output_timeout: 300m

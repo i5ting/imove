@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    /* Basic Options */
     "target": "esnext",
     "module": "commonjs",
     "allowJs": false,
