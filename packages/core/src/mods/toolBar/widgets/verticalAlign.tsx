@@ -1,13 +1,17 @@
-import React, {ReactElement} from 'react';
+import React, { ReactElement } from 'react';
 
 import 'antd/es/menu/style';
 
-import {Menu} from 'antd';
-import {Graph} from '@antv/x6';
-import {safeGet} from '../../../utils';
+import { Menu } from 'antd';
+import { Graph } from '@antv/x6';
+import { safeGet } from '../../../utils';
 import makeDropdownWidget from './common/makeDropdownWidget';
-import {hasNodeSelected, getSelectedNodes} from '../../../utils/flowChartUtils';
-import {VerticalAlignTopOutlined, VerticalAlignMiddleOutlined, VerticalAlignBottomOutlined} from '@ant-design/icons';
+import { hasNodeSelected, getSelectedNodes } from '../../../utils/flowChartUtils';
+import {
+  VerticalAlignTopOutlined,
+  VerticalAlignMiddleOutlined,
+  VerticalAlignBottomOutlined,
+} from '@ant-design/icons';
 
 interface IProps {
   flowChart: Graph;
@@ -22,48 +26,48 @@ interface AlignItem {
     textVerticalAlign: string;
     align: {
       vertical: string;
-    }
-  }
+    };
+  };
 }
 
 const MenuItem = Menu.Item;
-const ALIGN_MAP: {[key: string]: AlignItem} = {
+const ALIGN_MAP: { [key: string]: AlignItem } = {
   top: {
     text: '上对齐',
-    icon: <VerticalAlignTopOutlined/>,
+    icon: <VerticalAlignTopOutlined />,
     attrs: {
       refY: 0,
       refY2: 10,
       textVerticalAlign: 'start',
       align: {
-        vertical: 'top'
-      }
-    }
+        vertical: 'top',
+      },
+    },
   },
   center: {
     text: '居中对齐',
-    icon: <VerticalAlignMiddleOutlined/>,
+    icon: <VerticalAlignMiddleOutlined />,
     attrs: {
       refY: 0.5,
       refY2: 0,
       textVerticalAlign: 'middle',
       align: {
-        vertical: 'center'
-      }
-    }
+        vertical: 'center',
+      },
+    },
   },
   bottom: {
     text: '下对齐',
-    icon: <VerticalAlignBottomOutlined/>,
+    icon: <VerticalAlignBottomOutlined />,
     attrs: {
       refY: 0.99,
       refY2: -10,
       textVerticalAlign: 'end',
       align: {
-        vertical: 'bottom'
-      }
-    }
-  }
+        vertical: 'bottom',
+      },
+    },
+  },
 };
 
 const VerticalAlign: React.FC<IProps> = makeDropdownWidget({
@@ -71,14 +75,14 @@ const VerticalAlign: React.FC<IProps> = makeDropdownWidget({
   getIcon(flowChart: Graph) {
     let alignType = 'center';
     const nodes = getSelectedNodes(flowChart);
-    if(nodes.length > 0) {
+    if (nodes.length > 0) {
       alignType = safeGet(nodes, '0.attrs.label.align.vertical', 'center');
     }
     return ALIGN_MAP[alignType].icon;
   },
   getOverlay(flowChart: Graph, onChange: (data: any) => void) {
     return (
-      <Menu onClick={({key}) => onChange(ALIGN_MAP[key].attrs)}>
+      <Menu onClick={({ key }) => onChange(ALIGN_MAP[key].attrs)}>
         {Object.keys(ALIGN_MAP).map((alignType: string) => (
           <MenuItem key={alignType}>
             {ALIGN_MAP[alignType].icon}
@@ -89,7 +93,7 @@ const VerticalAlign: React.FC<IProps> = makeDropdownWidget({
     );
   },
   handler: (flowChart: Graph, value: any) => {
-    getSelectedNodes(flowChart).forEach(node => node.setAttrs({label: value}));
+    getSelectedNodes(flowChart).forEach((node) => node.setAttrs({ label: value }));
   },
   disabled(flowChart: Graph) {
     return !hasNodeSelected(flowChart);

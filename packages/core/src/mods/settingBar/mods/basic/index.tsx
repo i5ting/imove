@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styles from './index.module.less';
 
-import {Cell} from '@antv/x6';
+import { Cell } from '@antv/x6';
 import Json from '../../components/json';
 import Code from '../../components/code';
 import Input from '../../components/input';
@@ -19,11 +19,10 @@ interface IBasicData {
   configSchema: string;
 }
 
-const Basic: React.FC<IProps> = props => {
-
-  const {selectedCell} = props;
+const Basic: React.FC<IProps> = (props) => {
+  const { selectedCell } = props;
   const [data, setData] = useState<IBasicData>();
-  const {label, code, trigger, dependencies, configSchema} = data || {};
+  const { label, code, trigger, dependencies, configSchema } = data || {};
 
   // life
   useEffect(() => {
@@ -32,16 +31,16 @@ const Basic: React.FC<IProps> = props => {
 
   // events
   const commonChange = (key: string, val: string): void => {
-    selectedCell.setData({[key]: val});
-    setData(Object.assign({}, data, {[key]: val}));
+    selectedCell.setData({ [key]: val });
+    setData(Object.assign({}, data, { [key]: val }));
   };
   const onChangeLabel = (val: string): void => {
     commonChange('label', val);
-    selectedCell.setAttrs({label: {text: val}});
+    selectedCell.setAttrs({ label: { text: val } });
   };
   const onChangeConfigSchema = (val: string): void => {
     commonChange('configSchema', val);
-    selectedCell.trigger('change:configSchema', {configSchema: val});
+    selectedCell.trigger('change:configSchema', { configSchema: val });
   };
   const onChangeCode = (val: string): void => commonChange('code', val);
   const onChangeTrigger = (val: string): void => commonChange('trigger', val);
@@ -49,12 +48,7 @@ const Basic: React.FC<IProps> = props => {
 
   return (
     <div className={styles.container}>
-      <Input
-        name={'label'}
-        title={'显示名称'}
-        value={label}
-        onValueChange={onChangeLabel}
-      />
+      <Input name={'label'} title={'显示名称'} value={label} onValueChange={onChangeLabel} />
       {selectedCell.shape === 'imove-start' && (
         <Input
           name={'trigger'}
@@ -63,12 +57,7 @@ const Basic: React.FC<IProps> = props => {
           onValueChange={onChangeTrigger}
         />
       )}
-      <Code
-        name={'code'}
-        title={'代码'}
-        value={code}
-        onValueChange={onChangeCode}
-      />
+      <Code name={'code'} title={'代码'} value={code} onValueChange={onChangeCode} />
       <Json
         name={'configSchema'}
         title={'投放配置schema'}

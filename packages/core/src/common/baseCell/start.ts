@@ -1,4 +1,4 @@
-import {Shape} from '@antv/x6';
+import { Shape } from '@antv/x6';
 
 const schema = {
   base: Shape.Circle,
@@ -10,11 +10,11 @@ const schema = {
     body: {
       fill: '#333',
       strokeWidth: 1,
-      stroke: '#333'
+      stroke: '#333',
     },
     label: {
-      fill: '#FFF'
-    }
+      fill: '#FFF',
+    },
   },
   ports: {
     groups: {
@@ -26,7 +26,7 @@ const schema = {
             magnet: true,
             stroke: '#666',
             strokeWidth: 1,
-            fill: '#fff'
+            fill: '#fff',
           },
         },
       },
@@ -38,7 +38,7 @@ const schema = {
             magnet: true,
             stroke: '#666',
             strokeWidth: 1,
-            fill: '#fff'
+            fill: '#fff',
           },
         },
       },
@@ -50,7 +50,7 @@ const schema = {
             magnet: true,
             stroke: '#666',
             strokeWidth: 1,
-            fill: '#fff'
+            fill: '#fff',
           },
         },
       },
@@ -62,7 +62,7 @@ const schema = {
             magnet: true,
             stroke: '#666',
             strokeWidth: 1,
-            fill: '#fff'
+            fill: '#fff',
           },
         },
       },
@@ -70,21 +70,21 @@ const schema = {
     items: [
       {
         id: 'top',
-        group: 'top'
+        group: 'top',
       },
       {
         id: 'right',
-        group: 'right'
+        group: 'right',
       },
       {
         id: 'bottom',
-        group: 'bottom'
+        group: 'bottom',
       },
       {
         id: 'left',
-        group: 'left'
-      }
-    ]
+        group: 'left',
+      },
+    ],
   },
   data: {
     label: '开始',
@@ -92,8 +92,8 @@ const schema = {
     configData: {},
     trigger: 'start',
     dependencies: '{\n  \n}',
-    code: 'export default async function(ctx) {\n  \n}'
-  }
+    code: 'export default async function(ctx) {\n  \n}',
+  },
 };
 
 export default schema;

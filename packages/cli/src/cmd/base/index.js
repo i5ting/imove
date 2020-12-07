@@ -1,6 +1,5 @@
 class Base {
-
-  constructor({config}) {
+  constructor({ config }) {
     this._config = config;
     return this;
   }

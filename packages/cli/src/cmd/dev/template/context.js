@@ -1,14 +1,13 @@
 export default class Context {
-
   constructor(opts) {
     this._init(opts);
   }
 
   _init(opts = {}) {
-    const {payload = {}} = opts;
+    const { payload = {} } = opts;
     this.curNode = null;
     this.context = Object.create(null);
-    this.payload = Object.freeze({...payload});
+    this.payload = Object.freeze({ ...payload });
   }
 
   _transitTo(node, lastRet) {
@@ -38,7 +37,7 @@ export default class Context {
   }
 
   setContext(data = {}) {
-    Object.keys(data).forEach(key => {
+    Object.keys(data).forEach((key) => {
       this.context[key] = data[key];
     });
   }

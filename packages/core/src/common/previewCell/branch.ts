@@ -1,4 +1,4 @@
-import {Shape} from '@antv/x6';
+import { Shape } from '@antv/x6';
 
 const schema = {
   base: Shape.Polygon,
@@ -12,7 +12,7 @@ const schema = {
       strokeWidth: 2,
       stroke: '#333',
       fill: '#FFFC7C',
-      refPoints: '0,10 10,0 20,10 10,20'
+      refPoints: '0,10 10,0 20,10 10,20',
     },
     label: {
       refX: 0.5,
@@ -21,9 +21,9 @@ const schema = {
       fill: '#333',
       fontSize: 14,
       textAnchor: 'middle',
-      textVerticalAnchor: 'middle'
-    }
-  }
+      textVerticalAnchor: 'middle',
+    },
+  },
 };
 
 export default schema;

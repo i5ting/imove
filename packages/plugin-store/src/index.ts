@@ -15,9 +15,9 @@ const plugin = (logic: any) => {
         },
         remove(key: string) {
           delete logic[storeSymbol][key];
-        }
+        },
       };
-    }
+    },
   };
 };
 

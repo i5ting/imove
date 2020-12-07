@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Graph} from '@antv/x6';
+import { Graph } from '@antv/x6';
 
 import Save from './save';
 import Undo from './undo';
@@ -30,7 +30,7 @@ const tools: React.FC<IProps>[][] = [
   [FontSize, Bold, Italic, Underline],
   [TextColor, BgColor, BorderColor, LineStyle],
   [HorizontalAlign, VerticalAlign],
-  [BringToTop, BringToBack]
+  [BringToTop, BringToBack],
 ];
 
 export default tools;

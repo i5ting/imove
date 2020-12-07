@@ -3,20 +3,20 @@ const fs = require('fs-extra');
 
 const extractObj = (obj = {}, keys = []) => {
   const ret = {};
-  keys.forEach(key => ret[key] = obj[key]);
+  keys.forEach((key) => (ret[key] = obj[key]));
   return ret;
 };
 
 const simplify = (dsl) => {
-  const {cells = []} = dsl;
+  const { cells = [] } = dsl;
   return {
-    cells: cells.map(cell => {
-      if(cell.shape === 'edge') {
+    cells: cells.map((cell) => {
+      if (cell.shape === 'edge') {
         return extractObj(cell, ['id', 'shape', 'source', 'target']);
       } else {
         return extractObj(cell, ['id', 'shape', 'data']);
       }
-    })
+    }),
   };
 };
 

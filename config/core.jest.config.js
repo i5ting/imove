@@ -7,5 +7,6 @@ module.exports = {
   moduleFileExtensions: ['js', 'json', 'jsx', 'node'],
   testMatch: [
     "<rootDir>/__tests__/core/src/**/*.(spec|test).[jt]s?(x)"
-  ]
+  ],
+  preset: "jest-puppeteer"
 };

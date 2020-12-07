@@ -1,13 +1,13 @@
-import React, {ReactElement} from 'react';
+import React, { ReactElement } from 'react';
 
 import 'antd/es/menu/style';
 
-import {Menu} from 'antd';
-import {Graph} from '@antv/x6';
-import {safeGet} from '../../../utils';
+import { Menu } from 'antd';
+import { Graph } from '@antv/x6';
+import { safeGet } from '../../../utils';
 import XIcon from '../../../components/xIcon';
 import makeDropdownWidget from './common/makeDropdownWidget';
-import {hasEdgeSelected, getSelectedEdges} from '../../../utils/flowChartUtils';
+import { hasEdgeSelected, getSelectedEdges } from '../../../utils/flowChartUtils';
 
 interface IProps {
   flowChart: Graph;
@@ -19,27 +19,27 @@ interface LineStyleItem {
   attrs: {
     type: string;
     strokeDasharray: string;
-  }
+  };
 }
 
 const MenuItem = Menu.Item;
-const LINE_STYLE_MAP: {[key: string]: LineStyleItem} = {
+const LINE_STYLE_MAP: { [key: string]: LineStyleItem } = {
   straight: {
     text: '直线',
-    icon: <XIcon type={'icon-line'}/>,
+    icon: <XIcon type={'icon-line'} />,
     attrs: {
       type: 'straight',
-      strokeDasharray: '5, 0'
-    }
+      strokeDasharray: '5, 0',
+    },
   },
   dashed: {
     text: '虚线',
-    icon: <XIcon type={'icon-dash'}/>,
+    icon: <XIcon type={'icon-dash'} />,
     attrs: {
       type: 'dashed',
-      strokeDasharray: '5, 5'
-    }
-  }
+      strokeDasharray: '5, 5',
+    },
+  },
 };
 
 const LineStyle: React.FC<IProps> = makeDropdownWidget({
@@ -47,14 +47,14 @@ const LineStyle: React.FC<IProps> = makeDropdownWidget({
   getIcon(flowChart: Graph) {
     let lineType = 'straight';
     const edges = getSelectedEdges(flowChart);
-    if(edges.length > 0) {
+    if (edges.length > 0) {
       lineType = safeGet(edges, '0.attrs.line.type', 'straight');
     }
     return LINE_STYLE_MAP[lineType].icon;
   },
   getOverlay(flowChart: Graph, onChange: (data: any) => void) {
     return (
-      <Menu onClick={({key}) => onChange(LINE_STYLE_MAP[key].attrs)}>
+      <Menu onClick={({ key }) => onChange(LINE_STYLE_MAP[key].attrs)}>
         {Object.keys(LINE_STYLE_MAP).map((lineType: string) => (
           <MenuItem key={lineType}>
             {LINE_STYLE_MAP[lineType].icon}
@@ -65,7 +65,7 @@ const LineStyle: React.FC<IProps> = makeDropdownWidget({
     );
   },
   handler: (flowChart: Graph, value: any) => {
-    getSelectedEdges(flowChart).forEach(edge => edge.setAttrs({line: value}));
+    getSelectedEdges(flowChart).forEach((edge) => edge.setAttrs({ line: value }));
   },
   disabled(flowChart: Graph) {
     return !hasEdgeSelected(flowChart);

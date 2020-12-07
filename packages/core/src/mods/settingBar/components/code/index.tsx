@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import 'antd/es/modal/style';
 import 'antd/es/button/style';
 import styles from './index.module.less';
 
 import AceEditor from 'react-ace';
-import {Button, Modal} from 'antd';
+import { Button, Modal } from 'antd';
 import 'ace-builds/src-noconflict/theme-dracula';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/snippets/javascript';
@@ -18,9 +18,8 @@ interface IProps {
   onValueChange: (value: string) => void;
 }
 
-const Code: React.FC<IProps> = props => {
-
-  const {title, value, onValueChange} = props;
+const Code: React.FC<IProps> = (props) => {
+  const { title, value, onValueChange } = props;
   const [visible, setVisible] = useState<boolean>(false);
 
   // events
@@ -38,11 +37,7 @@ const Code: React.FC<IProps> = props => {
   return (
     <div className={styles.container}>
       <p className={styles.titleText}>{title}</p>
-      <Button
-        block={true}
-        className={styles.btn}
-        onClick={onClickEdit}
-      >
+      <Button block={true} className={styles.btn} onClick={onClickEdit}>
         编辑
       </Button>
       <EditModal
@@ -66,23 +61,22 @@ interface IEditorModalProps {
 
 const CODE_EDITOR_STYLE = {
   width: '100%',
-  height: 600
+  height: 600,
 };
 const CODE_EDITOR_OPTIONS = {
   fontSize: 14,
-  useWorker: false
+  useWorker: false,
 };
 
-const EditModal: React.FC<IEditorModalProps> = props => {
-
-  const {visible, title, value, onOk, onCancel} = props;
+const EditModal: React.FC<IEditorModalProps> = (props) => {
+  const { visible, title, value, onOk, onCancel } = props;
   const [code, setCode] = useState<string>(value);
 
   // life
   useEffect(() => {
     // set value when opening modal
     // clear content when closing modal
-    if(visible) {
+    if (visible) {
       setCode(value);
     } else {
       setCode('');
@@ -94,7 +88,7 @@ const EditModal: React.FC<IEditorModalProps> = props => {
     onOk(code);
   };
   const onChangeCode = (newCode: string): void => {
-    if(newCode !== code) {
+    if (newCode !== code) {
       setCode(newCode);
     }
   };

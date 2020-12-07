@@ -2,10 +2,10 @@ import start from './start';
 import branch from './branch';
 import behavior from './behavior';
 
-const cellSchemaMap: {[key: string]: any} = {
+const cellSchemaMap: { [key: string]: any } = {
   'imove-start': start,
   'imove-branch': branch,
-  'imove-behavior': behavior
+  'imove-behavior': behavior,
 };
 
 export default cellSchemaMap;

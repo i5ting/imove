@@ -12,20 +12,23 @@ const writeEntryFile = async (basePath, fileIds) => {
   const fileContent = [
     imports.join('\n'),
     `const nodeFns = {\n  ${funcMaps.join(',\n  ')}\n};`,
-    `export default nodeFns;`
+    'export default nodeFns;',
   ].join('\n');
   const entryFilePath = path.join(basePath, 'index.js');
-  await fs.outputFile(entryFilePath, fileContent, {encoding: 'utf8', flag:'w'});
+  await fs.outputFile(entryFilePath, fileContent, { encoding: 'utf8', flag: 'w' });
 };
 
 const writeNodeCodes = async (basePath, dsl) => {
   const fileIds = [];
-  const {cells = []} = dsl;
-  const nodes = cells.filter(cell => cell.shape !== 'edge');
-  for(const {id, data: {code}} of nodes) {
+  const { cells = [] } = dsl;
+  const nodes = cells.filter((cell) => cell.shape !== 'edge');
+  for (const {
+    id,
+    data: { code },
+  } of nodes) {
     fileIds.push(id);
     const filePath = path.join(basePath, id + '.js');
-    await fs.outputFile(filePath, code, {encoding: 'utf8', flag:'w'});
+    await fs.outputFile(filePath, code, { encoding: 'utf8', flag: 'w' });
   }
   return fileIds;
 };

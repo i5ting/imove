@@ -1,4 +1,4 @@
-import {Shape} from '@antv/x6';
+import { Shape } from '@antv/x6';
 
 const schema = {
   base: Shape.Rect,
@@ -10,12 +10,12 @@ const schema = {
   attrs: {
     body: {
       fill: '#AACCF7',
-      stroke: '#5E9CEE'
+      stroke: '#5E9CEE',
     },
     label: {
-      fill: '#333'
-    }
-  }
+      fill: '#333',
+    },
+  },
 };
 
 export default schema;

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import 'antd/es/modal/style';
 import 'antd/es/button/style';
@@ -7,8 +7,8 @@ import styles from './index.module.less';
 
 import AceEditor from 'react-ace';
 import JsonView from 'react-json-view';
-import {Button, Modal, message} from 'antd';
-import {safeParse} from '../../../../utils';
+import { Button, Modal, message } from 'antd';
+import { safeParse } from '../../../../utils';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/theme-dracula';
 import 'ace-builds/src-noconflict/snippets/json';
@@ -21,9 +21,8 @@ interface IJsonProps {
   onValueChange: (value: string) => void;
 }
 
-const Json: React.FC<IJsonProps> = props => {
-
-  const {title, value, onValueChange} = props;
+const Json: React.FC<IJsonProps> = (props) => {
+  const { title, value, onValueChange } = props;
   const [visible, setVisible] = useState<boolean>(false);
 
   // events
@@ -49,11 +48,7 @@ const Json: React.FC<IJsonProps> = props => {
         displayObjectSize={false}
         src={safeParse(value)}
       />
-      <Button
-        block={true}
-        className={styles.btn}
-        onClick={onClickEdit}
-      >
+      <Button block={true} className={styles.btn} onClick={onClickEdit}>
         编辑
       </Button>
       <EditModal
@@ -77,22 +72,21 @@ interface IEditorModalProps {
 
 const CODE_EDITOR_STYLE = {
   width: '100%',
-  height: 400
+  height: 400,
 };
 const CODE_EDITOR_OPTIONS = {
-  useWorker: false
+  useWorker: false,
 };
 
-const EditModal: React.FC<IEditorModalProps> = props => {
-
-  const {visible, title, value, onOk, onCancel} = props;
+const EditModal: React.FC<IEditorModalProps> = (props) => {
+  const { visible, title, value, onOk, onCancel } = props;
   const [json, setJson] = useState<string>('');
 
   // life
   useEffect(() => {
     // set value when opening modal
     // clear content when closing modal
-    if(visible) {
+    if (visible) {
       setJson(value);
     } else {
       setJson('');
@@ -104,13 +98,13 @@ const EditModal: React.FC<IEditorModalProps> = props => {
     try {
       JSON.parse(json);
       onOk(json);
-    } catch(err) {
+    } catch (error) {
       message.error('内容必须是合法json');
-      console.log('save failed, the error is:', err.message);
+      console.log('save failed, the error is:', error.message);
     }
   };
   const onChangeJson = (newJson: string): void => {
-    if(newJson !== json) {
+    if (newJson !== json) {
       setJson(newJson);
     }
   };

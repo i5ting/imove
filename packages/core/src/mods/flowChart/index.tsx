@@ -12,9 +12,8 @@ interface IProps {
   onReady: (graph: Graph) => void;
 }
 
-const FlowChart: React.FC<IProps> = props => {
-
-  const {onReady} = props;
+const FlowChart: React.FC<IProps> = (props) => {
+  const { onReady } = props;
   const graphRef = useRef<HTMLDivElement>(null);
   const miniMapRef = useRef<HTMLDivElement>(null);
 
@@ -28,18 +27,20 @@ const FlowChart: React.FC<IProps> = props => {
 
   const fetchData = (graph: Graph) => {
     const { projectId } = parseQuery();
-    queryGraph(projectId as string).then(res => {
-      const { data: dsl } = res;
-      graph.fromJSON(dsl);
-    }).catch(err => {
-      console.log('query graph data failed, the error is:', err);
-    });
+    queryGraph(projectId as string)
+      .then((res) => {
+        const { data: dsl } = res;
+        graph.fromJSON(dsl);
+      })
+      .catch((error) => {
+        console.log('query graph data failed, the error is:', error);
+      });
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.flowChart} ref={graphRef}/>
-      <div className={styles.miniMap} ref={miniMapRef}/>
+      <div className={styles.flowChart} ref={graphRef} />
+      <div className={styles.miniMap} ref={miniMapRef} />
     </div>
   );
 };

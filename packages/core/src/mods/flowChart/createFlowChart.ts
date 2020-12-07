@@ -1,17 +1,18 @@
 import shortcuts from '../../common/shortcuts';
-import {Cell, Edge, Graph, Node} from '@antv/x6';
-import {MIN_ZOOM, MAX_ZOOM} from '../../common/const';
+import { Cell, Edge, Graph, Node } from '@antv/x6';
+import { MIN_ZOOM, MAX_ZOOM } from '../../common/const';
 import baseCellSchemaMap from '../../common/baseCell';
 import previewCellSchemaMap from '../../common/previewCell';
-import {registerServerStorage} from './registerServerStorage';
+import { registerServerStorage } from './registerServerStorage';
 import MiniMapSimpleNode from '../../components/miniMapSimpleNode';
 
 // X6 register base/preview cell shape
-[baseCellSchemaMap, previewCellSchemaMap]
-  .forEach(schemas => Object.values(schemas).forEach(schema => {
-    const {base, ...rest} = schema;
+[baseCellSchemaMap, previewCellSchemaMap].forEach((schemas) =>
+  Object.values(schemas).forEach((schema) => {
+    const { base, ...rest } = schema;
     base.define(rest);
-  }));
+  })
+);
 
 const registerEvents = (flowChart: Graph): void => {
   flowChart.on('node:added', (args) => {
@@ -25,9 +26,9 @@ const registerEvents = (flowChart: Graph): void => {
   flowChart.on('edge:connected', (args) => {
     const edge = args.edge as Edge;
     const sourceNode = edge.getSourceNode() as Node;
-    if(sourceNode && sourceNode.shape === 'imove-branch') {
+    if (sourceNode && sourceNode.shape === 'imove-branch') {
       const portId = edge.getSourcePortId();
-      if(portId === 'right' || portId === 'bottom') {
+      if (portId === 'right' || portId === 'bottom') {
         edge.setLabelAt(0, sourceNode.getPortProp(portId, 'attrs/text/text'));
         sourceNode.setPortProp(portId, 'attrs/text/text', '');
       }
@@ -36,8 +37,8 @@ const registerEvents = (flowChart: Graph): void => {
 };
 
 const registerShortcuts = (flowChart: Graph): void => {
-  Object.values(shortcuts).forEach(shortcut => {
-    const {keys, handler} = shortcut;
+  Object.values(shortcuts).forEach((shortcut) => {
+    const { keys, handler } = shortcut;
     flowChart.bindKey(keys, () => handler(flowChart));
   });
 };
@@ -50,7 +51,7 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
     // https://x6.antv.vision/zh/docs/tutorial/basic/clipboard
     clipboard: {
       enabled: true,
-      useLocalStorage: true
+      useLocalStorage: true,
     },
     // https://x6.antv.vision/zh/docs/tutorial/intermediate/connector
     connecting: {
@@ -60,25 +61,25 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
       anchor: 'center',
       connectionPoint: 'anchor',
       router: {
-        name: 'manhattan'
+        name: 'manhattan',
       },
-      validateConnection({sourceView, targetView, sourceMagnet, targetMagnet}) {
-        if(!sourceMagnet) {
+      validateConnection({ sourceView, targetView, sourceMagnet, targetMagnet }) {
+        if (!sourceMagnet) {
           return false;
-        } else if(!targetMagnet) {
+        } else if (!targetMagnet) {
           return false;
         } else {
           return sourceView !== targetView;
         }
-      }
+      },
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/background
     background: {
-      color: '#f8f9fa'
+      color: '#f8f9fa',
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/grid
     grid: {
-      visible: true
+      visible: true,
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/selection
     selecting: {
@@ -86,25 +87,25 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
       multiple: true,
       rubberband: true,
       movable: true,
-      showNodeSelectionBox: true
+      showNodeSelectionBox: true,
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/snapline
     snapline: {
       enabled: true,
-      clean: 100
+      clean: 100,
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/keyboard
     keyboard: {
       enabled: true,
-      global: false
+      global: false,
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/history
     history: {
-      enabled: true
+      enabled: true,
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/minimap
     minimap: {
-      width: 150 * container.offsetWidth / container.offsetHeight,
+      width: (150 * container.offsetWidth) / container.offsetHeight,
       height: 150,
       minScale: MIN_ZOOM,
       maxScale: MAX_ZOOM,
@@ -114,7 +115,7 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
       graphOptions: {
         async: true,
         getCellView(cell: Cell) {
-          if(cell.isNode()){
+          if (cell.isNode()) {
             return MiniMapSimpleNode;
           }
         },
@@ -122,18 +123,18 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
           if (cell.isEdge()) {
             return null;
           }
-        }
-      }
+        },
+      },
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/scroller
     scroller: {
-      enabled: true
+      enabled: true,
     },
     mousewheel: {
       enabled: true,
       minScale: MIN_ZOOM,
       maxScale: MAX_ZOOM,
-      modifiers: ['ctrl', 'meta']
+      modifiers: ['ctrl', 'meta'],
     },
   });
   registerEvents(flowChart);

@@ -1,7 +1,6 @@
-import {NodeView} from '@antv/x6';
+import { NodeView } from '@antv/x6';
 
 class MiniMapSimpleNode extends NodeView {
-
   protected renderMarkup() {
     return this.renderJSONMarkup({
       tagName: 'rect',
@@ -19,7 +18,7 @@ class MiniMapSimpleNode extends NodeView {
         refWidth: '100%',
         refHeight: '100%',
         fill: '#D9D9D9',
-      }
+      },
     });
   }
 }

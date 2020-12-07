@@ -1,4 +1,4 @@
-import {Shape} from '@antv/x6';
+import { Shape } from '@antv/x6';
 
 const schema = {
   base: Shape.Circle,
@@ -11,11 +11,11 @@ const schema = {
     body: {
       strokeWidth: 0,
       stroke: '#333',
-      fill: '#333'
+      fill: '#333',
     },
     label: {
-      fill: '#FFF'
-    }
+      fill: '#FFF',
+    },
   },
 };
 

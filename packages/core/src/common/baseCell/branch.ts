@@ -1,4 +1,4 @@
-import {Shape} from '@antv/x6';
+import { Shape } from '@antv/x6';
 
 const schema = {
   base: Shape.Polygon,
@@ -10,7 +10,7 @@ const schema = {
       strokeWidth: 2,
       stroke: '#333',
       fill: '#FFFC7C',
-      refPoints: '0,10 10,0 20,10 10,20'
+      refPoints: '0,10 10,0 20,10 10,20',
     },
     label: {
       refX: 0.5,
@@ -19,8 +19,8 @@ const schema = {
       fill: '#333',
       fontSize: 14,
       textAnchor: 'middle',
-      textVerticalAnchor: 'middle'
-    }
+      textVerticalAnchor: 'middle',
+    },
   },
   ports: {
     groups: {
@@ -32,7 +32,7 @@ const schema = {
             magnet: true,
             stroke: '#666',
             strokeWidth: 1,
-            fill: '#fff'
+            fill: '#fff',
           },
         },
       },
@@ -45,12 +45,12 @@ const schema = {
             magnet: true,
             stroke: '#666',
             strokeWidth: 1,
-            fill: '#fff'
+            fill: '#fff',
           },
         },
         label: {
-          position: 'right'
-        }
+          position: 'right',
+        },
       },
       bottom: {
         zIndex: 999999999,
@@ -61,12 +61,12 @@ const schema = {
             magnet: true,
             stroke: '#666',
             strokeWidth: 1,
-            fill: '#fff'
+            fill: '#fff',
           },
         },
         label: {
-          position: 'bottom'
-        }
+          position: 'bottom',
+        },
       },
       left: {
         position: 'left',
@@ -76,7 +76,7 @@ const schema = {
             magnet: true,
             stroke: '#666',
             strokeWidth: 1,
-            fill: '#fff'
+            fill: '#fff',
           },
         },
       },
@@ -84,31 +84,31 @@ const schema = {
     items: [
       {
         id: 'top',
-        group: 'top'
+        group: 'top',
       },
       {
         id: 'right',
         group: 'right',
         attrs: {
           text: {
-            text: '是'
-          }
-        }
+            text: '是',
+          },
+        },
       },
       {
         id: 'bottom',
         group: 'bottom',
         attrs: {
           text: {
-            text: '否'
-          }
-        }
+            text: '否',
+          },
+        },
       },
       {
         id: 'left',
-        group: 'left'
-      }
-    ]
+        group: 'left',
+      },
+    ],
   },
   data: {
     label: '判断',
@@ -117,14 +117,14 @@ const schema = {
     dependencies: '{\n  \n}',
     ports: {
       right: {
-        condition: 'true'
+        condition: 'true',
       },
       bottom: {
-        condition: 'false'
-      }
+        condition: 'false',
+      },
     },
-    code: 'export default async function(ctx) {\n  return true;\n}'
-  }
+    code: 'export default async function(ctx) {\n  return true;\n}',
+  },
 };
 
 export default schema;

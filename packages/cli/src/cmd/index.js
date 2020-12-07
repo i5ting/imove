@@ -3,5 +3,5 @@ const Init = require('./init');
 
 module.exports = {
   dev: Dev,
-  init: Init
+  init: Init,
 };
