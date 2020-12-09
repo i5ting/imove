@@ -24,10 +24,10 @@ English | [简体中文](./README.zh-CN.md)
 Download this project, install dependencies and start the example.
 
 ```bash
-git clone https://github.com/imgcook/imove.git
-cd example
-npm install
-npm start
+$ git clone https://github.com/imgcook/imove.git
+$ cd example
+$ npm install
+$ npm start // run example server
 ```
 
 ### Step 2. Draw a flowchart
