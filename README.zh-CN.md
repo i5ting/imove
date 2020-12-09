@@ -1,5 +1,9 @@
 # iMove
 
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 <div align="center">
   <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3874775950,1064987171&fm=26&gp=0.jpg" width="200px">
 </div>
@@ -8,8 +12,7 @@
   iMove 是一个逻辑可复用的，面向函数的，流程可视化的 JavaScript 工具库。
 </p>
 
-[English](./README.md) | 简体中文
-
+[English](./README.en-US.md) | 简体中文
 
 ## 特性
 
@@ -60,3 +63,16 @@ $ npm start
 ## 协议
 
 本仓库遵循 [MIT 协议](http://www.opensource.org/licenses/MIT)
+
+## 贡献者 ✨
+
+感谢所有贡献的人 ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+本仓库遵循 [all-contributors](https://github.com/all-contributors/all-contributors) 规范，欢迎贡献!
