@@ -9,23 +9,23 @@
 </div>
 
 <p align="center">
-  iMove 是一个逻辑可复用的，面向函数的，流程可视化的 JavaScript 工具库。
+  iMove is a logic-reusable, function-oriented and process-visualized JavaScript tool library.
 </p>
 
 [English](./README.en-US.md) | 简体中文
 
 ## 特性
 
-- [x] **流程可视化**: 上手简单，绘图方便，逻辑表达更直观，易于理解
-- [x] **逻辑复用**: iMove 节点支持复用，单节点支持参数配置
-- [x] **灵活可扩展**: 仅需写一个函数，节点可扩展，支持插件集成
-- [ ] **多语言编译**: 无语言编译出码限制（例: 支持 JavaScript, Java 编译出码）
+- [x] **Process visualization:** iMove is easy to use and easy to draw. Its logical expression is more intuitive and easy to understand.
+- [x] **Logic re-usage:** iMove node supports multiplexing, and its single node supports parameter configuration.
+- [x] **Flexible**: We need to write an only function. The node can also be extended. iMove can alse support plug-in integration.
+- [ ] **Multi-language compilation**: There is no language compiling code limitation (example: support JavaScript, Java compiling code).
 
 ## 快速开始
 
 ### 步骤 1. 准备
 
-下载仓库，安装并启动
+Download this project, install dependencies and start the project.
 
 ```bash
 $ git clone https://github.com/imgcook/imove.git
@@ -36,13 +36,13 @@ $ npm start
 
 ### 步骤 2. 绘制流程图
 
-从左侧拖动节点至中央画布，绘制流程图
+Drag nodes from the left panel and drop them into the center, then we can get a flowchart.
 
 ![flowchart](https://img.alicdn.com/tfs/TB1aoYe4pP7gK0jSZFjXXc5aXXa-3090-1806.jpg)
 
 ### 步骤 3. 配置节点
 
-选择节点，修改节点名，编辑节点代码
+Select the node, modify its display name and complete the code.
 
 ![flowchart-usage1](https://img.alicdn.com/tfs/TB1z6DKoZieb18jSZFvXXaI3FXa-1924-1125.png)
 
@@ -58,7 +58,7 @@ $ npm start
 
 ## 欢迎fork和反馈
 
-如有建议或意见，欢迎在 github [issues](https://github.com/imgcook/imove/issues) 区提问
+If you have any suggestion, welcome to github to raise [issues](https://github.com/imgcook/imove/issues).
 
 ## 协议
 
@@ -66,7 +66,7 @@ $ npm start
 
 ## 贡献者 ✨
 
-感谢所有贡献的人 ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks goes to these excellent ([contributors](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
