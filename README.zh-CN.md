@@ -4,7 +4,12 @@
   <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3874775950,1064987171&fm=26&gp=0.jpg" width="200px">
 </div>
 
-iMove 是一个逻辑可复用的，面向函数的，流程可视化的 JavaScript 工具库。
+<p align="center">
+  iMove 是一个逻辑可复用的，面向函数的，流程可视化的 JavaScript 工具库。
+</p>
+
+[English](./README.md) | 简体中文
+
 
 ## 特性
 

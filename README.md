@@ -4,7 +4,11 @@
   <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3874775950,1064987171&fm=26&gp=0.jpg" width="200px">
 </div>
 
-iMove is a logic-reusable, function-oriented and process visualized JavaScript tool library.
+<p align="center">
+  iMove is a logic-reusable, function-oriented and process visualized JavaScript tool library.
+</p>
+
+English | [简体中文](./README.zh-CN.md)
 
 ## Features
 
