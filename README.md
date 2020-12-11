@@ -66,6 +66,8 @@ $ npm start
 
 ## 贡献者 ✨
 
+感谢 [蚂蚁 X6 团队](https://github.com/antvis/X6) 提供的绘图引擎
+
 感谢所有贡献的人 ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
