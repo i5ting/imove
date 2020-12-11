@@ -29,10 +29,9 @@ Download this project, install dependencies and start the project.
 
 ```bash
 $ git clone https://github.com/imgcook/imove.git
-$ cd ./imove/example
-$ npm install
-$ npm start
+$ npm run example
 ```
+Open http://localhost:8000/ and you can see the online effect.
 
 ### 步骤 2. 绘制流程图
 

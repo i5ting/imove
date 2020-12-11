@@ -29,10 +29,9 @@
 
 ```bash
 $ git clone https://github.com/imgcook/imove.git
-$ cd ./imove/example
-$ npm install
-$ npm start
+$ npm run example
 ```
+打开 http://localhost:8000/ ，就可以看到线上运行效果。
 
 ### 步骤 2. 绘制流程图
 
