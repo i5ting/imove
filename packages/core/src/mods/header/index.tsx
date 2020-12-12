@@ -3,6 +3,7 @@ import React from 'react';
 import styles from './index.module.less';
 
 import { Graph } from '@antv/x6';
+import ImportDSL from './importDSL';
 import ConnectStatus from './connectStatus';
 
 interface IProps {
@@ -14,7 +15,10 @@ const Header: React.FC<IProps> = (props) => {
   return (
     <div className={styles.container}>
       <span className={styles.titleText}>iMove</span>
-      <ConnectStatus flowChart={flowChart} />
+      <div className={styles.widgets}>
+        <ImportDSL flowChart={flowChart} />
+        <ConnectStatus flowChart={flowChart} />
+      </div>
     </div>
   );
 };
