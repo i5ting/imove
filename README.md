@@ -28,10 +28,11 @@
 下载仓库，安装并启动
 
 ```bash
-$ git clone https://github.com/imgcook/imove.git
+$ git clone git@github.com:imgcook/imove.git
+$ cd imove
 $ npm run example
 ```
-打开 http://localhost:8000/ ，就可以看到线上运行效果。
+此时浏览器会自动打开 `http://localhost:8000/` ，可以看到运行效果。
 
 ### 步骤 2. 绘制流程图
 
