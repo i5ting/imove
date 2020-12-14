@@ -1,0 +1,336 @@
+{
+  "default": [
+    {
+      "position": {
+        "x": 420,
+        "y": 90
+      },
+      "size": {
+        "width": 80,
+        "height": 40
+      },
+      "shape": "imove-behavior",
+      "data": {
+        "label": "处理",
+        "configSchema": "{\n  \n}",
+        "configData": {},
+        "dependencies": "{\n  \n}",
+        "code": "export default async function(ctx) {\n  \n}"
+      },
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "bottom": {
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "top",
+            "group": "top"
+          },
+          {
+            "id": "right",
+            "group": "right"
+          },
+          {
+            "id": "bottom",
+            "group": "bottom"
+          },
+          {
+            "id": "left",
+            "group": "left"
+          }
+        ]
+      },
+      "id": "81e87610-c749-4667-8382-00c62be30e2b",
+      "zIndex": 1
+    },
+    {
+      "position": {
+        "x": 86,
+        "y": 70
+      },
+      "size": {
+        "width": 80,
+        "height": 80
+      },
+      "shape": "imove-start",
+      "data": {
+        "label": "开始",
+        "configSchema": "{\n  \n}",
+        "configData": {},
+        "trigger": "start",
+        "dependencies": "{\n  \n}",
+        "code": "export default async function(ctx) {\n  \n}"
+      },
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "bottom": {
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "top",
+            "group": "top"
+          },
+          {
+            "id": "right",
+            "group": "right"
+          },
+          {
+            "id": "bottom",
+            "group": "bottom"
+          },
+          {
+            "id": "left",
+            "group": "left"
+          }
+        ]
+      },
+      "id": "de868d18-9ec0-4dac-abbe-5cb9e3c20e2f",
+      "zIndex": 2
+    },
+    {
+      "position": {
+        "x": 246,
+        "y": 90
+      },
+      "size": {
+        "width": 80,
+        "height": 40
+      },
+      "shape": "imove-branch",
+      "data": {
+        "label": "判断",
+        "configSchema": "{\n  \n}",
+        "configData": {},
+        "dependencies": "{\n  \n}",
+        "ports": {
+          "right": {
+            "condition": "true"
+          },
+          "bottom": {
+            "condition": "false"
+          }
+        },
+        "code": "export default async function(ctx) {\n  return true;\n}"
+      },
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "right": {
+            "zIndex": 999999999,
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            },
+            "label": {
+              "position": "right"
+            }
+          },
+          "bottom": {
+            "zIndex": 999999999,
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            },
+            "label": {
+              "position": "bottom"
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "top",
+            "group": "top"
+          },
+          {
+            "id": "right",
+            "group": "right",
+            "attrs": {
+              "text": {
+                "text": ""
+              }
+            }
+          },
+          {
+            "id": "bottom",
+            "group": "bottom",
+            "attrs": {
+              "text": {
+                "text": "否"
+              }
+            }
+          },
+          {
+            "id": "left",
+            "group": "left"
+          }
+        ]
+      },
+      "id": "a6da6684-96c8-4595-bec6-a94122b61e30",
+      "zIndex": 3
+    },
+    {
+      "shape": "edge",
+      "id": "cbcbd0ea-4a2a-4d2a-8135-7b4b7d7ec50d",
+      "source": {
+        "cell": "de868d18-9ec0-4dac-abbe-5cb9e3c20e2f",
+        "port": "right"
+      },
+      "target": {
+        "cell": "a6da6684-96c8-4595-bec6-a94122b61e30",
+        "port": "left"
+      },
+      "zIndex": 4
+    },
+    {
+      "shape": "edge",
+      "id": "ea10b718-1c66-4a3d-b29c-b0b20e6bba11",
+      "source": {
+        "cell": "a6da6684-96c8-4595-bec6-a94122b61e30",
+        "port": "right"
+      },
+      "target": {
+        "cell": "81e87610-c749-4667-8382-00c62be30e2b",
+        "port": "left"
+      },
+      "zIndex": 5,
+      "labels": [
+        {
+          "attrs": {
+            "label": {
+              "text": "是"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

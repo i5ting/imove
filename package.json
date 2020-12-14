@@ -50,6 +50,7 @@
     "jest-environment-jsdom-fourteen": "^1.0.1",
     "jest-puppeteer": "^4.4.0",
     "lerna": "^3.20.2",
+    "lowdb": "^1.0.0",
     "prettier": "^2.0.4",
     "puppeteer": "^5.5.0",
     "react-app-polyfill": "^2.0.0",
