@@ -30,6 +30,7 @@
 ```bash
 $ git clone git@github.com:imgcook/imove.git
 $ cd imove
+$ npm install
 $ npm run example
 ```
 此时浏览器会自动打开 `http://localhost:8000/` ，可以看到运行效果。
