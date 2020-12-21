@@ -24,11 +24,14 @@ const writeNodeCodes = async (basePath, dsl) => {
   const nodes = cells.filter((cell) => cell.shape !== 'edge');
   for (const {
     id,
-    data: { code },
+    shape,
+    data: { label, code },
   } of nodes) {
     fileIds.push(id);
     const filePath = path.join(basePath, id + '.js');
-    await fs.outputFile(filePath, code, { encoding: 'utf8', flag: 'w' });
+    const preData = `// ${shape}: ${label}\n`;
+    const saveData = `${preData}\n${code}`;
+    await fs.outputFile(filePath, saveData, { encoding: 'utf8', flag: 'w' });
   }
   return fileIds;
 };

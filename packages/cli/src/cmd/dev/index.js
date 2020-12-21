@@ -50,8 +50,8 @@ class Dev extends Base {
 
   run() {
     const app = createServer();
-    app.post('/api/save', this.save);
-    app.get('/api/connect', this.connect);
+    app.post('/api/save', this.save.bind(this));
+    app.get('/api/connect', this.connect.bind(this));
   }
 }
 
