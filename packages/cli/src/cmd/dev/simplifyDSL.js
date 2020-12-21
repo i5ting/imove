@@ -3,7 +3,11 @@ const fs = require('fs-extra');
 
 const extractObj = (obj = {}, keys = []) => {
   const ret = {};
-  keys.forEach((key) => (ret[key] = obj[key]));
+  keys.forEach((key) => {
+    if (obj[key]) {
+      ret[key] = obj[key];
+    }
+  });
   return ret;
 };
 
@@ -14,7 +18,9 @@ const simplify = (dsl) => {
       if (cell.shape === 'edge') {
         return extractObj(cell, ['id', 'shape', 'source', 'target']);
       } else {
-        return extractObj(cell, ['id', 'shape', 'data']);
+        const newCell = extractObj(cell, ['id', 'shape']);
+        newCell.data = extractObj(cell.data, ['trigger', 'configData']);
+        return newCell;
       }
     }),
   };
