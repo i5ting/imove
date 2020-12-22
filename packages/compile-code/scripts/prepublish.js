@@ -3,4 +3,4 @@
 const path = require('path');
 const prePublish = require('../../../scripts/prepublish');
 
-prePublish('@imove/plugin-store', path.join(__dirname, '../'));
+prePublish('@imove/compile-code', path.join(__dirname, '../'));
