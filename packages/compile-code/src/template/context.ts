@@ -1,4 +1,4 @@
-export default class Context {
+export default `export default class Context {
   constructor(opts) {
     this._init(opts);
   }
@@ -42,3 +42,4 @@ export default class Context {
     });
   }
 }
+`;

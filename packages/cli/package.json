@@ -20,6 +20,7 @@
   "author": "smallstonesk",
   "license": "MIT",
   "dependencies": {
+    "@imove/compile-code": "^0.0.1",
     "body-parser": "^1.19.0",
     "commander": "^6.0.0",
     "cors": "^2.8.5",

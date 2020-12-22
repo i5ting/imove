@@ -1,4 +1,4 @@
-import nodeFns from './nodeFns';
+export default `import nodeFns from './nodeFns';
 import Context from './context';
 import EventEmitter from 'eventemitter3';
 
@@ -34,7 +34,7 @@ export default class Logic extends EventEmitter {
 
   _runLifecycleEvent(eventName, ctx) {
     if (!LIFECYCLE.has(eventName)) {
-      return console.warn(`Lifecycle ${eventName} is not supported!`);
+      return console.warn(\`Lifecycle \${eventName} is not supported!\`);
     }
     if (this.lifeCycleEvents[eventName]) {
       this.lifeCycleEvents[eventName].forEach((fn) => fn(ctx));
@@ -66,10 +66,7 @@ export default class Logic extends EventEmitter {
         const { ports } = curNode.data;
         for (const key in ports) {
           const { condition } = ports[key];
-          const ret = ((ctx) => {
-            return condition;
-          })(ctx);
-          // const ret = new Function('ctx', 'return ' + condition)(ctx);
+          const ret = new Function('ctx', 'return ' + condition)(ctx);
           if (ret === Boolean(curRet)) {
             matchedPort = key;
             break;
@@ -101,7 +98,7 @@ export default class Logic extends EventEmitter {
         continue;
       }
       if (!LIFECYCLE.has(eventName)) {
-        console.warn(`Lifecycle ${eventName} is not supported in imove.`);
+        console.warn(\`Lifecycle \${eventName} is not supported in imove.\`);
         continue;
       }
       if (!this.lifeCycleEvents[eventName]) {
@@ -129,9 +126,10 @@ export default class Logic extends EventEmitter {
   async invoke(trigger, data) {
     const curNode = this._getStartNode(trigger);
     if (!curNode) {
-      return Promise.reject(new Error(`Invoke failed! No logic-start named ${trigger} found!`));
+      return Promise.reject(new Error(\`Invoke failed! No logic-start named \${trigger} found!\`));
     }
     const ctx = this._createCtx({ payload: data });
     await this._execNode(ctx, curNode);
   }
 }
+`;
