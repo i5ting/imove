@@ -2,12 +2,28 @@
 .vscode
 .eslintcache
 .size-snapshot.json
-npm-debug.log
-yarn-error.log
+npm-debug.log*
+yarn-error.log*
 lerna-debug.log
 node_modules
 coverage
 lib
 es
+# production
 dist
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+yarn.lock
 package-lock.json
+
+# misc
+.DS_Store
+
+# umi
+example/node_modules
+example/src/.umi
+example/src/.umi-production
+example/src/.umi-test
+example/.env.local
