@@ -1,0 +1,41 @@
+{
+  "name": "@imove/compile-code",
+  "version": "0.0.1",
+  "description": "imove compile code",
+  "main": "dist/core.common.js",
+  "module": "dist/core.esm.js",
+  "types": "dist/types/index.d.ts",
+  "directories": {
+    "dist": "dist"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://registry.npmjs.org/"
+  },
+  "keywords": [
+    "imove",
+    "compile code"
+  ],
+  "scripts": {
+    "prepublishOnly": "node scripts/prepublish.js",
+    "declare-type": "tsc --emitDeclarationOnly",
+    "build": "rollup -c & npm run declare-type",
+    "watch": "watch 'npm run build' ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imgcook/iMove.git"
+  },
+  "author": "smallstonesk",
+  "license": "MIT",
+  "dependencies": {
+    "@antv/x6": "^1.5.1"
+  },
+  "devDependencies": {
+    "rollup": "^2.7.3",
+    "watch": "^1.0.2"
+  }
+}

@@ -1,5 +1,6 @@
 {
   "private": true,
+  "name": "example",
   "scripts": {
     "start": "umi dev",
     "build": "umi build",
@@ -19,16 +20,5 @@
       "prettier --parser=typescript --write"
     ]
   },
-  "dependencies": {
-    "@imove/core": "^0.3.0",
-    "@umijs/preset-react": "1.x",
-    "@umijs/test": "^3.2.2",
-    "antd": "^4.4.3",
-    "lint-staged": "^10.0.7",
-    "prettier": "^1.19.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "umi": "^3.2.2",
-    "yorkie": "^2.0.0"
-  }
+  "dependencies": {}
 }

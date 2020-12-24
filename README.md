@@ -28,11 +28,12 @@
 下载仓库，安装并启动
 
 ```bash
-$ git clone https://github.com/imgcook/imove.git
-$ cd ./imove/example
+$ git clone git@github.com:imgcook/imove.git
+$ cd imove
 $ npm install
-$ npm start
+$ npm run example
 ```
+此时浏览器会自动打开 `http://localhost:8000/` ，可以看到运行效果。
 
 ### 步骤 2. 绘制流程图
 
@@ -65,6 +66,8 @@ $ npm start
 本仓库遵循 [MIT 协议](http://www.opensource.org/licenses/MIT)
 
 ## 贡献者 ✨
+
+感谢 [蚂蚁 X6 团队](https://github.com/antvis/X6) 提供的绘图引擎
 
 感谢所有贡献的人 ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 

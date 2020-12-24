@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "example": "npx lerna run --scope example start",
     "lint": "eslint --cache --fix --ext .ts,tsx,js,jsx ./packages/**/src > ./.eslint-error.log; exit 0",
     "test": "jest --coverage",
     "e2e": "cypress open",
@@ -50,6 +51,7 @@
     "jest-environment-jsdom-fourteen": "^1.0.1",
     "jest-puppeteer": "^4.4.0",
     "lerna": "^3.20.2",
+    "lowdb": "^1.0.0",
     "prettier": "^2.0.4",
     "puppeteer": "^5.5.0",
     "react-app-polyfill": "^2.0.0",
@@ -66,6 +68,15 @@
     "@babel/runtime-corejs3": "^7.9.2",
     "core-js": "^3.6.5",
     "dumi": "^1.0.37",
-    "ora": "^4.0.3"
+    "ora": "^4.0.3",
+    "@imove/core": "^0.3.0",
+    "@umijs/preset-react": "1.x",
+    "@umijs/test": "^3.2.2",
+    "antd": "^4.4.3",
+    "lint-staged": "^10.0.7",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "umi": "^3.2.2",
+    "yorkie": "^2.0.0"
   }
 }

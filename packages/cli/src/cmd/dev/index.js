@@ -2,17 +2,27 @@ const path = require('path');
 const fs = require('fs-extra');
 const Base = require('../base');
 const mergePkg = require('./mergePkg');
-const addPlugins = require('./addPlugins');
-const simplifyDSL = require('./simplifyDSL');
-const extractCodes = require('./extractCodes');
+const compileCode = require('@imove/compile-code');
 const { createServer } = require('../../utils/server');
 
 const noop = () => {};
-const TPL_PATH = path.join(__dirname, './template');
 const CACHE_PATH = path.join(process.cwd(), './.cache');
 const CACHE_DSL_FILE = path.join(CACHE_PATH, 'imove.dsl.json');
 
 class Dev extends Base {
+
+  async writeOutputIntoFiles(curPath, output) {
+    for(let key in output) {
+      const newPath = path.join(curPath, key);
+      if(path.extname(newPath)) {
+        await fs.writeFile(newPath, output[key]);
+      } else {
+        await fs.ensureDir(newPath);
+        await this.writeOutputIntoFiles(newPath, output[key]);
+      }
+    }
+  }
+
   async save(req, res) {
     const { outputPath, plugins = [] } = this.config;
 
@@ -28,10 +38,8 @@ class Dev extends Base {
     // compile
     try {
       const { dsl } = req.body;
-      await simplifyDSL(dsl, outputPath);
-      await extractCodes(dsl, outputPath);
-      await fs.copy(TPL_PATH, outputPath);
-      await addPlugins(plugins, outputPath);
+      const output = compileCode(dsl, plugins);
+      await this.writeOutputIntoFiles(outputPath, output);
       await mergePkg(dsl, this.projectPath);
       await fs.outputFile(CACHE_DSL_FILE, JSON.stringify(dsl, null, 2));
       res.status(200).json({ isCompiled: true }).end();
@@ -50,8 +58,8 @@ class Dev extends Base {
 
   run() {
     const app = createServer();
-    app.post('/api/save', this.save);
-    app.get('/api/connect', this.connect);
+    app.post('/api/save', this.save.bind(this));
+    app.get('/api/connect', this.connect.bind(this));
   }
 }
 
