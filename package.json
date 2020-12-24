@@ -37,8 +37,6 @@
     "@typescript-eslint/parser": "^2.29.0",
     "concurrently": "^5.3.0",
     "cypress": "^6.0.0",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.5",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-config-standard": "^14.1.1",
@@ -51,7 +49,6 @@
     "lerna": "^3.22.1",
     "lowdb": "^1.0.0",
     "prettier": "^2.0.4",
-    "react-app-polyfill": "^2.0.0",
     "rollup": "^2.6.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-size-snapshot": "^0.11.0",
@@ -63,17 +60,14 @@
   "dependencies": {
     "@babel/runtime": "^7.9.2",
     "@babel/runtime-corejs3": "^7.9.2",
-    "@imove/core": "^0.3.6",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.2.2",
     "antd": "^4.4.3",
-    "core-js": "^3.6.5",
     "dumi": "^1.0.37",
     "lint-staged": "^10.0.7",
     "ora": "^4.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "umi": "^3.2.2",
-    "yorkie": "^2.0.0"
+    "umi": "^3.2.2"
   }
 }
