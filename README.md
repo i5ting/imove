@@ -1,5 +1,13 @@
 <div align="center">
   <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3874775950,1064987171&fm=26&gp=0.jpg" width="200px">
+  
+  [![gitter][gitter-image]][gitter-url]
+  [![NPM version][npm-image]][npm-url]
+  [![build status][travis-image]][travis-url]
+  [![Test coverage][coveralls-image]][coveralls-url]
+  [![OpenCollective Backers][backers-image]](#backers)
+  [![OpenCollective Sponsors][sponsors-image]](#sponsors)
+  [![PR's Welcome][pr-welcoming-image]][pr-welcoming-url]
 
   <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
   [![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
@@ -10,6 +18,7 @@
 <p align="center">
   iMove 是一个逻辑可复用的，面向函数的，流程可视化的 JavaScript 工具库。
 </p>
+
 
 [English](./README.en-US.md) | 简体中文
 
@@ -78,3 +87,17 @@ $ npm run example
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 本仓库遵循 [all-contributors](https://github.com/all-contributors/all-contributors) 规范，欢迎贡献!
+
+[npm-image]: https://img.shields.io/npm/v/imgcook/imove.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/@imove/core
+[travis-image]: https://img.shields.io/travis/imgcook/imove/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/imgcook/imove/
+[coveralls-image]: https://img.shields.io/codecov/c/github/imgcook/imove.svg?style=flat-square
+[coveralls-url]: https://codecov.io/github/imgcook/imove?branch=master
+[backers-image]: https://opencollective.com/imgcook/imove/backers/badge.svg?style=flat-square
+[sponsors-image]: https://opencollective.com/imgcook/imove/sponsors/badge.svg?style=flat-square
+[gitter-image]: https://img.shields.io/gitter/room/imgcook/imove.svg?style=flat-square
+[gitter-url]: https://gitter.im/imgcook/imove?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+[#imgcook/imove]: https://webchat.freenode.net/?channels=#imgcook/imove
+[pr-welcoming-image]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+[pr-welcoming-url]: https://github.com/imgcook/imove/pull/new
