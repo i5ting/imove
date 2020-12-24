@@ -2,8 +2,8 @@
   "default": [
     {
       "position": {
-        "x": 420,
-        "y": 90
+        "x": 450,
+        "y": 50
       },
       "size": {
         "width": 80,
@@ -92,8 +92,8 @@
     },
     {
       "position": {
-        "x": 86,
-        "y": 70
+        "x": 56,
+        "y": 30
       },
       "size": {
         "width": 80,
@@ -184,7 +184,7 @@
     {
       "position": {
         "x": 246,
-        "y": 90
+        "y": 50
       },
       "size": {
         "width": 80,
@@ -284,7 +284,7 @@
             "group": "bottom",
             "attrs": {
               "text": {
-                "text": "否"
+                "text": ""
               }
             }
           },
@@ -327,6 +327,118 @@
           "attrs": {
             "label": {
               "text": "是"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "position": {
+        "x": 246,
+        "y": 270
+      },
+      "size": {
+        "width": 80,
+        "height": 40
+      },
+      "shape": "imove-behavior",
+      "data": {
+        "label": "处理",
+        "configSchema": "{\n  \n}",
+        "configData": {},
+        "dependencies": "{\n  \n}",
+        "code": "export default async function(ctx) {\n  \n}"
+      },
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "bottom": {
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "top",
+            "group": "top"
+          },
+          {
+            "id": "right",
+            "group": "right"
+          },
+          {
+            "id": "bottom",
+            "group": "bottom"
+          },
+          {
+            "id": "left",
+            "group": "left"
+          }
+        ]
+      },
+      "id": "c538d496-eeaa-4e95-9752-2a5d0c168e13",
+      "zIndex": 6
+    },
+    {
+      "shape": "edge",
+      "id": "4ffa7a28-a339-4686-81d8-20be9d62de14",
+      "source": {
+        "cell": "a6da6684-96c8-4595-bec6-a94122b61e30",
+        "port": "bottom"
+      },
+      "target": {
+        "cell": "c538d496-eeaa-4e95-9752-2a5d0c168e13",
+        "port": "top"
+      },
+      "zIndex": 7,
+      "labels": [
+        {
+          "attrs": {
+            "label": {
+              "text": "否"
             }
           }
         }

@@ -15,7 +15,9 @@ const Header: React.FC<IProps> = (props) => {
   const { flowChart } = props;
   return (
     <div className={styles.container}>
-      <span className={styles.titleText}>iMove</span>
+      <a href="https://github.com/imgcook/imove">
+        <span className={styles.titleText}>iMove</span>
+      </a>
       <div className={styles.widgets}>
         <Export flowChart={flowChart} />
         <ImportDSL flowChart={flowChart} />
