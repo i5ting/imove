@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 
 import styles from './index.module.less';
 
-import { Cell } from '@antv/x6';
+import { Cell, Graph } from '@antv/x6';
 import Json from '../../components/json';
 import Code from '../../components/code';
 import Input from '../../components/input';
 
 interface IProps {
   selectedCell: Cell;
+  flowChart: Graph;
 }
 
 interface IBasicData {
@@ -20,13 +21,14 @@ interface IBasicData {
 }
 
 const Basic: React.FC<IProps> = (props) => {
-  const { selectedCell } = props;
+  const { selectedCell, flowChart } = props;
   const [data, setData] = useState<IBasicData>();
   const { label, code, trigger, dependencies, configSchema } = data || {};
 
   // life
   useEffect(() => {
     setData(selectedCell.getData());
+    
   }, [selectedCell]);
 
   // events
@@ -57,7 +59,7 @@ const Basic: React.FC<IProps> = (props) => {
           onValueChange={onChangeTrigger}
         />
       )}
-      <Code name={'code'} title={'代码'} value={code} onValueChange={onChangeCode} />
+      <Code name={'code'} title={'代码'} value={code} onValueChange={onChangeCode} flowChart={flowChart} />
       <Json
         name={'configSchema'}
         title={'投放配置schema'}

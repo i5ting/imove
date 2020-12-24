@@ -6,6 +6,7 @@ import styles from './index.module.less';
 
 import AceEditor from 'react-ace';
 import { Button, Modal } from 'antd';
+import {  Graph } from '@antv/x6';
 import 'ace-builds/src-noconflict/theme-dracula';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/snippets/javascript';
@@ -16,11 +17,16 @@ interface IProps {
   name: string;
   title: string;
   onValueChange: (value: string) => void;
+  flowChart: Graph;
 }
 
 const Code: React.FC<IProps> = (props) => {
-  const { title, value, onValueChange } = props;
+  const { title, value, onValueChange, flowChart } = props;
   const [visible, setVisible] = useState<boolean>(false);
+
+  flowChart.on('cell:dblclick', (args) => {
+    onClickEdit()
+  });
 
   // events
   const onClickEdit = (): void => {

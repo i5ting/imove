@@ -36,7 +36,7 @@ const SettingBar: React.FC<IProps> = (props) => {
           tabBarStyle={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
           <TabPane tab={'基础信息'} key={'basic'}>
-            <Basic selectedCell={nodes[0]} />
+            <Basic selectedCell={nodes[0]} flowChart={flowChart}/>
           </TabPane>
           <TabPane tab={'投放配置'} key={'config'}>
             <Config selectedCell={nodes[0]} />

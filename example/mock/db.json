@@ -15,7 +15,7 @@
         "configSchema": "{\n  \n}",
         "configData": {},
         "dependencies": "{\n  \n}",
-        "code": "export default async function(ctx) {\n  \n}"
+        "code": "export default async function(ctx) {\n  console.log('1212')\n}"
       },
       "ports": {
         "groups": {
@@ -347,7 +347,7 @@
         "configSchema": "{\n  \n}",
         "configData": {},
         "dependencies": "{\n  \n}",
-        "code": "export default async function(ctx) {\n  \n}"
+        "code": "export default async function(ctx) {\n  console.log('test')\n}"
       },
       "ports": {
         "groups": {
