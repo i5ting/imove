@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "rollup": "^2.7.3",
+    "rollup-plugin-typescript": "^1.0.1",
     "watch": "^1.0.2"
   }
 }

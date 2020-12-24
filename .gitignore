@@ -27,3 +27,6 @@ example/src/.umi
 example/src/.umi-production
 example/src/.umi-test
 example/.env.local
+
+# eslint
+.eslint-error.log
