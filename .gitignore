@@ -10,3 +10,4 @@ coverage
 lib
 es
 dist
+package-lock.json

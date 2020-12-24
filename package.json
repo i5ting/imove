@@ -5,7 +5,8 @@
     "lint": "eslint --cache --fix --ext .ts,tsx,js,jsx ./packages/**/src > ./.eslint-error.log; exit 0",
     "test": "jest --coverage",
     "e2e": "cypress open",
-    "doc": "dumi dev"
+    "doc": "dumi dev",
+    "example": "UMI=example umi start "
   },
   "jest": {
     "projects": [
