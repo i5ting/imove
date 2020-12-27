@@ -4,13 +4,14 @@ import 'antd/es/modal/style';
 import 'antd/es/button/style';
 import styles from './index.module.less';
 
-import AceEditor from 'react-ace';
+// import AceEditor from 'react-ace';
+import { ControlledEditor } from "@monaco-editor/react";
 import { Button, Modal } from 'antd';
-import {  Graph } from '@antv/x6';
-import 'ace-builds/src-noconflict/theme-dracula';
-import 'ace-builds/src-noconflict/mode-javascript';
-import 'ace-builds/src-noconflict/snippets/javascript';
-import 'ace-builds/src-noconflict/ext-language_tools';
+import { Graph } from '@antv/x6';
+// import 'ace-builds/src-noconflict/theme-dracula';
+// import 'ace-builds/src-noconflict/mode-javascript';
+// import 'ace-builds/src-noconflict/snippets/javascript';
+// import 'ace-builds/src-noconflict/ext-language_tools';
 
 interface IProps {
   value: any;
@@ -93,7 +94,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
   const onClickOk = (): void => {
     onOk(code);
   };
-  const onChangeCode = (newCode: string): void => {
+  const onChangeCode = (ev: any, newCode: string): void => {
     if (newCode !== code) {
       setCode(newCode);
     }
@@ -110,7 +111,16 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
       onOk={onClickOk}
       onCancel={onCancel}
     >
-      <AceEditor
+      <ControlledEditor
+        width="100%"
+        height="600px"
+        value={code}
+        // @ts-ignore
+        onChange={onChangeCode}
+        language="javascript"
+        theme="dark"
+      />
+      {/* <AceEditor
         style={CODE_EDITOR_STYLE}
         tabSize={2}
         value={code}
@@ -123,7 +133,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
         enableBasicAutocompletion={true}
         setOptions={CODE_EDITOR_OPTIONS}
         onChange={onChangeCode}
-      />
+      /> */}
     </Modal>
   );
 };

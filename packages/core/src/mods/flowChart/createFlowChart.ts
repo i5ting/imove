@@ -88,6 +88,7 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
       rubberband: true,
       movable: true,
       showNodeSelectionBox: true,
+      showEdgeSelectionBox: true
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/snapline
     snapline: {

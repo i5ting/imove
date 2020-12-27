@@ -5,14 +5,15 @@ import 'antd/es/button/style';
 import 'antd/es/message/style';
 import styles from './index.module.less';
 
-import AceEditor from 'react-ace';
+// import AceEditor from 'react-ace';
+import { ControlledEditor } from "@monaco-editor/react";
 import JsonView from 'react-json-view';
 import { Button, Modal, message } from 'antd';
 import { safeParse } from '../../../../utils';
-import 'ace-builds/src-noconflict/mode-json';
-import 'ace-builds/src-noconflict/theme-dracula';
-import 'ace-builds/src-noconflict/snippets/json';
-import 'ace-builds/src-noconflict/ext-language_tools';
+// import 'ace-builds/src-noconflict/mode-json';
+// import 'ace-builds/src-noconflict/theme-dracula';
+// import 'ace-builds/src-noconflict/snippets/json';
+// import 'ace-builds/src-noconflict/ext-language_tools';
 
 interface IJsonProps {
   value: any;
@@ -103,7 +104,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
       console.log('save failed, the error is:', error.message);
     }
   };
-  const onChangeJson = (newJson: string): void => {
+  const onChangeJson = (ev: any, newJson: string): void => {
     if (newJson !== json) {
       setJson(newJson);
     }
@@ -119,7 +120,16 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
       onOk={onClickOk}
       onCancel={onCancel}
     >
-      <AceEditor
+      <ControlledEditor
+        width="100%"
+        height="400px"
+        value={json}
+        // @ts-ignore
+        onChange={onChangeJson}
+        language="javascript"
+        theme="dark"
+      />
+      {/* <AceEditor
         style={CODE_EDITOR_STYLE}
         tabSize={2}
         value={json}
@@ -131,7 +141,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
         enableBasicAutocompletion={true}
         setOptions={CODE_EDITOR_OPTIONS}
         onChange={onChangeJson}
-      />
+      /> */}
     </Modal>
   );
 };

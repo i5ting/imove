@@ -6,7 +6,7 @@
     "test": "jest --coverage",
     "e2e": "cypress open",
     "doc": "dumi dev",
-    "example": "concurrently \"APP_ROOT=example umi dev\"  \"imove -d\"",
+    "example": "concurrently \"APP_ROOT=example umi dev\" \"npm run build --prefix packages/core\" \"imove -d\"",
     "postinstall": "lerna init && lerna bootstrap && npm link packages/cli"
   },
   "jest": {
@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@imove/core": "^0.3.6",
+    "@monaco-editor/react": "^3.7.4",
     "lowdb": "^1.0.0",
     "umi": "^3.2.2"
   }
