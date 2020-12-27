@@ -12,17 +12,19 @@ interface IProps {
   value: any;
   name: string;
   title: string;
-  onValueChange: (value: string) => void;
   flowChart: Graph;
+  onValueChange: (value: string) => void;
 }
 
 const Code: React.FC<IProps> = (props) => {
   const { title, value, onValueChange, flowChart } = props;
   const [visible, setVisible] = useState<boolean>(false);
 
-  flowChart.on('cell:dblclick', (args) => {
-    onClickEdit()
-  });
+  useEffect(() => {
+    flowChart.on('node:dblclick', () => {
+      onClickEdit();
+    });
+  }, []);
 
   // events
   const onClickEdit = (): void => {
