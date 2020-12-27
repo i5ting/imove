@@ -4,14 +4,9 @@ import 'antd/es/modal/style';
 import 'antd/es/button/style';
 import styles from './index.module.less';
 
-// import AceEditor from 'react-ace';
-import { ControlledEditor } from "@monaco-editor/react";
-import { Button, Modal } from 'antd';
 import { Graph } from '@antv/x6';
-// import 'ace-builds/src-noconflict/theme-dracula';
-// import 'ace-builds/src-noconflict/mode-javascript';
-// import 'ace-builds/src-noconflict/snippets/javascript';
-// import 'ace-builds/src-noconflict/ext-language_tools';
+import { Button, Modal } from 'antd';
+import CodeEditor from '../../../../components/codeEditor';
 
 interface IProps {
   value: any;
@@ -66,15 +61,6 @@ interface IEditorModalProps {
   onCancel: () => void;
 }
 
-const CODE_EDITOR_STYLE = {
-  width: '100%',
-  height: 600,
-};
-const CODE_EDITOR_OPTIONS = {
-  fontSize: 14,
-  useWorker: false,
-};
-
 const EditModal: React.FC<IEditorModalProps> = (props) => {
   const { visible, title, value, onOk, onCancel } = props;
   const [code, setCode] = useState<string>(value);
@@ -94,7 +80,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
   const onClickOk = (): void => {
     onOk(code);
   };
-  const onChangeCode = (ev: any, newCode: string): void => {
+  const onChangeCode = (ev: any, newCode: string | undefined = ''): void => {
     if (newCode !== code) {
       setCode(newCode);
     }
@@ -111,29 +97,12 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
       onOk={onClickOk}
       onCancel={onCancel}
     >
-      <ControlledEditor
-        width="100%"
-        height="600px"
+      <CodeEditor
         value={code}
-        // @ts-ignore
+        width={'100%'}
+        height={'600px'}
         onChange={onChangeCode}
-        language="javascript"
-        theme="dark"
       />
-      {/* <AceEditor
-        style={CODE_EDITOR_STYLE}
-        tabSize={2}
-        value={code}
-        focus={true}
-        theme={'dracula'}
-        mode={'javascript'}
-        name={'code-editor'}
-        enableSnippets={true}
-        enableLiveAutocompletion={true}
-        enableBasicAutocompletion={true}
-        setOptions={CODE_EDITOR_OPTIONS}
-        onChange={onChangeCode}
-      /> */}
     </Modal>
   );
 };
