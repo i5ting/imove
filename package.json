@@ -6,7 +6,7 @@
     "test": "jest --coverage",
     "e2e": "cypress open",
     "doc": "dumi dev",
-    "example": "concurrently \"APP_ROOT=example umi dev\" \"npm run build --prefix packages/core\" \"imove -d\"",
+    "example": "concurrently \"cross-env APP_ROOT=example umi dev\" \"npm run build --prefix packages/core\" \"imove -d\"",
     "postinstall": "lerna init && lerna bootstrap && npm link packages/cli"
   },
   "jest": {
@@ -27,6 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^2.29.0",
     "@typescript-eslint/parser": "^2.29.0",
     "concurrently": "^5.3.0",
+    "cross-env": "^7.0.3",
     "cypress": "^6.2.0",
     "dumi": "^1.0.38",
     "eslint": "^6.8.0",
