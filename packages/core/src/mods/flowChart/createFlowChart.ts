@@ -3,6 +3,7 @@ import { Cell, Edge, Graph, Node } from '@antv/x6';
 import { MIN_ZOOM, MAX_ZOOM } from '../../common/const';
 import baseCellSchemaMap from '../../common/baseCell';
 import previewCellSchemaMap from '../../common/previewCell';
+import { getSelectedEdges } from '../../utils/flowChartUtils';
 import { registerServerStorage } from './registerServerStorage';
 import MiniMapSimpleNode from '../../components/miniMapSimpleNode';
 
@@ -32,6 +33,26 @@ const registerEvents = (flowChart: Graph): void => {
         edge.setLabelAt(0, sourceNode.getPortProp(portId, 'attrs/text/text'));
         sourceNode.setPortProp(portId, 'attrs/text/text', '');
       }
+    }
+  });
+  flowChart.on('edge:selected', (args) => {
+    args.edge.attr('line/stroke', '#feb663');
+    args.edge.attr('line/strokeWidth', '3px');
+  });
+  flowChart.on('edge:unselected', (args) => {
+    args.edge.attr('line/stroke', '#333');
+    args.edge.attr('line/strokeWidth', '2px');
+  });
+  flowChart.on('edge:mouseover', (args) => {
+    args.edge.attr('line/stroke', '#feb663');
+    args.edge.attr('line/strokeWidth', '3px');
+  });
+  flowChart.on('edge:mouseleave', (args) => {
+    const { edge } = args;
+    const selectedEdges = getSelectedEdges(flowChart);
+    if (selectedEdges[0] !== edge) {
+      args.edge.attr('line/stroke', '#333');
+      args.edge.attr('line/strokeWidth', '2px');
     }
   });
 };
@@ -87,8 +108,7 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
       multiple: true,
       rubberband: true,
       movable: true,
-      showNodeSelectionBox: true,
-      showEdgeSelectionBox: true
+      showNodeSelectionBox: true
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/snapline
     snapline: {
