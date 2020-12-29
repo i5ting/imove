@@ -13,6 +13,7 @@ import FontSize from './fontSize';
 import TextColor from './textColor';
 import LineStyle from './lineStyle';
 import Underline from './underline';
+import NodeAlign from './nodeAlign';
 import FitWindow from './fitWindow';
 import BringToTop from './bringToTop';
 import BringToBack from './bringToBack';
@@ -30,7 +31,7 @@ const tools: React.FC<IProps>[][] = [
   [FontSize, Bold, Italic, Underline],
   [TextColor, BgColor, BorderColor, LineStyle],
   [HorizontalAlign, VerticalAlign],
-  [BringToTop, BringToBack],
+  [NodeAlign, BringToTop, BringToBack],
 ];
 
 export default tools;
