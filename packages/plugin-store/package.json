@@ -36,10 +36,6 @@
   "bugs": {
     "url": "https://github.com/suanmei/iMove/issues"
   },
-  "devDependencies": {
-    "rollup": "^2.7.3",
-    "watch": "^1.0.2"
-  },
-  "dependencies": {
-  }
+  "devDependencies": {},
+  "dependencies": {}
 }
