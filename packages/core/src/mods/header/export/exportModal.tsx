@@ -5,9 +5,8 @@ import styles from './index.module.less';
 
 import JSZip from 'jszip';
 import { Modal } from 'antd';
-import { Graph } from '@antv/x6';
+import { DataUri, Graph } from '@antv/x6';
 import compileCode from '@imove/compile-code';
-import { base64Url2Blob, downloadFile } from '../../../utils';
 
 interface IExportModalProps {
   flowChart: Graph;
@@ -21,7 +20,7 @@ const ExportModal: React.FC<IExportModalProps> = (props) => {
   const onExportDSL = () => {
     const dsl = JSON.stringify(flowChart.toJSON(), null, 2);
     const blob = new Blob([dsl], { type: 'text/plain' });
-    downloadFile('imove.dsl.json', blob);
+    DataUri.downloadBlob(blob, 'imove.dsl.json');
   };
   const onExportCode = () => {
     const zip = new JSZip();
@@ -29,13 +28,12 @@ const ExportModal: React.FC<IExportModalProps> = (props) => {
     const output = compileCode(dsl);
     Helper.recursiveZip(zip, output);
     zip.generateAsync({ type: 'blob' }).then((blob) => {
-      downloadFile('logic.zip', blob);
+      DataUri.downloadBlob(blob, 'logic.zip');
     });
   };
   const onExportFlowChart = () => {
     flowChart.toJPEG((dataUri: string) => {
-      const blob = base64Url2Blob(dataUri);
-      downloadFile('flowChart.png', blob);
+      DataUri.downloadDataUri(dataUri, 'flowChart.png');
     });
   };
 

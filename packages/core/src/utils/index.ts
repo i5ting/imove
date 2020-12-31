@@ -36,23 +36,3 @@ const parseConfig = {
 export const parseQuery = (): { [key: string]: any } => {
   return parse(location.search, parseConfig);
 };
-
-export const base64Url2Blob = (base64: string) => {
-  const bytes = window.atob(base64.split(',')[1]);
-  const buffer = new ArrayBuffer(bytes.length);
-  const arr = new Uint8Array(buffer);
-  for (let i = 0; i < bytes.length; i++) {
-    arr[i] = bytes.charCodeAt(i);
-  }
-  return new Blob([arr], { type: 'image/png' });
-};
-
-export const downloadFile = (fileName: string, blob: Blob) => {
-  const elem = document.createElement('a');
-  elem.href = URL.createObjectURL(blob);
-  elem.download = fileName;
-  document.body.appendChild(elem);
-  elem.click();
-  URL.revokeObjectURL(elem.href);
-  document.body.removeChild(elem);
-};
