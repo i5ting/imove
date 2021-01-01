@@ -32,9 +32,9 @@ const ExportModal: React.FC<IExportModalProps> = (props) => {
     });
   };
   const onExportFlowChart = () => {
-    flowChart.toJPEG((dataUri: string) => {
+    flowChart.toPNG((dataUri: string) => {
       DataUri.downloadDataUri(dataUri, 'flowChart.png');
-    });
+    }, { padding: 50, ratio: '3.0' });
   };
 
   return (
