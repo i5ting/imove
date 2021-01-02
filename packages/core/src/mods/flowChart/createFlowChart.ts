@@ -55,6 +55,20 @@ const registerEvents = (flowChart: Graph): void => {
       args.edge.attr('line/strokeWidth', '2px');
     }
   });
+  flowChart.on('blank:contextmenu', (args) => {
+    const { e: { clientX, clientY } } = args;
+    flowChart.cleanSelection();
+    flowChart.trigger('graph:showContextMenu', { x: clientX, y: clientY, scene: 'blank' });
+  });
+  flowChart.on('node:contextmenu', (args) => {
+    const { e: { clientX, clientY }, node } = args;
+    // NOTE: if the clicked node is not in the selected nodes, then clear selection
+    if(!flowChart.getSelectedCells().includes(node)) {
+      flowChart.cleanSelection();
+      flowChart.select(node);
+    }
+    flowChart.trigger('graph:showContextMenu', { x: clientX, y: clientY, scene: 'node' });
+  });
 };
 
 const registerShortcuts = (flowChart: Graph): void => {
@@ -108,6 +122,7 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
       multiple: true,
       rubberband: true,
       movable: true,
+      strict: true,
       showNodeSelectionBox: true
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/snapline
