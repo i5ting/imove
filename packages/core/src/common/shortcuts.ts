@@ -1,5 +1,6 @@
 import { safeGet } from '../utils';
 import { localSave } from '../api';
+import { message } from 'antd';
 import { Cell, Edge, Graph, Node } from '@antv/x6';
 import { MIN_ZOOM, MAX_ZOOM, ZOOM_STEP } from './const';
 import { getSelectedNodes } from '../utils/flowChartUtils';
@@ -53,6 +54,7 @@ const shortcuts: { [key: string]: Shortcut } = {
       const cells = flowChart.getSelectedCells();
       if (cells.length > 0) {
         flowChart.copy(cells);
+        message.success('复制成功');
       }
       return false;
     },
