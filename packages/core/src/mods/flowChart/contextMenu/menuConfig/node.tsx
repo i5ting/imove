@@ -35,13 +35,13 @@ const nodeMenuConfig = [
   {
     key: 'bringToTop',
     title: '置于顶层',
-    icon: <XIcon type={'icon-bringtotop'} />,
+    icon: <XIcon type={'icon-bring-to-top'} />,
     handler:shortcuts.bringToTop.handler
   },
   {
     key: 'bringToBack',
     title: '置于底层',
-    icon: <XIcon type={'icon-bringtobottom'} />,
+    icon: <XIcon type={'icon-bring-to-bottom'} />,
     showDividerBehind: true,
     handler:shortcuts.bringToBack.handler
   },

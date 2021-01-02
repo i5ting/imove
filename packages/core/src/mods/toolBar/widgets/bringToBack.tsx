@@ -14,7 +14,7 @@ const BringToBack: React.FC<IProps> = makeBtnWidget({
   tooltip: '置于底层',
   handler: shortcuts.bringToBack.handler,
   getIcon() {
-    return <XIcon type={'icon-bringtobottom'} />;
+    return <XIcon type={'icon-bring-to-bottom'} />;
   },
   disabled(flowChart: Graph) {
     return !hasNodeSelected(flowChart);

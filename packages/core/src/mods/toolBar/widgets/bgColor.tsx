@@ -28,7 +28,7 @@ const options = {
     const bgColor = options.getCurBgColor(flowChart);
     return (
       <div className={styles.bgColorContainer}>
-        <XIcon className={styles.fillIcon} type={'icon-tianchong'} />
+        <XIcon className={styles.fillIcon} type={'icon-fill'} />
         <div className={styles.colorPreview} style={{ backgroundColor: bgColor }} />
       </div>
     );

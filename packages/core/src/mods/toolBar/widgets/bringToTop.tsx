@@ -15,7 +15,7 @@ const BringToTop: React.FC<IProps> = makeBtnWidget({
   tooltip: '置于顶层',
   handler: shortcuts.bringToTop.handler,
   getIcon() {
-    return <XIcon type={'icon-bringtotop'} />;
+    return <XIcon type={'icon-bring-to-top'} />;
   },
   disabled(flowChart: Graph) {
     return !hasNodeSelected(flowChart);

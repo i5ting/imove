@@ -28,7 +28,7 @@ const options = {
     const textColor = options.getCurTextColor(flowChart);
     return (
       <div className={styles.textColorContainer}>
-        <XIcon className={styles.textIcon} type={'icon-A'} />
+        <XIcon className={styles.textIcon} type={'icon-font'} />
         <div className={styles.colorPreview} style={{ backgroundColor: textColor }} />
       </div>
     );
