@@ -9,6 +9,8 @@ import {
 } from '@ant-design/icons';
 import XIcon from '../../../../components/xIcon';
 import shortcuts from '../../../../common/shortcuts';
+import { Graph } from '@antv/x6';
+import { getSelectedNodes } from '../../../../utils/flowChartUtils';
 
 const nodeMenuConfig = [
   {
@@ -49,14 +51,20 @@ const nodeMenuConfig = [
     key: 'editCode',
     title: '编辑代码',
     icon: <FormOutlined />,
-    handler() {
-      // TODO
+    disabled(flowChart: Graph) {
+      return getSelectedNodes(flowChart).length !== 1;
+    },
+    handler(flowChart: Graph) {
+      flowChart.trigger('settingBar:clickEditCode');
     }
   },
   {
     key: 'executeCode',
     title: '执行代码',
     icon: <CodeOutlined />,
+    disabled(flowChart: Graph) {
+      return getSelectedNodes(flowChart).length !== 1;
+    },
     handler() {
       // TODO
     }

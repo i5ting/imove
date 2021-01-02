@@ -21,9 +21,10 @@ const Code: React.FC<IProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
 
   useEffect(() => {
-    flowChart.on('node:dblclick', () => {
-      onClickEdit();
-    });
+    flowChart.on('settingBar:clickEditCode', onClickEdit);
+    return () => {
+      flowChart.off('settingBar:clickEditCode', onClickEdit);
+    };
   }, []);
 
   // events

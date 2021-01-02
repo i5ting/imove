@@ -55,6 +55,9 @@ const registerEvents = (flowChart: Graph): void => {
       args.edge.attr('line/strokeWidth', '2px');
     }
   });
+  flowChart.on('node:dblclick', () => {
+    flowChart.trigger('settingBar:clickEditCode');
+  });
   flowChart.on('blank:contextmenu', (args) => {
     const { e: { clientX, clientY } } = args;
     flowChart.cleanSelection();
