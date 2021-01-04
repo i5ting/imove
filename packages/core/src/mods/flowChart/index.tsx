@@ -32,6 +32,7 @@ const defaultMenuInfo = {
 
 const FlowChart: React.FC<IProps> = (props) => {
   const { onReady } = props;
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const graphRef = useRef<HTMLDivElement>(null);
   const miniMapRef = useRef<HTMLDivElement>(null);
   const [flowChart, setFlowChart] = useState<Graph>();
@@ -45,6 +46,23 @@ const FlowChart: React.FC<IProps> = (props) => {
       setFlowChart(flowChart);
     }
   }, []);
+
+  // resize flowChart's size when window size changes
+  useEffect(() => {
+    const handler = () => {
+      requestAnimationFrame(() => {
+        if(flowChart && wrapperRef && wrapperRef.current) {
+          const width = wrapperRef.current.clientWidth;
+          const height = wrapperRef.current.clientHeight;
+          flowChart.resize(width, height);
+        }
+      });
+    };
+    window.addEventListener('resize', handler);
+    return () => {
+      window.removeEventListener('resize', handler);
+    };
+  }, [flowChart, wrapperRef]);
 
   // NOTE: listen toggling context menu event
   useEffect(() => {
@@ -81,7 +99,7 @@ const FlowChart: React.FC<IProps> = (props) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={wrapperRef}>
       <div className={styles.flowChart} ref={graphRef} />
       <div className={styles.miniMap} ref={miniMapRef} />
       {flowChart && <FlowChartContextMenu {...contextMenuInfo} flowChart={flowChart} />}
