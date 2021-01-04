@@ -4,10 +4,11 @@ import 'antd/es/tabs/style';
 import 'antd/es/empty/style';
 import styles from './index.module.less';
 
+import { Graph } from '@antv/x6';
 import { Empty, Tabs } from 'antd';
 import Basic from './mods/basic';
 import Config from './mods/config';
-import { Graph } from '@antv/x6';
+import TestCase from './mods/testCase';
 
 const { TabPane } = Tabs;
 
@@ -36,10 +37,13 @@ const SettingBar: React.FC<IProps> = (props) => {
           tabBarStyle={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
           <TabPane tab={'基础信息'} key={'basic'}>
-            <Basic selectedCell={nodes[0]} flowChart={flowChart}/>
+            <Basic selectedCell={nodes[0]} flowChart={flowChart} />
           </TabPane>
           <TabPane tab={'投放配置'} key={'config'}>
             <Config selectedCell={nodes[0]} />
+          </TabPane>
+          <TabPane tab={'测试用例'} key={'testCase'} forceRender>
+            <TestCase selectedCell={nodes[0]} flowChart={flowChart} />
           </TabPane>
         </Tabs>
       </div>

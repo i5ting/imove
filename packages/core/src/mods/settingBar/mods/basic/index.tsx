@@ -28,7 +28,6 @@ const Basic: React.FC<IProps> = (props) => {
   // life
   useEffect(() => {
     setData(selectedCell.getData());
-    
   }, [selectedCell]);
 
   // events
@@ -59,7 +58,13 @@ const Basic: React.FC<IProps> = (props) => {
           onValueChange={onChangeTrigger}
         />
       )}
-      <Code name={'code'} title={'代码'} value={code} onValueChange={onChangeCode} flowChart={flowChart} />
+      <Code
+        name={'code'}
+        title={'代码'}
+        value={code}
+        flowChart={flowChart}
+        onValueChange={onChangeCode}
+      />
       <Json
         name={'configSchema'}
         title={'投放配置schema'}

@@ -65,8 +65,8 @@ const nodeMenuConfig = [
     disabled(flowChart: Graph) {
       return getSelectedNodes(flowChart).length !== 1;
     },
-    handler() {
-      // TODO
+    handler(flowChart: Graph) {
+      flowChart.trigger('settingBar:runCode');
     }
   }
 ];
