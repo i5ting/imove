@@ -5,8 +5,9 @@ import 'antd/es/button/style';
 import styles from './index.module.less';
 
 import { Graph } from '@antv/x6';
-import { Button, Modal } from 'antd';
+import { Button, Modal, message } from 'antd';
 import CodeEditor from '../../../../components/codeEditor';
+import { monaco, EditorDidMount } from '@monaco-editor/react';
 
 interface IProps {
   value: any;
@@ -15,6 +16,14 @@ interface IProps {
   flowChart: Graph;
   onValueChange: (value: string) => void;
 }
+
+// NOTE: avoid monaco init many times
+let KeyMod: any = {};
+let KeyCode: any = {};
+monaco.init().then(monaco => {
+  KeyMod = monaco.KeyMod;
+  KeyCode = monaco.KeyCode;
+});
 
 const Code: React.FC<IProps> = (props) => {
   const { title, value, onValueChange, flowChart } = props;
@@ -34,9 +43,12 @@ const Code: React.FC<IProps> = (props) => {
   const onClickCancel = (): void => {
     setVisible(false);
   };
-  const onClickOk = (newJson: string): void => {
+  const onClickOk = (newCode: string): void => {
     setVisible(false);
-    onValueChange(newJson);
+    onValueChange(newCode);
+  };
+  const onSave = (newCode: string): void => {
+    onValueChange(newCode);
   };
 
   return (
@@ -49,6 +61,7 @@ const Code: React.FC<IProps> = (props) => {
         title={title}
         value={value}
         visible={visible}
+        onSave={onSave}
         onOk={onClickOk}
         onCancel={onClickCancel}
       />
@@ -60,12 +73,13 @@ interface IEditorModalProps {
   visible: boolean;
   title: string;
   value: string;
+  onSave: (val: string) => void;
   onOk: (val: string) => void;
   onCancel: () => void;
 }
 
 const EditModal: React.FC<IEditorModalProps> = (props) => {
-  const { visible, title, value, onOk, onCancel } = props;
+  const { visible, title, value, onSave, onOk, onCancel } = props;
   const [code, setCode] = useState<string>(value);
 
   // life
@@ -88,6 +102,13 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
       setCode(newCode);
     }
   };
+  const onEditorDidMount: EditorDidMount = (getEditorValue, editor) => {
+    // doc: https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.istandalonecodeeditor.html#addcommand
+    editor.addCommand(KeyMod.CtrlCmd | KeyCode.KEY_S, () => {
+      onSave(getEditorValue());
+      message.success('保存成功', 1);
+    });
+  };
 
   return (
     <Modal
@@ -105,6 +126,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
         width={'100%'}
         height={'600px'}
         onChange={onChangeCode}
+        editorDidMount={onEditorDidMount}
       />
     </Modal>
   );
