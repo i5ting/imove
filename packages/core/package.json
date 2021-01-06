@@ -42,6 +42,7 @@
     "@monaco-editor/react": "^3.7.4",
     "antd": "^4.5.3",
     "axios": "^0.21.0",
+    "fr-generator": "^1.0.0",
     "jszip": "^3.5.0",
     "lodash.merge": "^4.6.2",
     "query-string": "^6.13.7",
