@@ -6,9 +6,9 @@ import styles from './index.module.less';
 
 import { Graph } from '@antv/x6';
 import { Button, Modal, message } from 'antd';
-import CodeEditor from '../../../../components/codeEditor';
 import { monaco, EditorDidMount } from '@monaco-editor/react';
-
+import CodeEditor from '../../../../components/codeEditor';
+import CodeRun from '../../../../components/codeRun';
 interface IProps {
   value: any;
   name: string;
@@ -81,6 +81,7 @@ interface IEditorModalProps {
 const EditModal: React.FC<IEditorModalProps> = (props) => {
   const { visible, title, value, onSave, onOk, onCancel } = props;
   const [code, setCode] = useState<string>(value);
+  const [codeRunVisible, setCodeRunVisible] = useState<boolean>(false);
 
   // life
   useEffect(() => {
@@ -94,9 +95,17 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
   }, [visible]);
 
   // events
-  const onClickOk = (): void => {
-    onOk(code);
+  const onEditOk = (): void => {
+    // onOk(code);
+    setCodeRunVisible(true)
   };
+
+  const onRunOk = (): void => {
+    setCodeRunVisible(false)
+  }
+  const onRunCancel = (): void => {
+    setCodeRunVisible(false)
+  }
   const onChangeCode = (ev: any, newCode: string | undefined = ''): void => {
     if (newCode !== code) {
       setCode(newCode);
@@ -113,12 +122,12 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
   return (
     <Modal
       className={styles.editModal}
-      width={800}
+      width={1000}
       title={title}
-      okText={'保存'}
+      okText={'执行代码'}
       visible={visible}
       cancelText={'取消'}
-      onOk={onClickOk}
+      onOk={onEditOk}
       onCancel={onCancel}
     >
       <CodeEditor
@@ -128,6 +137,18 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
         onChange={onChangeCode}
         editorDidMount={onEditorDidMount}
       />
+      <Modal
+        className={styles.runModal}
+        width={1200}
+        title="执行代码"
+        okText={'运行'}
+        visible={codeRunVisible}
+        cancelText={'取消'}
+        onOk={onRunOk}
+        onCancel={onRunCancel}
+      >
+        <CodeRun />
+      </Modal>
     </Modal>
   );
 };

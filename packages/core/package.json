@@ -47,7 +47,8 @@
     "lodash.merge": "^4.6.2",
     "query-string": "^6.13.7",
     "react-color": "^2.18.1",
-    "react-json-view": "^1.19.1"
+    "react-json-view": "^1.19.1",
+    "xterm": "^4.9.0"
   },
   "devDependencies": {
     "@types/lodash.merge": "^4.6.6",

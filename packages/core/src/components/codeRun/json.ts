@@ -1,4 +1,52 @@
-export default [
+const defaultJson = `const inputData = {
+  // 上游数据
+  pipe: {
+    success: false,
+    message: '未登录'
+  },
+  // 公用数据
+  context: {
+    data: {
+      isLogin: false
+    }
+  },
+  // 传入载荷
+  payload: {
+    name:'xxx'
+  },
+  // 节点配置项
+  config: {
+    hasLog: true
+  }
+}`;
+
+const formatJson = {
+  pipe: {
+    success: false,
+    message: '未登录'
+  },
+  context: {
+    data: {
+      isLogin: false
+    }
+  },
+  payload: {
+    name: 'xxx'
+  },
+  config: {
+    hasLog: true
+  }
+}
+
+const defaultConfig = `{
+
+}`;
+
+const formatConfig = {
+
+}
+
+const compData = [
   {
     "text": '简单输入框',
     "name": 'input',
@@ -504,3 +552,11 @@ export default [
     }
   }
 ]
+
+export {
+  defaultJson,
+  formatJson,
+  defaultConfig,
+  formatConfig,
+  compData
+}
