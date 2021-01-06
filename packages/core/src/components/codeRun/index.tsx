@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Generator from 'fr-generator';
 import JsonView from 'react-json-view';
 import { Terminal } from 'xterm';
@@ -8,25 +8,37 @@ import CodeEditor from '../codeEditor';
 import { defaultJson, formatJson, defaultConfig, formatConfig, compData } from './json'
 import styles from './index.module.less';
 
-const VisualTab: React.FC = () => {
+interface IVisualrops {
+  onChange: (value: object) => void
+}
+
+interface FormValue {
+  children: object[],
+  parent: string,
+  schema: object
+}
+
+const VisualTab: React.FC<IVisualrops> = (props) => {
+  const onChange = (value: FormValue) => {
+    props.onChange(value.schema)
+  }
   return (
-    <div>
-      <Generator
-        settings={[
-          {
-            title: '表单组件库',
-            widgets: compData,
-          },
-        ]}
-      />
-    </div>
+    <Generator
+      settings={[{
+        title: '表单组件库',
+        widgets: compData,
+      }]}
+      onChange={onChange}
+    />
   )
 }
 
 const JsonTab: React.FC = () => {
+  const termRef = useRef(null);
+
   useEffect(() => {
-    let term = new Terminal();
-    term.open(document.getElementById('terminal'));
+    const term = new Terminal();
+    term.open(termRef.current);
     term.write('I\'m \x1B[1;3;31mterminal\x1B[0m $ ')
   }, [])
 
@@ -51,16 +63,14 @@ const JsonTab: React.FC = () => {
             src={formatJson}
           />
         </div>
-        <div className={styles.rightBottom}>
-          <div id="terminal"></div>
-        </div>
+        <div className={styles.rightBottom} ref={termRef}></div>
       </div>
     </div>
   );
 }
 
 interface IConfigProps {
-  onChange?: (ev: any, newJson: string | undefined) => void
+  onChange: (value: object) => void
 }
 
 const ConfigTab: React.FC<IConfigProps> = (props) => {
@@ -93,7 +103,7 @@ const ConfigTab: React.FC<IConfigProps> = (props) => {
 
 interface ICodeRunProps {
   isConfig?: boolean,
-  onChange?: (ev: any, newJson: string | undefined) => void
+  onChange: (value: object) => void
 }
 
 const CodeRun: React.FC<ICodeRunProps> = (props) => {
@@ -105,7 +115,7 @@ const CodeRun: React.FC<ICodeRunProps> = (props) => {
       tabBarStyle={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}
     >
       <TabPane className={styles.tabPane} tab={'可视化'} key={'VisualTab'}>
-        <VisualTab />
+        <VisualTab onChange={props.onChange} />
       </TabPane>
       <TabPane className={styles.tabPane} tab={'JSON'} key={'JsonTab'}>
         {props.isConfig ? <ConfigTab onChange={props.onChange} /> : <JsonTab />}

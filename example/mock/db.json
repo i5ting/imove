@@ -2,7 +2,7 @@
   "default": [
     {
       "position": {
-        "x": 450,
+        "x": 460,
         "y": 50
       },
       "size": {
@@ -443,6 +443,97 @@
           }
         }
       ]
+    },
+    {
+      "position": {
+        "x": 56,
+        "y": 370
+      },
+      "size": {
+        "width": 80,
+        "height": 80
+      },
+      "shape": "imove-start",
+      "data": {
+        "label": "开始",
+        "configSchema": "{\n  \n}",
+        "configData": {},
+        "trigger": "start",
+        "dependencies": "{\n  \n}",
+        "code": "export default async function(ctx) {\n  \n}"
+      },
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "bottom": {
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "top",
+            "group": "top"
+          },
+          {
+            "id": "right",
+            "group": "right"
+          },
+          {
+            "id": "bottom",
+            "group": "bottom"
+          },
+          {
+            "id": "left",
+            "group": "left"
+          }
+        ]
+      },
+      "id": "170e1bef-3acf-4172-8a03-cd9fd6e6fc81",
+      "zIndex": 8
     }
   ]
 }

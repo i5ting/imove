@@ -75,6 +75,7 @@ const Basic: React.FC<IProps> = (props) => {
         name={'dependencies'}
         title={'依赖'}
         value={dependencies}
+        onlyInput={true}
         onValueChange={onChangeDependencies}
       />
     </div>

@@ -8,12 +8,14 @@ import styles from './index.module.less';
 import JsonView from 'react-json-view';
 import { Button, Modal, message } from 'antd';
 import { safeParse } from '../../../../utils';
+import CodeEditor from '../../../../components/codeEditor';
 import CodeRun from '../../../../components/codeRun';
 
 interface IJsonProps {
   value: any;
   name: string;
   title: string;
+  onlyInput?: boolean;
   onValueChange: (value: string) => void;
 }
 
@@ -51,6 +53,7 @@ const Json: React.FC<IJsonProps> = (props) => {
         title={title}
         value={value}
         visible={visible}
+        onlyInput={props.onlyInput}
         onOk={onClickOk}
         onCancel={onClickCancel}
       />
@@ -62,6 +65,7 @@ interface IEditorModalProps {
   visible: boolean;
   title: string;
   value: string;
+  onlyInput?: boolean;
   onOk: (val: string) => void;
   onCancel: () => void;
 }
@@ -92,6 +96,8 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
     }
   };
   const onChangeJson = (ev: any, newJson: string | undefined = ''): void => {
+    // TODO 投放配置schema转化、普通json识别
+    console.log({ newJson })
     if (newJson !== json) {
       setJson(newJson);
     }
@@ -100,7 +106,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
   return (
     <Modal
       className={styles.editModal}
-      width={1200}
+      width={props.onlyInput ? 800 : 1200}
       title={title}
       okText={'保存'}
       visible={visible}
@@ -108,13 +114,15 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
       onOk={onClickOk}
       onCancel={onCancel}
     >
-      <CodeRun isConfig={true} onChange={onChangeJson} />
-      {/* <CodeEditor
-        value={json}
-        width={'100%'}
-        height={'600px'}
-        onChange={onChangeJson}
-      /> */}
+      {props.onlyInput ?
+        <CodeEditor
+          value={json}
+          width={'100%'}
+          height={'600px'}
+          onChange={onChangeJson}
+        /> :
+        <CodeRun isConfig={true} onChange={onChangeJson} />
+      }
     </Modal>
   );
 };
