@@ -45,6 +45,11 @@ interface IEditModalProps {
 
 const EditModal: React.FC<IEditModalProps> = (props): JSX.Element => {
   const { visible, onOk, onCancel } = props;
+
+  const onChange = (value: any) => {
+    // console.log({ value })
+  }
+
   return (
     <Modal
       width={1400}
@@ -57,7 +62,7 @@ const EditModal: React.FC<IEditModalProps> = (props): JSX.Element => {
       onOk={onOk}
       onCancel={onCancel}
     >
-      <CodeRun />
+      <CodeRun onChange={onChange} />
     </Modal>
   );
 };

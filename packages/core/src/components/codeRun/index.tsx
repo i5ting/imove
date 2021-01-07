@@ -8,38 +8,42 @@ import CodeEditor from '../codeEditor';
 import { defaultJson, formatJson, defaultConfig, formatConfig, compData } from './json'
 import styles from './index.module.less';
 
-interface IVisualrops {
+interface IProps {
   onChange: (value: object) => void
 }
-
 interface FormValue {
   children: object[],
   parent: string,
   schema: object
 }
 
-const VisualTab: React.FC<IVisualrops> = (props) => {
+// 可视化操作面板
+const VisualTab: React.FC<IProps> = (props) => {
   const onChange = (value: FormValue) => {
     props.onChange(value.schema)
   }
+
   return (
-    <Generator
-      settings={[{
-        title: '表单组件库',
-        widgets: compData,
-      }]}
-      onChange={onChange}
-    />
+    <div className={styles.form}>
+      <Generator
+        settings={[{
+          title: '表单组件库',
+          widgets: compData,
+        }]}
+        onChange={onChange}
+      />
+    </div>
   )
 }
 
-const JsonTab: React.FC = () => {
-  const termRef = useRef(null);
+// 输入测试用例面板，包括pipe、config、context、payload
+const JsonTab: React.FC<IProps> = () => {
+  const termRef = useRef(document.createElement('div'));
 
   useEffect(() => {
     const term = new Terminal();
-    term.open(termRef.current);
-    term.write('I\'m \x1B[1;3;31mterminal\x1B[0m $ ')
+    term.open(termRef.current as HTMLDivElement);
+    term.write('I\'m \x1B[1;3;31mterminal\x1B[0m $ ');
   }, [])
 
   return (
@@ -53,7 +57,7 @@ const JsonTab: React.FC = () => {
       </div>
       <div className={styles.right}>
         <div className={styles.rightTop}>
-          <p>输入格式化：</p>
+          <p>输出：</p>
           <JsonView
             name={null}
             collapsed={false}
@@ -69,11 +73,8 @@ const JsonTab: React.FC = () => {
   );
 }
 
-interface IConfigProps {
-  onChange: (value: object) => void
-}
-
-const ConfigTab: React.FC<IConfigProps> = (props) => {
+// 输入投放配置config的操作面板，如”投放配置schema“
+const ConfigTab: React.FC<IProps> = (props) => {
   return (
     <div className={styles.configInput}>
       <div className={styles.left}>
@@ -118,7 +119,7 @@ const CodeRun: React.FC<ICodeRunProps> = (props) => {
         <VisualTab onChange={props.onChange} />
       </TabPane>
       <TabPane className={styles.tabPane} tab={'JSON'} key={'JsonTab'}>
-        {props.isConfig ? <ConfigTab onChange={props.onChange} /> : <JsonTab />}
+        {props.isConfig ? <ConfigTab onChange={props.onChange} /> : <JsonTab onChange={props.onChange} />}
       </TabPane>
     </Tabs>
   )

@@ -97,7 +97,6 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
   };
   const onChangeJson = (ev: any, newJson: string | undefined = ''): void => {
     // TODO 投放配置schema转化、普通json识别
-    console.log({ newJson })
     if (newJson !== json) {
       setJson(newJson);
     }

@@ -119,6 +119,10 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
     });
   };
 
+  const onChange = (value: any) => {
+    // console.log({ value })
+  }
+
   return (
     <Modal
       className={styles.editModal}
@@ -139,7 +143,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
       />
       <Modal
         className={styles.runModal}
-        width={1200}
+        width={1400}
         title="执行代码"
         okText={'运行'}
         visible={codeRunVisible}
@@ -147,7 +151,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
         onOk={onRunOk}
         onCancel={onRunCancel}
       >
-        <CodeRun />
+        <CodeRun onChange={onChange} />
       </Modal>
     </Modal>
   );
