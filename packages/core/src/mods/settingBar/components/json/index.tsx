@@ -119,6 +119,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
           value={json}
           width={'100%'}
           height={'600px'}
+          language={'json'}
           onChange={onChangeJson}
         /> :
         <CodeRun isConfig={true} onChange={onChangeJson} />
