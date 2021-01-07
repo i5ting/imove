@@ -81,6 +81,7 @@ interface IEditorModalProps {
 const EditModal: React.FC<IEditorModalProps> = (props) => {
   const { visible, title, value, onSave, onOk, onCancel } = props;
   const [code, setCode] = useState<string>(value);
+  const [editorInst, setEditorInst] = useState<any>();
   const [codeRunVisible, setCodeRunVisible] = useState<boolean>(false);
 
   // life
@@ -93,6 +94,15 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
       setCode('');
     }
   }, [visible]);
+  useEffect(() => {
+    if(editorInst) {
+      // NOTE: how to add command(https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.istandalonecodeeditor.html#addcommand)
+      editorInst.addCommand(KeyMod.CtrlCmd | KeyCode.KEY_S, () => {
+        onSave(editorInst.getValue());
+        message.success('保存成功', 1);
+      });
+    }
+  }, [editorInst, onSave]);
 
   // events
   const onEditOk = (): void => {
@@ -112,11 +122,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
     }
   };
   const onEditorDidMount: EditorDidMount = (getEditorValue, editor) => {
-    // doc: https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.istandalonecodeeditor.html#addcommand
-    editor.addCommand(KeyMod.CtrlCmd | KeyCode.KEY_S, () => {
-      onSave(getEditorValue());
-      message.success('保存成功', 1);
-    });
+    setEditorInst(editor);
   };
 
   return (
