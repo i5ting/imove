@@ -3,12 +3,10 @@ import JsonView from 'react-json-view';
 import { Tabs, Form, Input, Button, Space } from 'antd';
 const { TabPane } = Tabs;
 import CodeEditor from '../codeEditor';
+import Console from '../console';
 import { inputJson, outputJson } from './json'
 import styles from './index.module.less';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-interface IProps {
-  onChange: (value: object) => void
-}
 interface MyFormItemProps {
   type: string
 }
@@ -51,8 +49,11 @@ const MyFormItem: React.FC<MyFormItemProps> = (props) => {
   )
 }
 
+interface VisualInputProps {
+  onChange: (value: object) => void
+}
 
-const VisualInput: React.FC<IProps> = (props) => {
+const VisualInput: React.FC<VisualInputProps> = (props) => {
   const [form] = Form.useForm()
   const PAYLOAD = 'payload', PIPE = 'pipe', CONTEXT = 'context', CONFIG = 'config'
   const onChange = () => {
@@ -70,8 +71,12 @@ const VisualInput: React.FC<IProps> = (props) => {
     </div>
   )
 }
+interface CodeRunProps {
+  onChange: (value: object) => void,
+  hasConsole: boolean
+}
 
-const CodeRun: React.FC<IProps> = (props) => {
+const CodeRun: React.FC<CodeRunProps> = (props) => {
   const onFormChange = (value: any) => {
     props.onChange(value)
   }
@@ -120,7 +125,10 @@ const CodeRun: React.FC<IProps> = (props) => {
           />
         </div>
         <div className={styles.rightBottom}>
-          我是console控制台
+          {props.hasConsole ?
+            <Console /> :
+            <p className={styles.placeholder}>目前没有任何console内容哦</p>
+          }
         </div>
       </div>
     </div>

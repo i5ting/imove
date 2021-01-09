@@ -62,7 +62,7 @@ const EditModal: React.FC<IEditModalProps> = (props): JSX.Element => {
       onOk={onOk}
       onCancel={onCancel}
     >
-      <CodeRun onChange={onChange} />
+      <CodeRun onChange={onChange} hasConsole={false} />
     </Modal>
   );
 };
