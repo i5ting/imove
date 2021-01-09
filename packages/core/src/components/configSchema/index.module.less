@@ -1,23 +1,21 @@
+.tabPane{
+  margin:0 20px;
 
-  .container {
+  .form{
+    height:600px;
+    overflow-y: auto;
+  }
+
+  .jsonInput {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 100%;
+    height: 600px;
 
     .left{
       padding:10px;
-      flex:1;
+      flex:300px;
       border:1px solid #eee;
-
-      .editor{
-        width:100%;
-        height:600px;
-      }
-
-      .visualInput{
-        width:100%;
-      }
     }
 
     .right{
@@ -37,12 +35,27 @@
 
       .rightBottom{
         height:50%;
+        padding:10px;
         flex:1;
         border:1px solid #eee;
-        text-align: center;
-        color:#bfbfbf;
-        font-size:24px;
-        line-height: 300px;
       }
     }
   }
+
+  .configInput{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 600px;
+
+    .left{
+      height:100%;
+      flex:1;
+    }
+
+    .right{
+      height:100%;
+      flex:1;
+    }
+  }
+}

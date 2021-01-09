@@ -9,7 +9,7 @@ import JsonView from 'react-json-view';
 import { Button, Modal, message } from 'antd';
 import { safeParse } from '../../../../utils';
 import CodeEditor from '../../../../components/codeEditor';
-import CodeRun from '../../../../components/codeRun';
+import ConfigSchema from '../../../../components/configSchema';
 
 interface IJsonProps {
   value: any;
@@ -96,7 +96,6 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
     }
   };
   const onChangeJson = (ev: any, newJson: string | undefined = ''): void => {
-    // TODO 投放配置schema转化、普通json识别
     if (newJson !== json) {
       setJson(newJson);
     }
@@ -121,7 +120,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
           language={'json'}
           onChange={onChangeJson}
         /> :
-        <CodeRun isConfig={true} onChange={onChangeJson} />
+        <ConfigSchema onChange={onChangeJson} />
       }
     </Modal>
   );

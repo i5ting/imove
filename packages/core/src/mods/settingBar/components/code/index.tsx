@@ -95,7 +95,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
     }
   }, [visible]);
   useEffect(() => {
-    if(editorInst) {
+    if (editorInst) {
       // NOTE: how to add command(https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.istandalonecodeeditor.html#addcommand)
       editorInst.addCommand(KeyMod.CtrlCmd | KeyCode.KEY_S, () => {
         onSave(editorInst.getValue());
@@ -126,6 +126,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
   };
 
   const onChange = (value: any) => {
+    // 运行节点代码时传入的json，包括payload、pipe、context、config
     // console.log({ value })
   }
 
