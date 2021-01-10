@@ -97,9 +97,7 @@ $ npm run example
 [pr-welcoming-url]: https://github.com/imgcook/imove/pull/new
 
 
-## 开发者交流
+## 开发者交流群
 
-顶顶群
-
-<img src="https://img.alicdn.com/imgextra/i3/O1CN01dDWrGg232H8dOHraY_!!6000000007197-2-tps-859-1184.png" width='200px'> 
+<img src="https://img.alicdn.com/imgextra/i3/O1CN01dDWrGg232H8dOHraY_!!6000000007197-2-tps-859-1184.png" width='400px'> 
 
