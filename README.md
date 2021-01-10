@@ -95,3 +95,11 @@ $ npm run example
 [#imgcook/imove]: https://webchat.freenode.net/?channels=#imgcook/imove
 [pr-welcoming-image]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [pr-welcoming-url]: https://github.com/imgcook/imove/pull/new
+
+
+## 开发者交流
+
+顶顶群
+
+<img src="https://img.alicdn.com/imgextra/i3/O1CN01dDWrGg232H8dOHraY_!!6000000007197-2-tps-859-1184.png" width='200px'> 
+
