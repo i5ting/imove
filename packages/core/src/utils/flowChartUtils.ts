@@ -19,3 +19,11 @@ export const getSelectedNodes = (flowChart: Graph): Cell[] => {
 export const getSelectedEdges = (flowChart: Graph): Cell[] => {
   return flowChart.getSelectedCells().filter((cell: Cell) => cell.isEdge());
 };
+
+export const toSelectedCellsJSON = (flowChart: Graph): {cells: Cell.Properties[]} => {
+  const json = flowChart.toJSON();
+  const selectedCells = flowChart.getSelectedCells();
+  return {
+    cells: json.cells.filter(cell => selectedCells.find(o => o.id === cell.id))
+  };
+}

@@ -7,9 +7,10 @@ import {
   FormOutlined,
   DeleteOutlined,
 } from '@ant-design/icons';
+
+import { Graph } from '@antv/x6';
 import XIcon from '../../../../components/xIcon';
 import shortcuts from '../../../../common/shortcuts';
-import { Graph } from '@antv/x6';
 import { getSelectedNodes } from '../../../../utils/flowChartUtils';
 
 const nodeMenuConfig = [
@@ -38,14 +39,14 @@ const nodeMenuConfig = [
     key: 'bringToTop',
     title: '置于顶层',
     icon: <XIcon type={'icon-bring-to-top'} />,
-    handler:shortcuts.bringToTop.handler
+    handler: shortcuts.bringToTop.handler
   },
   {
     key: 'bringToBack',
     title: '置于底层',
     icon: <XIcon type={'icon-bring-to-bottom'} />,
     showDividerBehind: true,
-    handler:shortcuts.bringToBack.handler
+    handler: shortcuts.bringToBack.handler
   },
   {
     key: 'editCode',

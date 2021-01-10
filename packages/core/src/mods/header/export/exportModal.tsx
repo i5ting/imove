@@ -6,7 +6,7 @@ import styles from './index.module.less';
 import JSZip from 'jszip';
 import { Modal } from 'antd';
 import { DataUri, Graph } from '@antv/x6';
-import compileCode from '@imove/compile-code';
+import { compileForProject } from '@imove/compile-code';
 
 interface IExportModalProps {
   flowChart: Graph;
@@ -25,7 +25,7 @@ const ExportModal: React.FC<IExportModalProps> = (props) => {
   const onExportCode = () => {
     const zip = new JSZip();
     const dsl = flowChart.toJSON();
-    const output = compileCode(dsl);
+    const output = compileForProject(dsl);
     Helper.recursiveZip(zip, output);
     zip.generateAsync({ type: 'blob' }).then((blob) => {
       DataUri.downloadBlob(blob, 'logic.zip');

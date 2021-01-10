@@ -447,20 +447,24 @@
     {
       "position": {
         "x": 56,
-        "y": 370
+        "y": 380
       },
       "size": {
-        "width": 80,
-        "height": 80
+        "width": 100,
+        "height": 40
       },
-      "shape": "imove-start",
+      "attrs": {
+        "label": {
+          "text": "在线运行测试"
+        }
+      },
+      "shape": "imove-behavior",
       "data": {
-        "label": "开始",
+        "label": "在线运行测试",
         "configSchema": "{\n  \n}",
         "configData": {},
-        "trigger": "start",
-        "dependencies": "{\n  \n}",
-        "code": "export default async function(ctx) {\n  \n}"
+        "dependencies": "{\n  \"lodash.get\": \"4.4.2\"\n}",
+        "code": "import fpget from 'lodash.get';\n\nexport default async function(ctx) {\n  const obj = {a: {b: 'hello imove~'}};\n  console.log(fpget(obj, 'a.b'));\n}"
       },
       "ports": {
         "groups": {
@@ -532,8 +536,8 @@
           }
         ]
       },
-      "id": "170e1bef-3acf-4172-8a03-cd9fd6e6fc81",
-      "zIndex": 8
+      "id": "1d174369-929b-4bd5-8841-f271399c4a4f",
+      "zIndex": 9
     }
   ]
 }

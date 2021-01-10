@@ -3,9 +3,14 @@ import React, {
   useEffect,
   useCallback
 } from 'react';
-import { Graph } from '@antv/x6';
+
 import { Modal } from 'antd';
+import { Graph } from '@antv/x6';
+import { executeScript } from '../../../../utils';
 import CodeRun from '../../../../components/codeRun';
+import { compileForOnline } from '@imove/compile-code';
+import { toSelectedCellsJSON } from '../../../../utils/flowChartUtils';
+
 interface IProps {
   flowChart: Graph;
   selectedCell: any;
@@ -25,7 +30,9 @@ const TestCase: React.FC<IProps> = (props) => {
   const showModal = useCallback(() => setVisible(true), []);
   const closeModal = useCallback(() => setVisible(false), []);
   const runCode = useCallback(() => {
-    // TODO: 运行节点代码
+    // TODO: 展示运行结果
+    const compiledCode = compileForOnline(toSelectedCellsJSON(flowChart));
+    executeScript(compiledCode);
   }, []);
 
   return (
