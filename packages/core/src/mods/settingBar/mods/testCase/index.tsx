@@ -62,14 +62,14 @@ const EditModal: React.FC<IEditModalProps> = (props): JSX.Element => {
       width={1400}
       centered={true}
       bodyStyle={{ height: 700, overflowY: 'auto' }}
-      title={'运行代码'}
+      title={'执行代码'}
       visible={visible}
       okText={'运行'}
       cancelText={'取消'}
       onOk={onOk}
       onCancel={onCancel}
     >
-      <CodeRun onChange={onChange} hasConsole={false} />
+      <CodeRun onChange={onChange} />
     </Modal>
   );
 };

@@ -72,8 +72,7 @@ const VisualInput: React.FC<VisualInputProps> = (props) => {
   )
 }
 interface CodeRunProps {
-  onChange: (value: object) => void,
-  hasConsole: boolean
+  onChange: (value: object) => void
 }
 
 const CodeRun: React.FC<CodeRunProps> = (props) => {
@@ -125,10 +124,7 @@ const CodeRun: React.FC<CodeRunProps> = (props) => {
           />
         </div>
         <div className={styles.rightBottom}>
-          {props.hasConsole ?
-            <Console /> :
-            <p className={styles.placeholder}>目前没有任何console内容哦</p>
-          }
+          <Console />
         </div>
       </div>
     </div>

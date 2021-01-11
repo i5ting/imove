@@ -1,32 +1,22 @@
-import React, { useEffect } from 'react'
-import Log from './log'
-import logStore, { ConsoleType } from './store'
+import React, { useState, useEffect } from 'react'
+interface ConsoleType {
+  logType: string
+  infos: any[]
+}
 
 const MyConsole: React.FC = () => {
-  const console: any = {}
+  const [logList, setLogList] = useState<ConsoleType[]>([])
 
   useEffect(() => {
     executeConsole()
   }, [])
 
-  const processLog = (item: ConsoleType) => {
-    const { logType } = item
-    let { infos = [] } = item
-    if (!infos.length) return
-    infos = [].slice.call(infos || [])
-    logStore.addLog({ logType, infos })
-    printOriginLog(item)
+  const addLog = (log: ConsoleType) => {
+    setLogList([...logList, log])
   }
 
   const clearLog = () => {
-    logStore.clearLog()
-  }
-
-  const printOriginLog = (item: ConsoleType) => {
-    const { logType, infos } = item
-    if (typeof console[logType] === 'function') {
-      console[logType].apply(window.console, infos)
-    }
+    setLogList([])
   }
 
   const executeConsole = () => {
@@ -34,32 +24,53 @@ const MyConsole: React.FC = () => {
       return
     }
 
-    // 模拟浏览器中的console方法
     const methodList = ['log', 'info', 'warn', 'debug', 'error']
-    methodList.map(method => {
-      // @ts-ignore
-      console[method] = window.console[method]
-    })
 
-    methodList.map(method => {
+    // 拦截浏览器中的console方法并重写
+    methodList.forEach(method => {
       // @ts-ignore
       window.console[method] = (...args: any[]) => {
-        processLog({
+        addLog({
           logType: method,
           infos: args
         })
       }
     })
 
-    window.console.clear = (...args: any[]) => {
+    window.console.clear = () => {
       clearLog()
-      console.clear.apply(window.console, args)
     }
   }
 
+  // 根据不同console类型展示不同的样式
+  const renderLogList = (logList: ConsoleType[]) => {
+    return logList.map((log: ConsoleType, index: number) => {
+      const renderItem = (color: string) => <p key={index} style={{ color: color }}>{log.infos}</p>
+      let wrap = null
+      switch (log.logType) {
+        case 'warn':
+          wrap = renderItem('#faad14')
+          break
+        case 'log':
+          wrap = renderItem('#ffffff')
+          break
+        case 'error':
+          wrap = renderItem('#ff4d4f')
+          break
+        case 'info':
+          wrap = renderItem('#76cd75')
+          break
+        case 'debug':
+          wrap = renderItem('#1890ff')
+          break
+      }
+      return wrap
+    })
+  }
+
   return (
-    <div style={{ height: '100%' }}>
-      <Log logList={logStore.computeLogList} />
+    <div style={{ height: '100%', background: '#000', padding: 10 }}>
+      <div style={{ height: '100%', overflow: 'auto' }}>{renderLogList(logList)}</div>
     </div>
   )
 }

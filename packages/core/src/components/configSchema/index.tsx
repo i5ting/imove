@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Generator from 'fr-generator';
-import JsonView from 'react-json-view';
 import { Tabs } from 'antd';
 const { TabPane } = Tabs;
 import CodeEditor from '../codeEditor';
-import { defaultConfig, formatConfig, compData } from './json'
+import { defaultConfig, compData } from './json'
 import styles from './index.module.less';
-
+// import FormRender from 'form-render/lib/antd';
 interface IProps {
   onChange: (value: object) => void
 }
-
 interface FormValue {
   children: object[],
   parent: string,
@@ -36,28 +34,25 @@ const VisualTab: React.FC<IProps> = (props) => {
 }
 
 const ConfigTab: React.FC<IProps> = (props) => {
+  const [jsonSchema, setJsonSchema] = useState(defaultConfig)
+
   return (
     <div className={styles.configInput}>
       <div className={styles.left}>
-        <p>输入：</p>
+        <p>输入</p>
         <CodeEditor
           width={'100%'}
-          value={defaultConfig}
+          language={'json'}
+          value={jsonSchema}
           onChange={props.onChange}
         />
       </div>
       <div className={styles.right}>
-        <div className={styles.rightTop}>
-          <p>输入格式化：</p>
-          <JsonView
-            name={null}
-            collapsed={false}
-            enableClipboard={false}
-            displayDataTypes={false}
-            displayObjectSize={false}
-            src={formatConfig}
-          />
-        </div>
+        <p>表单可视化</p>
+        {/* <FormRender
+          schema={schema}
+          onChange={onChange}
+        /> */}
       </div>
     </div>
   );

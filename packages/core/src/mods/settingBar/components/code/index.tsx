@@ -111,7 +111,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
   };
 
   const onRunOk = (): void => {
-    setCodeRunVisible(false)
+    // setCodeRunVisible(false)
   }
   const onRunCancel = (): void => {
     setCodeRunVisible(false)
@@ -158,7 +158,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
         onOk={onRunOk}
         onCancel={onRunCancel}
       >
-        <CodeRun onChange={onChange} hasConsole={false} />
+        <CodeRun onChange={onChange} />
       </Modal>
     </Modal>
   );
