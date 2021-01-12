@@ -1,47 +1,3 @@
-const defaultConfig = `{
-  "schema": {
-    "type": "object",
-    "properties": {
-      "AllString": {
-        "title": "string类",
-        "type": "object",
-        "properties": {
-          "input": {
-            "title": "输入框",
-            "type": "string",
-            "ui:options": {
-              "placeholder": "商品名称"
-            }
-          }
-        }
-      },
-      "allNumber": {
-        "title": "number类",
-        "type": "object",
-        "properties": {
-          "number": {
-            "title": "数字输入框",
-            "description": "1 - 1000",
-            "type": "number",
-            "min": 1,
-            "max": 1000
-          }
-        }
-      },
-      "allBoolean": {
-        "title": "boolean类",
-        "type": "object",
-        "properties": {
-          "radio": {
-            "title": "是否通过",
-            "type": "boolean"
-          }
-        }
-      }
-    }
-  }
-}`;
-
 const compData = [
   {
     "text": '简单输入框',
@@ -550,6 +506,5 @@ const compData = [
 ]
 
 export {
-  defaultConfig,
   compData
 }
