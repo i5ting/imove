@@ -20,7 +20,7 @@ const ConfigSchema: React.FC<IProps> = (props) => {
     // @ts-ignore
     const formSchema = formRef.current && formRef.current.getValue()
     setSchema(formSchema)
-    setCode(JSON.stringify(formSchema))
+    setCode(JSON.stringify(formSchema, null, 2))
 
     // 编辑器同步到可视化
     try {
