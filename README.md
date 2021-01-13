@@ -51,6 +51,16 @@ $ npm run example
 
 ![flowchart-usage2](https://img.alicdn.com/tfs/TB1lC26tTM11u4jSZPxXXahcXXa-1924-1125.png)
 
+## Authors
+
+* qilei0529 - 飞羽「Leader」
+* SmallStoneSK  - 菉竹「Core Team」
+* suanmei -  拾邑「Core Team」
+* iloveyou11 - 冷卉「Core Team」
+* i5ting - 狼叔「Core Team」
+
+See also the list of [contributors](https://github.com/imgcook/imove/graphs/contributors) who participated in this project.
+
 ## 贡献
 
 1. Fork 仓库
