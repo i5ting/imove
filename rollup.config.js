@@ -1,4 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve';
+import babel from "@rollup/plugin-babel";
 import commonjs from '@rollup/plugin-commonjs';
 import strip from '@rollup/plugin-strip';
 import json from '@rollup/plugin-json';
@@ -15,5 +16,9 @@ export default {
     json(),
     strip({ debugger: true }),
     sizeSnapshot({ printInfo: false }),
+    babel({
+      exclude: 'node_modules/**',
+      extensions
+    })
   ],
 };
