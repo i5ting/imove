@@ -117,5 +117,5 @@ See also the list of [contributors](https://github.com/imgcook/imove/graphs/cont
 
 ## 开发者交流群
 
-<img src="https://img.alicdn.com/imgextra/i3/O1CN01dDWrGg232H8dOHraY_!!6000000007197-2-tps-859-1184.png" width='400px'> 
+<img src="https://img.alicdn.com/imgextra/i3/O1CN01bXX2E41LqLLM1BZGH_!!6000000001350-2-tps-859-1184.png" width='400px'> 
 
