@@ -1,0 +1,32 @@
+name: 🐱 Checker
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  # 确保 PR 中超链接有效性
+  markdown-link-checker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
+          check-modified-files-only: 'yes'
+
+  # 检查 PR 中英文单词拼写正确性
+  spell-checker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install mispell
+        run: |
+          wget -O - -q https://git.io/misspell | sh -s -- -b .
+      - name: Check
+        run: |
+          find -E . -regex ".*\.(ts|js|json)" -type f | xargs ./misspell -error
+          find docs -type f | xargs ./misspell -error
+          find . -type f -maxdepth 1 | xargs ./misspell -error
