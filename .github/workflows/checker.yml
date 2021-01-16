@@ -3,7 +3,7 @@ name: 🐱 Checker
 on:
   pull_request:
     branches:
-    - master
+      - master
 
 jobs:
   # 确保 PR 中超链接有效性
