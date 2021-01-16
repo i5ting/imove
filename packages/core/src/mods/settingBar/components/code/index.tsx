@@ -125,11 +125,6 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
     setEditorInst(editor);
   };
 
-  const onChange = (value: any) => {
-    // 运行节点代码时传入的json，包括payload、pipe、context、config
-    // console.log({ value })
-  }
-
   return (
     <Modal
       className={styles.editModal}
@@ -150,15 +145,15 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
       />
       <Modal
         className={styles.runModal}
-        width={1400}
-        title="执行代码"
+        width={1000}
+        title={'执行代码'}
         okText={'运行'}
         visible={codeRunVisible}
         cancelText={'取消'}
         onOk={onRunOk}
         onCancel={onRunCancel}
       >
-        <CodeRun onChange={onChange} />
+        <CodeRun />
       </Modal>
     </Modal>
   );

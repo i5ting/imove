@@ -1,135 +1,91 @@
-import React from 'react';
-import JsonView from 'react-json-view';
-import { Tabs, Form, Input, Button, Space } from 'antd';
-const { TabPane } = Tabs;
-import CodeEditor from '../codeEditor';
-import Console from '../console';
-import { inputJson, outputJson } from './json'
+import React, {
+  useState,
+  useCallback,
+} from 'react';
+
 import styles from './index.module.less';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-interface MyFormItemProps {
-  type: string
+
+import Console from '../console';
+import InputPanel from './inputPanel';
+import JsonView from 'react-json-view';
+
+// FIXME: https://github.com/tomkp/react-split-pane/issues/541
+// @ts-ignore
+import SplitPane from 'react-split-pane/lib/SplitPane';
+// @ts-ignore
+import Pane from 'react-split-pane/lib/Pane';
+
+const defaultInput = {
+  pipe: {},
+  context: {},
+  payload: {},
+  config: {}
+};
+
+interface ICardProps {
+  title: string;
 }
 
-const MyFormItem: React.FC<MyFormItemProps> = (props) => {
-  return (
-    <>
-      <h3>{props.type}</h3>
-      <Form.List name={props.type}>
-        {(fields, { add, remove }) => (
-          <>
-            {fields.map(field => (
-              <Space key={field.key} align="baseline">
-                <Form.Item
-                  {...field}
-                  label="key"
-                  name={[field.name, 'key']}
-                  fieldKey={[field.fieldKey, 'key']}
-                >
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  {...field}
-                  label="value"
-                  name={[field.name, 'value']}
-                  fieldKey={[field.fieldKey, 'value']}
-                >
-                  <Input />
-                </Form.Item>
-                <MinusCircleOutlined onClick={() => remove(field.name)} />
-              </Space>
-            ))}
-            <Form.Item>
-              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>新增</Button>
-            </Form.Item>
-          </>
-        )}
-      </Form.List>
-    </>
-  )
-}
-
-interface VisualInputProps {
-  onChange: (value: object) => void
-}
-
-const VisualInput: React.FC<VisualInputProps> = (props) => {
-  const [form] = Form.useForm()
-  const PAYLOAD = 'payload', PIPE = 'pipe', CONTEXT = 'context', CONFIG = 'config'
-  const onChange = () => {
-    props.onChange(form.getFieldsValue())
-  }
+const Card: React.FC<ICardProps> = (props) => {
+  const {title} = props;
 
   return (
-    <div className={styles.visualInput}>
-      <Form form={form} name="form" autoComplete="off" onValuesChange={onChange}>
-        <MyFormItem type={PAYLOAD} />
-        <MyFormItem type={PIPE} />
-        <MyFormItem type={CONTEXT} />
-        <MyFormItem type={CONFIG} />
-      </Form>
+    <div className={styles.card}>
+      <div className={styles.cardTitleText}>{title}</div>
+      <div className={styles.cardBody}>
+        {props.children}
+      </div>
     </div>
-  )
-}
-interface CodeRunProps {
-  onChange: (value: object) => void
+  );
+};
+
+interface ICodeRunProps {
 }
 
-const CodeRun: React.FC<CodeRunProps> = (props) => {
-  const onFormChange = (value: any) => {
-    props.onChange(value)
-  }
-  const onJsonChange = (ev: any, newCode: any): void => {
-    const codeStr = newCode.slice(15)
-    const formatCodeStr = codeStr.replace(/ |\/\/.*/g, '').replace(/\s/g, '').replace(/(\w+):/g, '"$1":').replace(/'/g, '"')
-    try {
-      props.onChange(JSON.parse(formatCodeStr))
-    } catch (err) {
-      props.onChange({})
-    }
-  };
+const CodeRun: React.FC<ICodeRunProps> = (props) => {
+  
+  const [input, setInput] = useState(defaultInput);
+  const [output, setOutput] = useState({});
+
+  const onChangeInput = useCallback((val: any) => {
+    setInput(val);
+  }, []);
 
   return (
     <div className={styles.container}>
-      <div className={styles.left}>
-        <Tabs
-          type="card"
-          tabBarGutter={0}
-          defaultActiveKey={'basic'}
-          tabBarStyle={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-          <TabPane className={styles.tabPane} tab={'可视化'} key={'visualTab'}>
-            <VisualInput onChange={onFormChange} />
-          </TabPane>
-          <TabPane className={styles.tabPane} tab={'JSON输入'} key={'jsonTab'}>
-            <CodeEditor
-              value={inputJson}
-              className={styles.editor}
-              onChange={onJsonChange}
-            />
-          </TabPane>
-        </Tabs>
-      </div>
-
-      <div className={styles.right}>
-        <div className={styles.rightTop}>
-          <p>输出</p>
-          <JsonView
-            name={null}
-            collapsed={false}
-            enableClipboard={false}
-            displayDataTypes={false}
-            displayObjectSize={false}
-            src={outputJson}
-          />
-        </div>
-        <div className={styles.rightBottom}>
-          <Console />
-        </div>
-      </div>
+      <SplitPane split={'horizontal'}>
+        <Pane initialSize={'380px'} minSize={'43px'}>
+          <SplitPane split={'vertical'}>
+            <Pane className={styles.pane} minSize={'360px'} maxSize={'660px'}>
+              <Card title={'输入'}>
+                <InputPanel
+                  data={input}
+                  onChange={onChangeInput}
+                />
+              </Card>
+            </Pane>
+            <Pane className={styles.pane}>
+              <Card title={'输出'}>
+                <JsonView
+                  name={null}
+                  collapsed={false}
+                  enableClipboard={false}
+                  displayDataTypes={false}
+                  displayObjectSize={false}
+                  src={{}}
+                />
+              </Card>
+            </Pane>
+          </SplitPane>
+        </Pane>
+        <Pane className={styles.pane} minSize={'150px'}>
+          <Card title={'控制台'}>
+            <Console />
+          </Card>
+        </Pane>
+      </SplitPane>
     </div>
-
-  )
+  );
 }
 
 export default CodeRun;

@@ -59,9 +59,9 @@ const EditModal: React.FC<IEditModalProps> = (props): JSX.Element => {
 
   return (
     <Modal
-      width={1400}
+      width={1000}
       centered={true}
-      bodyStyle={{ height: 700, overflowY: 'auto' }}
+      bodyStyle={{ padding: 0, height: 600 }}
       title={'执行代码'}
       visible={visible}
       okText={'运行'}
@@ -69,7 +69,7 @@ const EditModal: React.FC<IEditModalProps> = (props): JSX.Element => {
       onOk={onOk}
       onCancel={onCancel}
     >
-      <CodeRun onChange={onChange} />
+      <CodeRun />
     </Modal>
   );
 };

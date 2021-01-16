@@ -69,7 +69,7 @@ const MyConsole: React.FC = () => {
   }
 
   return (
-    <div style={{ height: '100%', background: '#000', padding: 10 }}>
+    <div style={{ height: '100%', background: 'rgb(39,40,35)', padding: 10 }}>
       <div style={{ height: '100%', overflow: 'auto' }}>{renderLogList(logList)}</div>
     </div>
   )
