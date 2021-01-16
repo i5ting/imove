@@ -1,7 +1,9 @@
 # iMove
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <div align="center">
@@ -14,16 +16,16 @@
 
 [English](./README.en-US.md) | 简体中文
 
-## 特性
+## Features
 
 - [x] **Process visualization:** iMove is easy to use and easy to draw. Its logical expression is more intuitive and easy to understand.
 - [x] **Logic re-usage:** iMove node supports multiplexing, and its single node supports parameter configuration.
 - [x] **Flexible**: We need to write an only function. The node can also be extended. iMove can alse support plug-in integration.
 - [ ] **Multi-language compilation**: There is no language compiling code limitation (example: support JavaScript, Java compiling code).
 
-## 快速开始
+## Quickstart
 
-### 步骤 1. 准备
+### Step1. Run
 
 Download this project, install dependencies and start the project.
 
@@ -31,15 +33,16 @@ Download this project, install dependencies and start the project.
 $ git clone https://github.com/imgcook/imove.git
 $ npm run example
 ```
+
 Open http://localhost:8000/ and you can see the online effect.
 
-### 步骤 2. 绘制流程图
+### Step2. Draw flowchart
 
 Drag nodes from the left panel and drop them into the center, then we can get a flowchart.
 
 ![flowchart](https://img.alicdn.com/tfs/TB1aoYe4pP7gK0jSZFjXXc5aXXa-3090-1806.jpg)
 
-### 步骤 3. 配置节点
+### Step3. Configure nodes
 
 Select the node, modify its display name and complete the code.
 
@@ -47,23 +50,23 @@ Select the node, modify its display name and complete the code.
 
 ![flowchart-usage2](https://img.alicdn.com/tfs/TB1lC26tTM11u4jSZPxXXahcXXa-1924-1125.png)
 
-## 贡献
+## Contributing
 
-1. Fork 仓库
-2. 创建分支 (`git checkout -b my-new-feature`)
-3. 提交修改 (`git commit -am 'Add some feature'`)
-4. 推送 (`git push origin my-new-feature`)
-5. 创建 PR
+1. Fork this repository
+2. Create a new branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push (`git push origin my-new-feature`)
+5. File a PR
 
-## 欢迎fork和反馈
+## Welcome to fork and feedback
 
-If you have any suggestion, welcome to github to raise [issues](https://github.com/imgcook/imove/issues).
+If you have any suggestion, welcome to GitHub to raise [issues](https://github.com/imgcook/imove/issues).
 
-## 协议
+## License
 
-本仓库遵循 [MIT 协议](http://www.opensource.org/licenses/MIT)
+This project follows the [MIT](http://www.opensource.org/licenses/MIT) license.
 
-## 贡献者 ✨
+## Contributors ✨
 
 Thanks goes to these excellent ([contributors](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -72,6 +75,7 @@ Thanks goes to these excellent ([contributors](https://allcontributors.org/docs/
 <!-- markdownlint-disable -->
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-本仓库遵循 [all-contributors](https://github.com/all-contributors/all-contributors) 规范，欢迎贡献!
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
