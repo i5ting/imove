@@ -33,8 +33,9 @@ Download this project, install dependencies and start the project.
 $ git clone https://github.com/imgcook/imove.git
 $ npm run example
 ```
-
+<!-- markdown-link-check-disable -->
 Open http://localhost:8000/ and you can see the online effect.
+<!-- markdown-link-check-enable -->
 
 ### Step2. Draw flowchart
 

@@ -43,7 +43,9 @@ $ npm install
 $ npm run example
 ```
 
+<!-- markdown-link-check-disable -->
 此时浏览器会自动打开 `http://localhost:8000/` ，可以看到运行效果。
+<!-- markdown-link-check-enable -->
 
 ### 步骤 2. 绘制流程图
 
