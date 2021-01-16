@@ -13,23 +13,22 @@
   iMove 是一个逻辑可复用的，面向函数的，流程可视化的 JavaScript 工具库。
 </p>
 
-
 [English](./README.en-US.md) | 简体中文
 
 ## 特性
 
-- [x] **流程可视化**: 上手简单，绘图方便，逻辑表达更直观，易于理解
-- [x] **逻辑复用**: iMove 节点支持复用，单节点支持参数配置
-- [x] **灵活可扩展**: 仅需写一个函数，节点可扩展，支持插件集成
-- [ ] **多语言编译**: 无语言编译出码限制（例: 支持 JavaScript, Java 编译出码）
+- [x] **流程可视化**：上手简单，绘图方便，逻辑表达更直观，易于理解
+- [x] **逻辑复用**：iMove 节点支持复用，单节点支持参数配置
+- [x] **灵活可扩展**：仅需写一个函数，节点可扩展，支持插件集成
+- [ ] **多语言编译**：无语言编译出码限制（例：支持 JavaScript, Java 编译出码）
 
 ## 使用场景
 
 ![usage](https://img.alicdn.com/imgextra/i1/O1CN01kRXnfQ1LFhesOA6cn_!!6000000001270-2-tps-2212-1166.png)
 
-1. 前端流程，比如点击事件，组件生命周期回调等。
-1. 后端流程，比如Node.js或Serverless领域。
-1. 前端+后端，比如前端点击事件，Ajax请求和后端API。
+1. 前端流程：比如点击事件，组件生命周期回调等。
+1. 后端流程：比如 Node.js 或 Serverless 领域。
+1. 前端+后端：比如前端点击事件，Ajax 请求和后端 API。
 
 ## 快速开始
 
@@ -43,6 +42,7 @@ $ cd imove
 $ npm install
 $ npm run example
 ```
+
 此时浏览器会自动打开 `http://localhost:8000/` ，可以看到运行效果。
 
 ### 步骤 2. 绘制流程图
@@ -62,8 +62,8 @@ $ npm run example
 ## Authors
 
 * qilei0529 - 飞羽「Leader」
-* SmallStoneSK  - 菉竹「Core Team」
-* suanmei -  拾邑「Core Team」
+* SmallStoneSK - 菉竹「Core Team」
+* suanmei - 拾邑「Core Team」
 * iloveyou11 - 冷卉「Core Team」
 * i5ting - 狼叔「Core Team」
 
@@ -77,7 +77,7 @@ See also the list of [contributors](https://github.com/imgcook/imove/graphs/cont
 4. 推送 (`git push origin my-new-feature`)
 5. 创建 PR
 
-## 欢迎fork和反馈
+## 欢迎 fork 和反馈
 
 如有建议或意见，欢迎在 github [issues](https://github.com/imgcook/imove/issues) 区提问
 
@@ -114,8 +114,6 @@ See also the list of [contributors](https://github.com/imgcook/imove/graphs/cont
 [pr-welcoming-image]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [pr-welcoming-url]: https://github.com/imgcook/imove/pull/new
 
-
 ## 开发者交流群
 
-<img src="https://img.alicdn.com/imgextra/i3/O1CN01bXX2E41LqLLM1BZGH_!!6000000001350-2-tps-859-1184.png" width='400px'> 
-
+<img src="https://img.alicdn.com/imgextra/i3/O1CN01bXX2E41LqLLM1BZGH_!!6000000001350-2-tps-859-1184.png" width='400px'>
