@@ -6,7 +6,7 @@
     "test": "jest --coverage",
     "e2e": "cypress open",
     "doc": "dumi dev",
-    "start": "oncurrently \"lerna run watch --parallel\" \"cross-env APP_ROOT=example umi dev\"",
+    "start": "concurrently \"lerna run watch --parallel\" \"cross-env APP_ROOT=example umi dev\"",
     "example": "concurrently \"lerna run watch --parallel\" \"cross-env APP_ROOT=example umi dev\" \"imove -d\"",
     "postinstall": "lerna init && lerna bootstrap && npm link packages/cli"
   },
