@@ -1,6 +1,9 @@
 name: 🐱 Checker
 
-on: [pull_request]
+on:
+  pull_request:
+    branches:
+    - master
 
 jobs:
   # 确保 PR 中超链接有效性
