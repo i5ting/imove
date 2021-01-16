@@ -39,9 +39,9 @@ const SettingBar: React.FC<IProps> = (props) => {
           <TabPane tab={'基础信息'} key={'basic'}>
             <Basic selectedCell={nodes[0]} flowChart={flowChart} />
           </TabPane>
-          <TabPane tab={'投放配置'} key={'config'}>
+          {/* <TabPane tab={'投放配置'} key={'config'}>
             <Config selectedCell={nodes[0]} />
-          </TabPane>
+          </TabPane> */}
           <TabPane tab={'测试用例'} key={'testCase'} forceRender>
             <TestCase selectedCell={nodes[0]} flowChart={flowChart} />
           </TabPane>

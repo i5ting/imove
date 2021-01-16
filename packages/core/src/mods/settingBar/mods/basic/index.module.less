@@ -1,7 +1,13 @@
 .container {
-  padding: 0 20px;
-  height: 100%;
-  overflow: scroll;
+  height: 800px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .input{
+    margin-top:20px;
+  }
 }
 
 .depsInfoModalContent {

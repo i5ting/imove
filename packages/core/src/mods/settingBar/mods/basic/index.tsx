@@ -5,7 +5,7 @@ import React, {
 
 import styles from './index.module.less';
 
-import { Modal } from 'antd';
+import { Modal, Card } from 'antd';
 import { Cell, Graph } from '@antv/x6';
 import JsonView from 'react-json-view';
 import Json from '../../components/json';
@@ -92,34 +92,32 @@ const Basic: React.FC<IProps> = (props) => {
 
   return (
     <div className={styles.container}>
-      <Input name={'label'} title={'显示名称'} value={label} onValueChange={onChangeLabel} />
-      {selectedCell.shape === 'imove-start' && (
-        <Input
-          name={'trigger'}
-          title={'逻辑触发名称'}
-          value={trigger}
-          onValueChange={onChangeTrigger}
-        />
-      )}
-      <Code
-        name={'code'}
-        title={'代码'}
-        value={code}
-        flowChart={flowChart}
-        onValueChange={onChangeCode}
-      />
-      <Json
-        name={'configSchema'}
-        title={'投放配置schema'}
-        value={configSchema}
-        onValueChange={onChangeConfigSchema}
-      />
+      <Card title="名称">
+        <Input name={'label'} title={'节点显示名称'} value={label} onValueChange={onChangeLabel} />
+        {selectedCell.shape === 'imove-start' && (
+          <div className={styles.input}>
+            <Input
+              name={'trigger'}
+              title={'逻辑触发名称'}
+              value={trigger}
+              onValueChange={onChangeTrigger}
+            />
+          </div>
+        )}
+      </Card>
       <Json
         name={'dependencies'}
         title={'依赖'}
         value={dependencies}
-        onlyInput={true}
+        isConfig={false}
         onValueChange={onChangeDependencies}
+      />
+      <Json
+        name={'configSchema'}
+        title={'投放配置'}
+        value={configSchema}
+        isConfig={true}
+        onValueChange={onChangeConfigSchema}
       />
     </div>
   );
