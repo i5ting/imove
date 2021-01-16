@@ -20,7 +20,7 @@
 
 - [x] **Process visualization:** iMove is easy to use and easy to draw. Its logical expression is more intuitive and easy to understand.
 - [x] **Logic re-usage:** iMove node supports multiplexing, and its single node supports parameter configuration.
-- [x] **Flexible**: We need to write an only function. The node can also be extended. iMove can alse support plug-in integration.
+- [x] **Flexible**: We need to write an only function. The node can also be extended. iMove can also support plug-in integration.
 - [ ] **Multi-language compilation**: There is no language compiling code limitation (example: support JavaScript, Java compiling code).
 
 ## Quickstart
