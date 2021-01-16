@@ -108,8 +108,8 @@ See also the list of [contributors](https://github.com/imgcook/imove/graphs/cont
 [coveralls-url]: https://codecov.io/github/imgcook/imove?branch=master
 [backers-image]: https://opencollective.com/imgcook/imove/backers/badge.svg?style=flat-square
 [sponsors-image]: https://opencollective.com/imgcook/imove/sponsors/badge.svg?style=flat-square
-[gitter-image]: https://img.shields.io/gitter/room/imgcook/imove.svg?style=flat-square
-[gitter-url]: https://gitter.im/imgcook/imove?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+[gitter-image]: https://img.shields.io/gitter/room/i5ting/imove.svg?style=flat-square
+[gitter-url]: https://gitter.im/i5ting/imove?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 [#imgcook/imove]: https://webchat.freenode.net/?channels=#imgcook/imove
 [pr-welcoming-image]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [pr-welcoming-url]: https://github.com/imgcook/imove/pull/new
