@@ -64,7 +64,7 @@ If you have any suggestion, welcome to GitHub to raise [issues](https://github.c
 
 ## License
 
-[MIT](http://www.opensource.org/licenses/MIT)
+This project follows the [MIT](http://www.opensource.org/licenses/MIT) license.
 
 ## Contributors ✨
 
