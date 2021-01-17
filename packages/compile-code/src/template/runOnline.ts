@@ -26,6 +26,10 @@ export default `
 
   // instantiation and invoke
   const logic = new Logic({ dsl });
-  logic.invoke('$TRIGGER$');
+  logic.invoke('$TRIGGER$', {}, (pipe) => {
+    const ctx = logic._getUnsafeCtx();
+    const context = ctx.getContext();
+    window.dispatchEvent(new CustomEvent('iMoveOnlineExecEnds', {detail: {pipe, context}}));
+  });
 })();
 `;
