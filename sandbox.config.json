@@ -1,6 +1,6 @@
 {
-    "template": "node",
-    "container": {
-      "port": 8000
-    }
+  "template": "node",
+  "container": {
+    "port": 8000
   }
+}
