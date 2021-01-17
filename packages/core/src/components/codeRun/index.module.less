@@ -1,8 +1,15 @@
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 1;
   height: 100%;
+
+  .runWrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 
   .pane {
     display: flex;

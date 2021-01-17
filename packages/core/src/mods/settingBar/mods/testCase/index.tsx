@@ -6,10 +6,7 @@ import React, {
 
 import { Modal } from 'antd';
 import { Graph } from '@antv/x6';
-import { executeScript } from '../../../../utils';
 import CodeRun from '../../../../components/codeRun';
-import { compileForOnline } from '@imove/compile-code';
-import { toSelectedCellsJSON } from '../../../../utils/flowChartUtils';
 
 interface IProps {
   flowChart: Graph;
@@ -29,47 +26,36 @@ const TestCase: React.FC<IProps> = (props) => {
 
   const showModal = useCallback(() => setVisible(true), []);
   const closeModal = useCallback(() => setVisible(false), []);
-  const runCode = useCallback(() => {
-    // TODO: 展示运行结果
-    const compiledCode = compileForOnline(toSelectedCellsJSON(flowChart));
-    executeScript(compiledCode);
-  }, []);
 
   return (
     <EditModal
       visible={visible}
-      onOk={runCode}
-      onCancel={closeModal}
+      flowChart={flowChart}
+      onClose={closeModal}
     />
   );
 };
 
 interface IEditModalProps {
   visible: boolean;
-  onOk: () => void;
-  onCancel: () => void;
+  flowChart: Graph;
+  onClose: () => void;
 }
 
 const EditModal: React.FC<IEditModalProps> = (props): JSX.Element => {
-  const { visible, onOk, onCancel } = props;
-
-  const onChange = (value: any) => {
-    // console.log({ value })
-  }
+  const { visible, flowChart, onClose } = props;
 
   return (
     <Modal
       width={1000}
       centered={true}
-      bodyStyle={{ padding: 0, height: 600 }}
+      bodyStyle={{ padding: 0, height: 650 }}
       title={'执行代码'}
       visible={visible}
-      okText={'运行'}
-      cancelText={'取消'}
-      onOk={onOk}
-      onCancel={onCancel}
+      footer={null}
+      onCancel={onClose}
     >
-      <CodeRun />
+      <CodeRun flowChart={flowChart}/>
     </Modal>
   );
 };

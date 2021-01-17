@@ -1,13 +1,20 @@
 import React, {
   useState,
+  useEffect,
   useCallback,
 } from 'react';
 
 import styles from './index.module.less';
 
+import { Button } from 'antd';
+import { Graph } from '@antv/x6';
 import Console from '../console';
 import InputPanel from './inputPanel';
 import JsonView from 'react-json-view';
+import { executeScript } from '../../utils';
+import { PlayCircleFilled } from '@ant-design/icons';
+import { compileForOnline } from '@imove/compile-code';
+import { toSelectedCellsJSON } from '../../utils/flowChartUtils';
 
 // FIXME: https://github.com/tomkp/react-split-pane/issues/541
 // @ts-ignore
@@ -27,7 +34,7 @@ interface ICardProps {
 }
 
 const Card: React.FC<ICardProps> = (props) => {
-  const {title} = props;
+  const { title } = props;
 
   return (
     <div className={styles.card}>
@@ -40,12 +47,31 @@ const Card: React.FC<ICardProps> = (props) => {
 };
 
 interface ICodeRunProps {
+  flowChart: Graph;
 }
 
 const CodeRun: React.FC<ICodeRunProps> = (props) => {
-  
+
+  const {flowChart} = props;
   const [input, setInput] = useState(defaultInput);
   const [output, setOutput] = useState({});
+
+  useEffect(() => {
+    // NOTE: listen the event that iMove online exec ends
+    const handler = (data: any) => {
+      setOutput(data.detail || {});
+    };
+    window.addEventListener('iMoveOnlineExecEnds', handler);
+    return () => {
+      window.removeEventListener('iMoveOnlineExecEnds', handler);
+    };
+  }, []);
+
+  const onClickRun = useCallback(() => {
+    const selectedCelssJson = toSelectedCellsJSON(flowChart);
+    const compiledCode = compileForOnline(selectedCelssJson);
+    executeScript(compiledCode);
+  }, [flowChart]);
 
   const onChangeInput = useCallback((val: any) => {
     setInput(val);
@@ -53,6 +79,11 @@ const CodeRun: React.FC<ICodeRunProps> = (props) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.runWrapper}>
+        <Button size={'large'} type={'link'} onClick={onClickRun}>
+          <PlayCircleFilled /> 运行代码
+        </Button>
+      </div>
       <SplitPane split={'horizontal'}>
         <Pane initialSize={'380px'} minSize={'43px'}>
           <SplitPane split={'vertical'}>
@@ -72,13 +103,13 @@ const CodeRun: React.FC<ICodeRunProps> = (props) => {
                   enableClipboard={false}
                   displayDataTypes={false}
                   displayObjectSize={false}
-                  src={{}}
+                  src={output}
                 />
               </Card>
             </Pane>
           </SplitPane>
         </Pane>
-        <Pane className={styles.pane} minSize={'150px'}>
+        <Pane className={styles.pane} minSize={'43px'}>
           <Card title={'控制台'}>
             <Console />
           </Card>
