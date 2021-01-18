@@ -61,6 +61,7 @@ const Code: React.FC<IProps> = (props) => {
         title={title}
         value={value}
         visible={visible}
+        flowChart={flowChart}
         onSave={onSave}
         onOk={onClickOk}
         onCancel={onClickCancel}
@@ -73,13 +74,14 @@ interface IEditorModalProps {
   visible: boolean;
   title: string;
   value: string;
+  flowChart: Graph;
   onSave: (val: string) => void;
   onOk: (val: string) => void;
   onCancel: () => void;
 }
 
 const EditModal: React.FC<IEditorModalProps> = (props) => {
-  const { visible, title, value, onSave, onOk, onCancel } = props;
+  const { visible, title, value, flowChart, onSave, onOk, onCancel } = props;
   const [code, setCode] = useState<string>(value);
   const [editorInst, setEditorInst] = useState<any>();
   const [codeRunVisible, setCodeRunVisible] = useState<boolean>(false);
@@ -153,7 +155,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
         onOk={onRunOk}
         onCancel={onRunCancel}
       >
-        <CodeRun />
+        <CodeRun flowChart={flowChart}/>
       </Modal>
     </Modal>
   );
