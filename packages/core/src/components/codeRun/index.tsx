@@ -110,9 +110,7 @@ const CodeRun: React.FC<ICodeRunProps> = (props) => {
           </SplitPane>
         </Pane>
         <Pane className={styles.pane} minSize={'43px'}>
-          <Card title={'控制台'}>
-            <Console />
-          </Card>
+          <Console />
         </Pane>
       </SplitPane>
     </div>

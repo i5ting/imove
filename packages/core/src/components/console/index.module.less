@@ -1,7 +1,42 @@
 .container {
   width: 100%;
   height: 100%;
-  padding: 10px;
-  background: #272823;
   overflow: scroll;
+
+  :global {
+    .ant-tabs-nav {
+      margin-bottom: 0;
+    }
+  }
+
+  .logPanel {
+    height: 100%;
+    background: #272823;
+
+    .logLine {
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      margin-top: -1px;
+      padding-left: 10px;
+      font-size: 13px;
+      border: 1px solid transparent;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      .logIcon {
+        padding-top: 0.6rem;
+        width: 1rem;
+        height: 1rem;
+      }
+  
+      .logText {
+        margin-left: 8px;
+        min-height: 18px;
+        padding: 0.4rem 1.5rem 0.4rem 0px;
+      }
+    }
+  }
 }
