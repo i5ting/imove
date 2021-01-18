@@ -1,6 +1,9 @@
 import React, {
+  useRef,
   useState,
-  useEffect
+  useEffect,
+  useCallback,
+  ChangeEvent
 } from 'react';
 
 import styles from './index.module.less';
@@ -9,17 +12,31 @@ import {
   InfoCircleOutlined,
   WarningOutlined,
   BugOutlined,
-  CloseCircleOutlined
+  CloseCircleOutlined,
+  ClearOutlined,
+  FilterOutlined
 } from '@ant-design/icons';
-import { Tabs } from 'antd';
+import { Button, Input, Select, Tabs } from 'antd';
 
 interface ILog {
   type: string;
   data: any[];
+  strVal: string;
 }
 
-const isPlainObject = (value: any): boolean => {
-  return typeof value === 'object' && value !== null;
+const Helper = {
+  isPlainObject(value: any): boolean {
+    return typeof value === 'object' && value !== null;
+  },
+  getArgsToString(args: any[]): string {
+    return args.map(o => {
+      if (Helper.isPlainObject(o)) {
+        return JSON.stringify(o);
+      } else {
+        return o;
+      }
+    }).join(' ');
+  }
 }
 
 const hijackMap: { [key: string]: any } = {
@@ -61,7 +78,10 @@ const hijackMap: { [key: string]: any } = {
 }
 
 const MyConsole: React.FC = () => {
+  const [filter, setFilter] = useState('');
+  const [level, setLevel] = useState('all');
   const [logList, setLogList] = useState<ILog[]>([]);
+  const cache = useRef<{ allLogs: ILog[] }>({ allLogs: [] });
 
   useEffect(() => {
     hijackConsole();
@@ -70,12 +90,32 @@ const MyConsole: React.FC = () => {
     };
   }, [logList]);
 
+  useEffect(() => {
+    const filteredLogs = cache.current.allLogs
+      .filter(log => {
+        if (level === 'all') {
+          return true;
+        } else {
+          return log.type === level;
+        }
+      })
+      .filter(log => {
+        return log.strVal.indexOf(filter) > -1;
+      });
+    setLogList(filteredLogs);
+  }, [filter, level]);
+
   const hijackConsole = () => {
     Object.keys(hijackMap).forEach(method => {
       // @ts-ignore
       window.console[method] = (...args: any[]) => {
         hijackMap[method].originMethod(...args);
-        setLogList([...logList, { type: method, data: args }]);
+        cache.current.allLogs = logList.concat({
+          type: method,
+          data: args,
+          strVal: Helper.getArgsToString(args)
+        });
+        setLogList(cache.current.allLogs);
       };
     });
   }
@@ -87,7 +127,42 @@ const MyConsole: React.FC = () => {
     });
   };
 
-  // 根据不同console类型展示不同的样式
+  const onChangeFilter = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
+    setFilter(evt.target.value);
+  }, []);
+
+  const onChangeLevel = useCallback((level: string) => {
+    setLevel(level);
+  }, []);
+
+  const onClickClear = useCallback(() => {
+    setLogList([]);
+    cache.current.allLogs = [];
+  }, []);
+
+  const renderToolBar = () => {
+    return (
+      <div className={styles.toolBar}>
+        <Input
+          allowClear={true}
+          placeholder={'过滤'}
+          prefix={<FilterOutlined />}
+          onChange={onChangeFilter}
+        />
+        <Select className={styles.levels} defaultValue={'all'} onChange={onChangeLevel}>
+          {['all', 'info', 'warn', 'error', 'debug'].map(method => (
+            <Select.Option key={method} value={method}>
+              {method}
+            </Select.Option>
+          ))}
+        </Select>
+        <Button type={'link'} onClick={onClickClear}>
+          <ClearOutlined /> 清空
+        </Button>
+      </div>
+    );
+  };
+
   const renderLogPanel = (logList: ILog[]) => {
     return (
       <div className={styles.logPanel}>
@@ -99,26 +174,23 @@ const MyConsole: React.FC = () => {
             borderTopColor: borderColor,
             borderBottomColor: borderColor
           };
-          const showText = log.data.map(o => {
-            return isPlainObject(o) ? JSON.stringify(log.data, null, 2) : o;
-          }).join(' ');
           // TODO: use react-json-view to render object
           return (
             <div key={index} className={styles.logLine} style={logLineStyle}>
               {icon}
               <div className={styles.logText}>
-                {showText}
+                {log.strVal}
               </div>
             </div>
           );
         })}
       </div>
     );
-  }
+  };
 
   return (
     <div className={styles.container}>
-      <Tabs type={'card'}>
+      <Tabs type={'card'} tabBarExtraContent={renderToolBar()}>
         <Tabs.TabPane tab={'控制台'} key={'log'}>
           {renderLogPanel(logList)}
         </Tabs.TabPane>
