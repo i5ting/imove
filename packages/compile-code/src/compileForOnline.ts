@@ -1,5 +1,5 @@
 import {Cell} from '@antv/x6';
-import tpl from './template/runOnline';
+import makeCode from './template/runOnline';
 import simplifyDSL from './simplifyDSL';
 
 interface DSL {
@@ -69,6 +69,17 @@ const findStartNode = (dsl: DSL): Cell.Properties => {
   return startNode;
 };
 
+const getNextNode = (curNode: Cell.Properties, dsl: DSL) => {
+
+  const nodes = dsl.cells.filter(cell => cell.shape !== 'edge');
+  const edges = dsl.cells.filter(cell => cell.shape === 'edge');
+
+  const foundEdge = edges.find(edge => edge.source.cell === curNode.id);
+  if(foundEdge) {
+    return nodes.find(node => node.id === foundEdge.target.cell);
+  }
+};
+
 const compileSimplifiedDSL = (dsl: DSL): string => {
   const simplyfiedDSL = JSON.stringify(simplifyDSL(dsl), null, 2);
   return `const dsl = ${simplyfiedDSL};`;
@@ -96,9 +107,10 @@ const compileNodeFnsMap = (dsl: DSL): string => {
   return `const nodeFns = {\n  ${kvs.join(',\n  ')}\n}`;
 };
 
-const compile = (dsl: DSL): string => {
+const compile = (dsl: DSL, mockInput: any): string => {
   const startNode = findStartNode(dsl);
-  return tpl
+  const mockNode = getNextNode(startNode, dsl);
+  return makeCode(mockNode, mockInput)
     .replace(INSERT_DSL_COMMENT, compileSimplifiedDSL(dsl))
     .replace(INSERT_NODE_FNS_COMMENT, compileNodeFnsMap(dsl))
     .replace('$TRIGGER$', startNode.data.trigger);

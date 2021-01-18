@@ -464,7 +464,7 @@
         "configSchema": "{\n  \n}",
         "configData": {},
         "dependencies": "{\n  \"lodash.get\": \"4.4.2\"\n}",
-        "code": "import fpget from 'lodash.get';\n\nexport default async function(ctx) {\n  const obj = {a: {b: 'hello imove~'}};\n  console.log(fpget(obj, 'a.b'));\n}"
+        "code": "import fpget from 'lodash.get';\n\nexport default async function(ctx) {\n  const obj = {a: {b: 'hello imove~'}};\n  console.log(fpget(obj, 'a.b'));\n  return ctx.getPipe();\n}"
       },
       "ports": {
         "groups": {

@@ -1,7 +1,7 @@
 import logic from './logic';
 import context from './context';
 
-export default `
+const makeCode = (mockNode: any, mockInput: any) => `
 (async function run() {
   // Context
   ${context.replace(/export\s+default/, '')}
@@ -24,8 +24,37 @@ export default `
   // nodeFns map
   // define nodeFns here
 
+  // imove plugin
+  const mockPlugin = () => {
+    const mockNode = ${JSON.stringify(mockNode)};
+    const mockInput = ${JSON.stringify(mockInput)};
+    const mockKeys = [
+      ['config', 'getConfig'],
+      ['pipe', 'getPipe'],
+      ['payload', 'getPayload'],
+      ['context', 'getContext']
+    ];
+    return {
+      ctxCreated(ctx) {
+        if(mockNode && mockInput) {
+          mockKeys.forEach(([inputType, method]) => {
+            const _method = ctx[method];
+            ctx[method] = () => {
+              if(ctx.curNode.id === mockNode.id) {
+                return mockInput[inputType];
+              } else {
+                return _method();
+              }
+            }
+          });
+        }
+      },
+    };
+  };
+
   // instantiation and invoke
   const logic = new Logic({ dsl });
+  logic.use(mockPlugin);
   logic.invoke('$TRIGGER$', {}, (pipe) => {
     const ctx = logic._getUnsafeCtx();
     const context = ctx.getContext();
@@ -33,3 +62,5 @@ export default `
   });
 })();
 `;
+
+export default makeCode;

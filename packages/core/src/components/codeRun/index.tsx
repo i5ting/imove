@@ -69,9 +69,9 @@ const CodeRun: React.FC<ICodeRunProps> = (props) => {
 
   const onClickRun = useCallback(() => {
     const selectedCelssJson = toSelectedCellsJSON(flowChart);
-    const compiledCode = compileForOnline(selectedCelssJson);
+    const compiledCode = compileForOnline(selectedCelssJson, input);
     executeScript(compiledCode);
-  }, [flowChart]);
+  }, [flowChart, input]);
 
   const onChangeInput = useCallback((val: any) => {
     setInput(val);
