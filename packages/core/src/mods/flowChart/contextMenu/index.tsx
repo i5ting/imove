@@ -86,9 +86,6 @@ const Helper = {
       return config.map(item => {
         let content = null;
         let { key, title, icon, children, disabled = false, showDividerBehind } = item;
-        if (key === 'paste') {
-          debugger
-        }
         if (typeof disabled === 'function') {
           disabled = disabled(flowChart);
         }
