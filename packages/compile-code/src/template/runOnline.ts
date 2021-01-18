@@ -60,7 +60,10 @@ const makeCode = (mockNode: any, mockInput: any) => `
     const context = ctx.getContext();
     window.dispatchEvent(new CustomEvent('iMoveOnlineExecEnds', {detail: {pipe, context}}));
   });
-})();
+})().catch(err => {
+  console.error(err.message);
+  window.dispatchEvent(new CustomEvent('iMoveOnlineExecEnds', {detail: {error: {message: err.message}}}));
+});
 `;
 
 export default makeCode;
