@@ -7,7 +7,7 @@ import 'antd/es/modal/style';
 import styles from './index.module.less';
 
 import { Graph } from '@antv/x6';
-import { Modal, message } from 'antd';
+import { Button, Modal, message } from 'antd';
 import JsonView from 'react-json-view';
 import { safeParse } from '../../../utils';
 import analyzeDeps from '../../../utils/analyzeDeps';
@@ -85,7 +85,10 @@ const CodeEditModal: React.FC<IProps> = (props) => {
   };
   const onCancel = (): void => {
     setVisible(false);
-  }
+  };
+  const onRunCode = (): void => {
+    flowChart.trigger('graph:runCode');
+  };
   const onChangeCode = (ev: any, newCode: string | undefined = ''): void => {
     setCode(newCode);
   };
@@ -98,11 +101,13 @@ const CodeEditModal: React.FC<IProps> = (props) => {
       className={styles.modal}
       width={1000}
       title={title}
-      okText={'保存'}
       visible={visible}
-      cancelText={'取消'}
-      onOk={onOk}
       onCancel={onCancel}
+      footer={[
+        <Button key={'cancel'} onClick={onCancel}>取消</Button>,
+        <Button key={'runCode'} type={'primary'} ghost onClick={onRunCode}>运行代码</Button>,
+        <Button key={'saveCode'} type={'primary'} onClick={onOk}>保存</Button>,
+      ]}
     >
       <CodeEditor
         value={code}
