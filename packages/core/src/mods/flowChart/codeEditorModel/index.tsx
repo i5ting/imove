@@ -87,6 +87,7 @@ const CodeEditModal: React.FC<IProps> = (props) => {
     setVisible(false);
   };
   const onRunCode = (): void => {
+    updateNodeCode(code);
     flowChart.trigger('graph:runCode');
   };
   const onChangeCode = (ev: any, newCode: string | undefined = ''): void => {

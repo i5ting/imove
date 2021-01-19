@@ -88,7 +88,7 @@ const MyConsole: React.FC = () => {
     return () => {
       resetConsole();
     };
-  }, [logList]);
+  }, []);
 
   useEffect(() => {
     const filteredLogs = cache.current.allLogs
@@ -110,7 +110,7 @@ const MyConsole: React.FC = () => {
       // @ts-ignore
       window.console[method] = (...args: any[]) => {
         hijackMap[method].originMethod(...args);
-        cache.current.allLogs = logList.concat({
+        cache.current.allLogs = cache.current.allLogs.concat({
           type: method,
           data: args,
           strVal: Helper.getArgsToString(args)
