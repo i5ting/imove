@@ -23,13 +23,20 @@ interface IBasicData {
 }
 
 const Basic: React.FC<IProps> = (props) => {
-  const { selectedCell } = props;
+  const { selectedCell, flowChart } = props;
   const [data, setData] = useState<IBasicData>(selectedCell.getData());
   const { label, trigger, dependencies, configSchema } = data || {};
 
   // life
   useEffect(() => {
     setData(selectedCell.getData());
+  }, [selectedCell]);
+  useEffect(() => {
+    const handler = () => setData(selectedCell.getData());
+    flowChart.on('settingBar.basicPanel:forceUpdate', handler);
+    return () => {
+      flowChart.off('settingBar.basicPanel:forceUpdate', handler);
+    };
   }, [selectedCell]);
 
   // events

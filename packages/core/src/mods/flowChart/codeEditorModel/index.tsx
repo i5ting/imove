@@ -52,6 +52,8 @@ const CodeEditModal: React.FC<IProps> = (props) => {
               code,
               dependencies: JSON.stringify(newDeps, null, 2)
             });
+            // NOTE: notify basic panel to update dependency
+            flowChart.trigger('settingBar.basicPanel:forceUpdate');
           },
         });
       }
