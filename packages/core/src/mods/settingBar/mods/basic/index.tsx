@@ -5,14 +5,10 @@ import React, {
 
 import styles from './index.module.less';
 
-import { Modal, Card } from 'antd';
+import { Card } from 'antd';
 import { Cell, Graph } from '@antv/x6';
-import JsonView from 'react-json-view';
 import Json from '../../components/json';
-import Code from '../../components/code';
 import Input from '../../components/input';
-import { safeParse } from '../../../../utils/index';
-import analyzeDeps from '../../../../utils/analyzeDeps';
 
 interface IProps {
   selectedCell: Cell;
@@ -21,16 +17,15 @@ interface IProps {
 
 interface IBasicData {
   label: string;
-  code: string;
   trigger?: string;
   dependencies: string;
   configSchema: string;
 }
 
 const Basic: React.FC<IProps> = (props) => {
-  const { selectedCell, flowChart } = props;
+  const { selectedCell } = props;
   const [data, setData] = useState<IBasicData>(selectedCell.getData());
-  const { label, code, trigger, dependencies, configSchema } = data || {};
+  const { label, trigger, dependencies, configSchema } = data || {};
 
   // life
   useEffect(() => {
@@ -51,43 +46,12 @@ const Basic: React.FC<IProps> = (props) => {
   };
   const onChangeConfigSchema = (val: string): void => {
     commonChange('configSchema', val);
-    selectedCell.trigger('change:configSchema', { configSchema: val });
   };
   const onChangeTrigger = (val: string): void => {
     commonChange('trigger', val);
   };
   const onChangeDependencies = (val: string): void => {
     commonChange('dependencies', val);
-  };
-  const onChangeCode = (val: string): void => {
-    commonChange('code', val);
-    // NOTE: if code changes, check whether new dependencies are added
-    const excludeDeps = safeParse(data?.dependencies as string);
-    analyzeDeps(val, Object.keys(excludeDeps)).then((deps) => {
-      if (Object.keys(deps).length > 0) {
-        Modal.info({
-          title: '检测到您的代码有新依赖，已为您自动更新',
-          content: (
-            <div className={styles.depsInfoModalContent}>
-              <JsonView
-                src={deps}
-                name={'dependencies'}
-                collapsed={false}
-                enableClipboard={false}
-                displayDataTypes={false}
-                displayObjectSize={false}
-              />
-            </div>
-          ),
-          onOk() {
-            batchUpdate({
-              code: val,
-              dependencies: JSON.stringify({ ...excludeDeps, ...deps }, null, 2)
-            });
-          },
-        });
-      }
-    });
   };
 
   return (

@@ -56,7 +56,7 @@ const nodeMenuConfig = [
       return getSelectedNodes(flowChart).length !== 1;
     },
     handler(flowChart: Graph) {
-      flowChart.trigger('settingBar:clickEditCode');
+      flowChart.trigger('graph:editCode');
     }
   },
   {
@@ -67,7 +67,7 @@ const nodeMenuConfig = [
       return getSelectedNodes(flowChart).length !== 1;
     },
     handler(flowChart: Graph) {
-      flowChart.trigger('settingBar:runCode');
+      flowChart.trigger('graph:runCode');
     }
   }
 ];

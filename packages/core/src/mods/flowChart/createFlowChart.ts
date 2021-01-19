@@ -56,7 +56,7 @@ const registerEvents = (flowChart: Graph): void => {
     }
   });
   flowChart.on('node:dblclick', () => {
-    flowChart.trigger('settingBar:clickEditCode');
+    flowChart.trigger('graph:editCode');
   });
   flowChart.on('blank:contextmenu', (args) => {
     const { e: { clientX, clientY } } = args;
