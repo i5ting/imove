@@ -1,53 +1,38 @@
 const compData = [
   {
-    "text": '输入框',
+    "text": 'Input',
     "name": 'input',
     "schema": {
-      "title": "输入框",
-      "type": "string"
+      "title": "Input",
+      "type": "string",
+      "description": "输入框"
     }
   },
   {
-    "text": '编辑框',
+    "text": 'Textarea',
     "name": 'textarea',
     "schema": {
-      "title": "编辑框",
+      "title": "Textarea",
       "type": "string",
-      "format": "textarea"
+      "format": "textarea",
+      "description": "文本编辑框"
     }
   },
   {
-    "text": '开关控制',
+    "text": 'Switch',
     "name": 'allBoolean',
     "schema": {
-      "title": "开关控制",
+      "title": "Switch",
       "type": "boolean",
-      "ui:widget": "switch"
+      "ui:widget": "switch",
+      "description": "开关控制"
     }
   },
   {
-    "text": '下拉单选',
+    "text": 'Select',
     "name": 'select',
     "schema": {
-      "title": "下拉单选",
-      "type": "string",
-      "enum": [
-        "a",
-        "b",
-        "c"
-      ],
-      "enumNames": [
-        "早",
-        "中",
-        "晚"
-      ]
-    }
-  },
-  {
-    "text": '点击单选',
-    "name": 'select',
-    "schema": {
-      "title": "点击单选",
+      "title": "Select",
       "type": "string",
       "enum": [
         "a",
@@ -59,15 +44,35 @@ const compData = [
         "中",
         "晚"
       ],
-      "ui:widget": "radio"
+      "description": "下拉单选"
     }
   },
   {
-    "text": '下拉多选',
+    "text": 'Radio',
+    "name": 'radio',
+    "schema": {
+      "title": "Radio",
+      "type": "string",
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ],
+      "enumNames": [
+        "早",
+        "中",
+        "晚"
+      ],
+      "ui:widget": "radio",
+      "description": "点击单选"
+    }
+  },
+  {
+    "text": 'MultiSelect',
     "name": 'multiSelect',
     "schema": {
-      "title": "下拉多选",
-      "description": "可以选择多项",
+      "title": "MultiSelect",
+      "description": "下拉多选",
       "type": "array",
       "items": {
         "type": "string"
@@ -88,11 +93,11 @@ const compData = [
     }
   },
   {
-    "text": '点击多选',
+    "text": 'Checkbox',
     "name": 'checkbox',
     "schema": {
-      "title": "多选",
-      "description": "可以勾选多个",
+      "title": "Checkbox",
+      "description": "点击多选",
       "type": "array",
       "items": {
         "type": "string"
@@ -112,30 +117,33 @@ const compData = [
     }
   },
   {
-    "text": '时间选择',
+    "text": 'TimePicker',
     "name": 'timeSelect',
     "schema": {
-      "title": "时间选择",
+      "title": "TimePicker",
       "type": "string",
-      "format": "time"
+      "format": "time",
+      "description": "时间选择"
     }
   },
   {
-    "text": '日期范围',
-    "name": 'dateRangeSelect',
-    "schema": {
-      "title": "日期范围",
-      "type": "range",
-      "format": "date"
-    }
-  },
-  {
-    "text": '日期选择',
+    "text": 'DatePicker',
     "name": 'dateSelect',
     "schema": {
-      "title": "日期选择",
+      "title": "DatePicker",
       "type": "string",
-      "format": "date"
+      "format": "date",
+      "description": "日期选择"
+    }
+  },
+  {
+    "text": 'DateRange',
+    "name": 'dateRangeSelect',
+    "schema": {
+      "title": "DateRange",
+      "type": "range",
+      "format": "date",
+      "description": "日期范围选择"
     }
   }
 ]

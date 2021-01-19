@@ -4,11 +4,11 @@ import 'antd/es/modal/style';
 import 'antd/es/button/style';
 import 'antd/es/message/style';
 import JsonView from 'react-json-view';
-import { Button, Tabs, Modal, message, Card } from 'antd';
+import { Button, Tabs, Modal, Card } from 'antd';
 const { TabPane } = Tabs;
 import { safeParse } from '../../../../utils';
 import CodeEditor from '../../../../components/codeEditor';
-import MyForm from '../../../../components/form'
+import SchemaForm from '../../../../components/schemaForm'
 
 import { compData } from './json'
 import styles from './index.module.less';
@@ -53,7 +53,7 @@ const Json: React.FC<IJsonProps> = (props) => {
       />}
 
       {/* @ts-ignore */}
-      {isConfig && <MyForm schema={schema} />}
+      {isConfig && <SchemaForm schema={schema} />}
 
       <EditModal
         title={title}
@@ -129,9 +129,11 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
         if (JSON.stringify(JSON.parse(json)) === '{}') {
           // @ts-ignore
           const value = formRef.current && formRef.current.getValue()
-          props.changeSchema(value)
+          console.log(value.schema)
+          props.changeSchema(value.schema)
           setJson(value)
         } else {
+          console.log(JSON.parse(json))
           props.changeSchema(JSON.parse(json))
         }
       } else {

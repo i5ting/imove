@@ -12,23 +12,21 @@ interface INum {
 
 interface IProps {
   schema: {
-    schema: {
-      type: string,
-      properties: { [key: string]: any }
-    }
+    type: string,
+    properties: { [key: string]: any }
   }
 }
 
-const MyForm: React.FC<IProps> = (props) => {
-  const layout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 18 }
-  };
+const formLayout = {
+  labelCol: { span: 6 },
+  wrapperCol: { span: 18 }
+};
 
+const SchemaForm: React.FC<IProps> = (props) => {
   return (
-    <Form {...layout}>
-      {props.schema?.schema?.properties && Object.keys(props.schema.schema.properties).map((key: string) => {
-        const obj = props.schema.schema.properties[key]
+    <Form {...formLayout}>
+      {props.schema?.properties && Object.keys(props.schema.properties).map((key: string) => {
+        const obj = props.schema.properties[key]
         const options: INum[] = obj.enum ? obj.enum.map((item: string, idx: number) => {
           return { label: item, value: obj.enumNames[idx] }
         }) : []
@@ -88,4 +86,4 @@ const MyForm: React.FC<IProps> = (props) => {
   );
 };
 
-export default MyForm
+export default SchemaForm
