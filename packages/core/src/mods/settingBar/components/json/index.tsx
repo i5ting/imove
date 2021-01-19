@@ -24,6 +24,10 @@ interface IJsonProps {
   onValueChange: (value: string) => void;
 }
 
+interface IConfigData {
+  [key: string]: any
+}
+
 interface ISchemaProps {
   type: string,
   properties: { [key: string]: any }
@@ -33,6 +37,7 @@ const Json: React.FC<IJsonProps> = (props) => {
   const { title, value, isConfig, onValueChange, selectedCell } = props;
   const [visible, setVisible] = useState<boolean>(false);
   const [schema, setSchema] = useState<ISchemaProps>({ type: '', properties: {} })
+  const [configData, setConfigData] = useState<IConfigData>({});
 
   const defaultSchema = useMemo(() => {
     if (selectedCell) {
@@ -42,6 +47,14 @@ const Json: React.FC<IJsonProps> = (props) => {
         setSchema(schema)
         return schema
       }
+    }
+  }, [selectedCell])
+
+  const defaultConfigData = useMemo(() => {
+    if (selectedCell) {
+      const { configData = {} } = selectedCell.getData();
+      setConfigData(configData);
+      return configData
     }
   }, [selectedCell])
 
@@ -59,6 +72,9 @@ const Json: React.FC<IJsonProps> = (props) => {
     setVisible(false);
     setSchema(schema);
   }
+  const changeConfigData = (configData: IConfigData) => {
+    selectedCell && selectedCell.setData({ configData });
+  }
 
   return (
     <Card title={title} extra={<Button type="link" onClick={onClickEdit}>编辑</Button>}>
@@ -71,7 +87,11 @@ const Json: React.FC<IJsonProps> = (props) => {
         src={safeParse(value)}
       />}
 
-      {isConfig && <SchemaForm schema={schema} />}
+      {isConfig && <SchemaForm
+        schema={schema}
+        changeConfigData={changeConfigData}
+        configData={defaultConfigData} />
+      }
 
       <EditModal
         title={title}

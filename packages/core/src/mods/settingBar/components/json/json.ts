@@ -48,26 +48,6 @@ const compData = [
     }
   },
   {
-    "text": 'Radio',
-    "name": 'radio',
-    "schema": {
-      "title": "Radio",
-      "type": "string",
-      "enum": [
-        "a",
-        "b",
-        "c"
-      ],
-      "enumNames": [
-        "早",
-        "中",
-        "晚"
-      ],
-      "ui:widget": "radio",
-      "description": "点击单选"
-    }
-  },
-  {
     "text": 'MultiSelect',
     "name": 'multiSelect',
     "schema": {
