@@ -2,7 +2,7 @@ export default `import nodeFns from './nodeFns';
 import Context from './context';
 import EventEmitter from 'eventemitter3';
 
-const LIFECYCLE = new Set(['ctxCreated']);
+const LIFECYCLE = new Set(['ctxCreated', 'enterNode', 'leaveNode']);
 const SHAPES = {
   START: 'imove-start',
   BRANCH: 'imove-branch',
@@ -116,7 +116,9 @@ export default class Logic extends EventEmitter {
   async _execNode(ctx, curNode, lastRet, callback) {
     ctx._transitTo(curNode, lastRet);
     const fn = nodeFns[curNode.id];
+    this._runLifecycleEvent('enterNode', ctx);
     const curRet = await fn(ctx);
+    this._runLifecycleEvent('leaveNode', ctx);
     if (curNode.shape !== SHAPES.BRANCH) {
       lastRet = curRet;
     }

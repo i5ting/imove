@@ -28,27 +28,32 @@ const makeCode = (mockNode: any, mockInput: any) => `
   const mockPlugin = () => {
     const mockNode = ${JSON.stringify(mockNode)};
     const mockInput = ${JSON.stringify(mockInput)};
-    const mockKeys = [
-      ['config', 'getConfig'],
+    const toMockTargets = [
       ['pipe', 'getPipe'],
+      ['config', 'getConfig'],
       ['payload', 'getPayload'],
-      ['context', 'getContext']
+      ['context', 'getContext'],
     ];
     return {
-      ctxCreated(ctx) {
-        if(mockNode && mockInput) {
-          mockKeys.forEach(([inputType, method]) => {
-            const _method = ctx[method];
-            ctx[method] = () => {
-              if(ctx.curNode.id === mockNode.id) {
-                return mockInput[inputType];
-              } else {
-                return _method();
-              }
-            }
+      enterNode(ctx) {
+        // hijack
+        if(ctx.curNode.id === mockNode.id) {
+          toMockTargets.forEach(item => {
+            const [type, method] = item;
+            item[2] = ctx[method];
+            ctx[method] = () => mockInput[type];
           });
         }
       },
+      leaveNode(ctx) {
+        // restore
+        if(ctx.curNode.id === mockNode.id) {
+          toMockTargets.forEach(item => {
+            const [type, method, originMethod] = item;
+            ctx[method] = originMethod;
+          });
+        }
+      }
     };
   };
 

@@ -6,18 +6,13 @@ export default `export default class Context {
   _init(opts = {}) {
     const { payload = {} } = opts;
     this.curNode = null;
-    this.context = Object.create(null);
+    this.context = {};
     this.payload = Object.freeze({ ...payload });
   }
 
   _transitTo(node, lastRet) {
     this.curNode = node;
     this.lastRet = lastRet;
-  }
-
-  prepare(opts = {}) {
-    this.payload = opts.payload;
-    this.context = {};
   }
 
   getConfig() {
