@@ -11,19 +11,28 @@ import SchemaForm from '../../../../components/schemaForm'
 import { compData } from './json'
 import styles from './index.module.less';
 const { TabPane } = Tabs;
+
+const JSON_TAB = 'JsonTab'
+const VISUAL_TAB = 'VisualTab'
+
 interface IJsonProps {
   value: any;
   name: string;
   title: string;
   selectedCell?: any;
-  isConfig?: boolean; // true为为可视化、json联动输入框，false为普通json输入框
+  isConfig?: boolean;
   onValueChange: (value: string) => void;
+}
+
+interface ISchemaProps {
+  type: string,
+  properties: { [key: string]: any }
 }
 
 const Json: React.FC<IJsonProps> = (props) => {
   const { title, value, isConfig, onValueChange, selectedCell } = props;
   const [visible, setVisible] = useState<boolean>(false);
-  const [schema, setSchema] = useState({})
+  const [schema, setSchema] = useState<ISchemaProps>({ type: '', properties: {} })
 
   const defaultSchema = useMemo(() => {
     if (selectedCell) {
@@ -36,7 +45,6 @@ const Json: React.FC<IJsonProps> = (props) => {
     }
   }, [selectedCell])
 
-  // events
   const onClickEdit = (): void => {
     setVisible(true);
   };
@@ -47,7 +55,7 @@ const Json: React.FC<IJsonProps> = (props) => {
     setVisible(false);
     onValueChange(newJson);
   };
-  const changeSchema = (schema: object) => {
+  const changeSchema = (schema: ISchemaProps) => {
     setVisible(false);
     setSchema(schema);
   }
@@ -63,7 +71,6 @@ const Json: React.FC<IJsonProps> = (props) => {
         src={safeParse(value)}
       />}
 
-      {/* @ts-ignore */}
       {isConfig && <SchemaForm schema={schema} />}
 
       <EditModal
@@ -88,31 +95,42 @@ interface IEditorModalProps {
   defaultSchema: object;
   onOk: (val: string) => void;
   onCancel: () => void;
-  changeSchema: (val: object) => void
+  changeSchema: (val: ISchemaProps) => void
+}
+
+interface FormInstance {
+  setValue: (val: object) => void;
+  getValue: () => {
+    schema: ISchemaProps
+  }
 }
 
 const EditModal: React.FC<IEditorModalProps> = (props) => {
   const { visible, title, value, onOk, onCancel, defaultSchema } = props;
   const [json, setJson] = useState<string>('');
-  const formRef = useRef()
+  const [tab, setTab] = useState<string>(VISUAL_TAB)
+  const formRef = useRef<FormInstance>(null);
 
-  useEffect(() => {
+  const defaultValue = useMemo(() => {
     if (defaultSchema && Object.keys(defaultSchema).length > 0) {
       let codeObj = {
         "schema": Object.assign({}, defaultSchema),
         "displayType": "row",
         "showDescIcon": true
       }
-      formRef.current && formRef.current.setValue(codeObj)
-      setJson(JSON.stringify(codeObj, null, 2))
+      return codeObj
     }
-  }, [formRef.current])
+  }, [defaultSchema])
 
   const tabChange = (tab: string) => {
-    const JSON_TAB = 'JsonTab'
-    const VISUAL_TAB = 'VisualTab'
-    if (tab === JSON_TAB) form2code() // 可视化同步到编辑器
-    if (tab === VISUAL_TAB) code2form() // 编辑器同步到可视化
+    if (tab === JSON_TAB) {
+      setTab(JSON_TAB)
+      form2code()
+    }
+    if (tab === VISUAL_TAB) {
+      setTab(VISUAL_TAB)
+      code2form()
+    }
   }
 
   const form2code = () => {
@@ -123,7 +141,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
   const code2form = () => {
     try {
       const codeObj = JSON.parse(json)
-      formRef.current.setValue(codeObj)
+      formRef.current && formRef.current.setValue(codeObj)
     } catch (error) {
       console.log('can\'t parse code string to form schema, the error is:', error.message);
     }
@@ -136,8 +154,6 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
 
   // life
   useEffect(() => {
-    // set value when opening modal
-    // clear content when closing modal
     if (visible) {
       setJson(value);
     } else {
@@ -149,9 +165,9 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
   const onClickOk = (): void => {
     try {
       if (props.isConfig) {
-        if (JSON.stringify(JSON.parse(json)) === '{}') {
-          const value = formRef.current && formRef.current.getValue()
-          props.changeSchema(value.schema)
+        if (tab === VISUAL_TAB && formRef.current) {
+          const value = formRef.current.getValue()
+          props.changeSchema(formRef.current.getValue().schema)
           setJson(JSON.stringify(value, null, 2))
           onOk(JSON.stringify(value));
         } else {
@@ -195,6 +211,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
                   title: '表单组件库',
                   widgets: compData,
                 }]}
+                defaultValue={defaultValue}
               />
             </div>
           </TabPane>
