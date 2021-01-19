@@ -25,8 +25,13 @@ const CodeEditModal: React.FC<IProps> = (props) => {
   const [visible, setVisible] = useState<boolean>(false);
 
   const updateNodeCode = (code: string): void => {
+
     const cell = flowChart.getSelectedCells()[0];
-    const { dependencies } = cell.getData();
+    const { code: oldCode, dependencies } = cell.getData();
+    if(code === oldCode) {
+      return;
+    }
+
     cell.setData({ code });
     message.success('代码保存成功', 1);
     const excludeDeps = safeParse(dependencies);
