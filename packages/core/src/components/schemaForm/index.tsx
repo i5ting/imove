@@ -23,7 +23,7 @@ const formLayout = {
 
 const SchemaForm: React.FC<IProps> = (props) => {
   return (
-    Object.keys(props.schema).length > 0 ? <Form {...formLayout}>
+    props.schema && Object.keys(props.schema).length > 0 ? <Form {...formLayout}>
       {props.schema?.properties && Object.keys(props.schema.properties).map((key: string) => {
         const obj = props.schema.properties[key]
         const options: INum[] = obj.enum ? obj.enum.map((item: string, idx: number) => {

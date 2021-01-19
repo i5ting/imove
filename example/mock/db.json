@@ -3,7 +3,7 @@
     {
       "position": {
         "x": 460,
-        "y": 50
+        "y": 60
       },
       "size": {
         "width": 80,
@@ -12,7 +12,7 @@
       "shape": "imove-behavior",
       "data": {
         "label": "处理",
-        "configSchema": "{\n  \n}",
+        "configSchema": "{\n  \"schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"textarea_FyaArd\": {\n        \"title\": \"Textarea\",\n        \"type\": \"string\",\n        \"format\": \"textarea\",\n        \"description\": \"文本编辑框\"\n      },\n      \"select_jrGW8n\": {\n        \"title\": \"Select\",\n        \"type\": \"string\",\n        \"enum\": [\n          \"a\",\n          \"b\",\n          \"c\"\n        ],\n        \"enumNames\": [\n          \"早\",\n          \"中\",\n          \"晚\"\n        ],\n        \"description\": \"下拉单选\"\n      }\n    },\n    \"ui:displayType\": \"row\",\n    \"ui:showDescIcon\": true\n  },\n  \"displayType\": \"row\",\n  \"showDescIcon\": true\n}",
         "configData": {},
         "dependencies": "{\n  \n}",
         "code": "export default async function(ctx) {\n  console.log('1212')\n}"
@@ -102,7 +102,7 @@
       "shape": "imove-start",
       "data": {
         "label": "开始",
-        "configSchema": "{\n  \n}",
+        "configSchema": "{\n  \"schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"input_1aWdPV\": {\n        \"title\": \"Input\",\n        \"type\": \"string\",\n        \"description\": \"输入框\"\n      },\n      \"dateRangeSelect_mPNhq_\": {\n        \"title\": \"DateRange\",\n        \"type\": \"range\",\n        \"format\": \"date\",\n        \"description\": \"日期范围选择\"\n      }\n    },\n    \"ui:displayType\": \"row\",\n    \"ui:showDescIcon\": true\n  },\n  \"displayType\": \"row\",\n  \"showDescIcon\": true\n}",
         "configData": {},
         "trigger": "start",
         "dependencies": "{\n  \n}",
@@ -193,7 +193,7 @@
       "shape": "imove-branch",
       "data": {
         "label": "判断",
-        "configSchema": "{\n  \n}",
+        "configSchema": "{\"schema\":{}}",
         "configData": {},
         "dependencies": "{\n  \n}",
         "ports": {
@@ -344,7 +344,7 @@
       "shape": "imove-behavior",
       "data": {
         "label": "处理",
-        "configSchema": "{\n  \n}",
+        "configSchema": "{\n  \"schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"textarea_rdO5RK\": {\n        \"title\": \"Textarea\",\n        \"type\": \"string\",\n        \"format\": \"textarea\",\n        \"description\": \"文本编辑框\"\n      }\n    },\n    \"ui:displayType\": \"row\",\n    \"ui:showDescIcon\": true\n  },\n  \"displayType\": \"row\",\n  \"showDescIcon\": true\n}",
         "configData": {},
         "dependencies": "{\n  \n}",
         "code": "export default async function(ctx) {\n  console.log('test')\n}"
@@ -461,7 +461,7 @@
       "shape": "imove-behavior",
       "data": {
         "label": "在线运行测试",
-        "configSchema": "{\n  \n}",
+        "configSchema": "{\n  \"schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"input_CCw1sQ\": {\n        \"title\": \"Input\",\n        \"type\": \"string\",\n        \"description\": \"输入框\"\n      },\n      \"allBoolean_fREQq-\": {\n        \"title\": \"Switch\",\n        \"type\": \"boolean\",\n        \"ui:widget\": \"switch\",\n        \"description\": \"开关控制\"\n      }\n    },\n    \"ui:displayType\": \"row\",\n    \"ui:showDescIcon\": true\n  },\n  \"displayType\": \"row\",\n  \"showDescIcon\": true\n}",
         "configData": {},
         "dependencies": "{\n  \"lodash.get\": \"4.4.2\"\n}",
         "code": "import fpget from 'lodash.get';\n\nexport default async function(ctx) {\n  const obj = {a: {b: 'hello imove~'}};\n  console.log(fpget(obj, 'a.b'));\n  return ctx.getPipe();\n}"
@@ -538,6 +538,536 @@
       },
       "id": "1d174369-929b-4bd5-8841-f271399c4a4f",
       "zIndex": 9
+    },
+    {
+      "position": {
+        "x": 460,
+        "y": 230
+      },
+      "size": {
+        "width": 80,
+        "height": 40
+      },
+      "shape": "imove-branch",
+      "data": {
+        "label": "判断",
+        "configSchema": "{\n  \"schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"textarea_PiznGE\": {\n        \"title\": \"Textarea\",\n        \"type\": \"string\",\n        \"format\": \"textarea\",\n        \"description\": \"文本编辑框\"\n      }\n    },\n    \"ui:displayType\": \"row\",\n    \"ui:showDescIcon\": true\n  },\n  \"displayType\": \"row\",\n  \"showDescIcon\": true\n}",
+        "configData": {},
+        "dependencies": "{\n  \n}",
+        "ports": {
+          "right": {
+            "condition": "true"
+          },
+          "bottom": {
+            "condition": "false"
+          }
+        },
+        "code": "export default async function(ctx) {\n  return true;\n}"
+      },
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "right": {
+            "zIndex": 999999999,
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            },
+            "label": {
+              "position": "right"
+            }
+          },
+          "bottom": {
+            "zIndex": 999999999,
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            },
+            "label": {
+              "position": "bottom"
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "top",
+            "group": "top"
+          },
+          {
+            "id": "right",
+            "group": "right",
+            "attrs": {
+              "text": {
+                "text": "是"
+              }
+            }
+          },
+          {
+            "id": "bottom",
+            "group": "bottom",
+            "attrs": {
+              "text": {
+                "text": "否"
+              }
+            }
+          },
+          {
+            "id": "left",
+            "group": "left"
+          }
+        ]
+      },
+      "id": "b878444f-8654-42a3-848c-e8409d76e0a7",
+      "zIndex": 10
+    },
+    {
+      "position": {
+        "x": 400,
+        "y": 400
+      },
+      "size": {
+        "width": 80,
+        "height": 40
+      },
+      "shape": "imove-branch",
+      "data": {
+        "label": "判断",
+        "configSchema": "{\"schema\":{\"type\":\"object\",\"properties\":{\"textarea_8LSzk5\":{\"title\":\"Textarea\",\"type\":\"string\",\"format\":\"textarea\",\"description\":\"文本编辑框\"}},\"ui:displayType\":\"row\",\"ui:showDescIcon\":true},\"displayType\":\"row\",\"showDescIcon\":true}",
+        "configData": {},
+        "dependencies": "{\n  \n}",
+        "ports": {
+          "right": {
+            "condition": "true"
+          },
+          "bottom": {
+            "condition": "false"
+          }
+        },
+        "code": "export default async function(ctx) {\n  return true;\n}"
+      },
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "right": {
+            "zIndex": 999999999,
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            },
+            "label": {
+              "position": "right"
+            }
+          },
+          "bottom": {
+            "zIndex": 999999999,
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            },
+            "label": {
+              "position": "bottom"
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "top",
+            "group": "top"
+          },
+          {
+            "id": "right",
+            "group": "right",
+            "attrs": {
+              "text": {
+                "text": "是"
+              }
+            }
+          },
+          {
+            "id": "bottom",
+            "group": "bottom",
+            "attrs": {
+              "text": {
+                "text": "否"
+              }
+            }
+          },
+          {
+            "id": "left",
+            "group": "left"
+          }
+        ]
+      },
+      "id": "1d3c25c2-13ef-421a-a233-84e3dd80fda9",
+      "zIndex": 11
+    },
+    {
+      "position": {
+        "x": 220,
+        "y": 510
+      },
+      "size": {
+        "width": 80,
+        "height": 80
+      },
+      "shape": "imove-start",
+      "data": {
+        "label": "开始",
+        "configSchema": "{\"schema\":{\"type\":\"object\",\"properties\":{\"textarea_g4WHTq\":{\"title\":\"Textarea\",\"type\":\"string\",\"format\":\"textarea\",\"description\":\"文本编辑框\"},\"select_QkHoSL\":{\"title\":\"Select\",\"type\":\"string\",\"enum\":[\"a\",\"b\",\"c\"],\"enumNames\":[\"早\",\"中\",\"晚\"],\"description\":\"下拉单选\"}},\"ui:displayType\":\"row\",\"ui:showDescIcon\":true},\"displayType\":\"row\",\"showDescIcon\":true}",
+        "configData": {},
+        "trigger": "start",
+        "dependencies": "{\n  \n}",
+        "code": "export default async function(ctx) {\n  \n}"
+      },
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "bottom": {
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "top",
+            "group": "top"
+          },
+          {
+            "id": "right",
+            "group": "right"
+          },
+          {
+            "id": "bottom",
+            "group": "bottom"
+          },
+          {
+            "id": "left",
+            "group": "left"
+          }
+        ]
+      },
+      "id": "2eed7162-e595-4715-a444-034a21a3ebc3",
+      "zIndex": 12
+    },
+    {
+      "position": {
+        "x": 30,
+        "y": 150
+      },
+      "size": {
+        "width": 80,
+        "height": 40
+      },
+      "shape": "imove-branch",
+      "data": {
+        "label": "判断",
+        "configSchema": "{\"schema\":{\"type\":\"object\",\"properties\":{\"textarea_pGP_J4\":{\"title\":\"Textarea\",\"type\":\"string\",\"format\":\"textarea\",\"description\":\"文本编辑框\"}},\"ui:displayType\":\"row\",\"ui:showDescIcon\":true},\"displayType\":\"row\",\"showDescIcon\":true}",
+        "configData": {},
+        "dependencies": "{\n  \n}",
+        "ports": {
+          "right": {
+            "condition": "true"
+          },
+          "bottom": {
+            "condition": "false"
+          }
+        },
+        "code": "export default async function(ctx) {\n  return true;\n}"
+      },
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "right": {
+            "zIndex": 999999999,
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            },
+            "label": {
+              "position": "right"
+            }
+          },
+          "bottom": {
+            "zIndex": 999999999,
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            },
+            "label": {
+              "position": "bottom"
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "top",
+            "group": "top"
+          },
+          {
+            "id": "right",
+            "group": "right",
+            "attrs": {
+              "text": {
+                "text": "是"
+              }
+            }
+          },
+          {
+            "id": "bottom",
+            "group": "bottom",
+            "attrs": {
+              "text": {
+                "text": "否"
+              }
+            }
+          },
+          {
+            "id": "left",
+            "group": "left"
+          }
+        ]
+      },
+      "id": "5ba8aa3b-5604-426b-9832-92ff730b14d1",
+      "zIndex": 13
+    },
+    {
+      "position": {
+        "x": 380,
+        "y": 489
+      },
+      "size": {
+        "width": 80,
+        "height": 80
+      },
+      "shape": "imove-start",
+      "data": {
+        "label": "开始",
+        "configSchema": "{\"schema\":{\"type\":\"object\",\"properties\":{\"dateRangeSelect_H5O2gc\":{\"title\":\"DateRange\",\"type\":\"range\",\"format\":\"date\",\"description\":\"日期范围选择\"},\"timeSelect_VfVjuV\":{\"title\":\"TimePicker\",\"type\":\"string\",\"format\":\"time\",\"description\":\"时间选择\"}},\"ui:displayType\":\"row\",\"ui:showDescIcon\":true},\"displayType\":\"row\",\"showDescIcon\":true}",
+        "configData": {},
+        "trigger": "start",
+        "dependencies": "{\n  \n}",
+        "code": "export default async function(ctx) {\n  \n}"
+      },
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "bottom": {
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "top",
+            "group": "top"
+          },
+          {
+            "id": "right",
+            "group": "right"
+          },
+          {
+            "id": "bottom",
+            "group": "bottom"
+          },
+          {
+            "id": "left",
+            "group": "left"
+          }
+        ]
+      },
+      "id": "e35b31b6-3116-41f7-8fcb-c9270bcfb549",
+      "zIndex": 14
     }
   ]
 }

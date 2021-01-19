@@ -86,6 +86,7 @@ const Basic: React.FC<IProps> = (props) => {
       <Json
         name={'configSchema'}
         title={'投放配置'}
+        selectedCell={selectedCell}
         value={configSchema}
         isConfig={true}
         onValueChange={onChangeConfigSchema}

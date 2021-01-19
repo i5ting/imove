@@ -1,29 +1,40 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Generator from 'fr-generator';
 import 'antd/es/modal/style';
 import 'antd/es/button/style';
 import 'antd/es/message/style';
 import JsonView from 'react-json-view';
 import { Button, Tabs, Modal, Card, message } from 'antd';
-const { TabPane } = Tabs;
 import { safeParse } from '../../../../utils';
 import CodeEditor from '../../../../components/codeEditor';
 import SchemaForm from '../../../../components/schemaForm'
-
 import { compData } from './json'
 import styles from './index.module.less';
+const { TabPane } = Tabs;
 interface IJsonProps {
   value: any;
   name: string;
   title: string;
+  selectedCell?: any;
   isConfig?: boolean; // true为为可视化、json联动输入框，false为普通json输入框
   onValueChange: (value: string) => void;
 }
 
 const Json: React.FC<IJsonProps> = (props) => {
-  const { title, value, isConfig, onValueChange } = props;
+  const { title, value, isConfig, onValueChange, selectedCell } = props;
   const [visible, setVisible] = useState<boolean>(false);
   const [schema, setSchema] = useState({})
+
+  const defaultSchema = useMemo(() => {
+    if (selectedCell) {
+      const { configSchema } = selectedCell.getData();
+      if (configSchema) {
+        const schema = JSON.parse(configSchema).schema
+        setSchema(schema)
+        return schema
+      }
+    }
+  }, [selectedCell])
 
   // events
   const onClickEdit = (): void => {
@@ -63,6 +74,7 @@ const Json: React.FC<IJsonProps> = (props) => {
         onOk={onClickOk}
         onCancel={onClickCancel}
         changeSchema={changeSchema}
+        defaultSchema={defaultSchema}
       />
     </Card>
   );
@@ -73,15 +85,28 @@ interface IEditorModalProps {
   title: string;
   value: string;
   isConfig?: boolean;
+  defaultSchema: object;
   onOk: (val: string) => void;
   onCancel: () => void;
   changeSchema: (val: object) => void
 }
 
 const EditModal: React.FC<IEditorModalProps> = (props) => {
-  const { visible, title, value, onOk, onCancel } = props;
+  const { visible, title, value, onOk, onCancel, defaultSchema } = props;
   const [json, setJson] = useState<string>('');
-  const formRef = useRef<HTMLDivElement>()
+  const formRef = useRef()
+
+  useEffect(() => {
+    if (defaultSchema && Object.keys(defaultSchema).length > 0) {
+      let codeObj = {
+        "schema": Object.assign({}, defaultSchema),
+        "displayType": "row",
+        "showDescIcon": true
+      }
+      formRef.current && formRef.current.setValue(codeObj)
+      setJson(JSON.stringify(codeObj, null, 2))
+    }
+  }, [formRef.current])
 
   const tabChange = (tab: string) => {
     const JSON_TAB = 'JsonTab'
@@ -91,7 +116,6 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
   }
 
   const form2code = () => {
-    // @ts-ignore
     const formSchema = formRef.current && formRef.current.getValue()
     setJson(JSON.stringify(formSchema, null, 2))
   }
@@ -99,7 +123,6 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
   const code2form = () => {
     try {
       const codeObj = JSON.parse(json)
-      // @ts-ignore
       formRef.current.setValue(codeObj)
     } catch (error) {
       console.log('can\'t parse code string to form schema, the error is:', error.message);
@@ -127,12 +150,13 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
     try {
       if (props.isConfig) {
         if (JSON.stringify(JSON.parse(json)) === '{}') {
-          // @ts-ignore
           const value = formRef.current && formRef.current.getValue()
           props.changeSchema(value.schema)
-          setJson(value)
+          setJson(JSON.stringify(value, null, 2))
+          onOk(JSON.stringify(value));
         } else {
           props.changeSchema(JSON.parse(json).schema)
+          onOk(json);
         }
       } else {
         JSON.parse(json);
