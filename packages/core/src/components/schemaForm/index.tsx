@@ -1,10 +1,9 @@
 import React from 'react';
-import { Form, Input, Switch, Select, Radio, Checkbox, DatePicker, TimePicker } from 'antd';
+import { Form, Input, Switch, Select, Radio, Checkbox, DatePicker, TimePicker, Empty } from 'antd';
 import moment from 'moment';
 const FormItem = Form.Item
 const { RangePicker } = DatePicker;
 const { Option } = Select;
-
 interface INum {
   label: string,
   value: string
@@ -24,7 +23,7 @@ const formLayout = {
 
 const SchemaForm: React.FC<IProps> = (props) => {
   return (
-    <Form {...formLayout}>
+    Object.keys(props.schema).length > 0 ? <Form {...formLayout}>
       {props.schema?.properties && Object.keys(props.schema.properties).map((key: string) => {
         const obj = props.schema.properties[key]
         const options: INum[] = obj.enum ? obj.enum.map((item: string, idx: number) => {
@@ -82,7 +81,11 @@ const SchemaForm: React.FC<IProps> = (props) => {
           {ele}
         </FormItem>
       })}
-    </Form>
+    </Form> :
+      <Empty
+        description={'请编辑投放配置schema'}
+        image={Empty.PRESENTED_IMAGE_SIMPLE}
+      />
   );
 };
 
