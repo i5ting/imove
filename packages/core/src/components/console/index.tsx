@@ -16,6 +16,7 @@ import {
   ClearOutlined,
   FilterOutlined
 } from '@ant-design/icons';
+import JsonView from 'react-json-view';
 import { Button, Input, Select, Tabs } from 'antd';
 
 interface ILog {
@@ -24,7 +25,15 @@ interface ILog {
   strVal: string;
 }
 
+const linkRegex = /((?:www|https?:)+[^\s]+)/g;
+
 const Helper = {
+  isLink(value: string) {
+    return linkRegex.test(value);
+  },
+  extractLinks(value: string) {
+    return value.split(linkRegex);
+  },
   isPlainObject(value: any): boolean {
     return typeof value === 'object' && value !== null;
   },
@@ -76,6 +85,81 @@ const hijackMap: { [key: string]: any } = {
     originMethod: console.error
   }
 }
+
+const LogLine: React.FC<ILog> = (props) => {
+
+  const { type, data } = props;
+
+  const renderLink = (data: string) => {
+    return <a href={data} target={'_blank'}>{data}</a>
+  };
+
+  const renderText = (data: any) => {
+    if(typeof data !== 'string') {
+      return data;
+    } else {
+      const arr = data.split(linkRegex);
+      return arr.map((str, index) => {
+        return (
+          <span key={index}>
+            {Helper.isLink(str) ? renderLink(str) : str}
+          </span>
+        );
+      })
+    }
+  };
+
+  const renderJson = (data: Object) => {
+    return (
+      <JsonView
+        name={null}
+        indentWidth={2}
+        theme={'monokai'}
+        collapsed={false}
+        enableClipboard={false}
+        displayDataTypes={false}
+        displayObjectSize={false}
+        src={data}
+      />
+    );
+  };
+
+  const {
+    icon,
+    textColor,
+    bgColor,
+    borderColor
+  } = hijackMap[type];
+
+  const logLineStyle = {
+    color: textColor,
+    backgroundColor: bgColor,
+    borderTopColor: borderColor,
+    borderBottomColor: borderColor
+  };
+
+  return (
+    <div className={styles.logLine} style={logLineStyle}>
+      {icon}
+      <div className={styles.logContent}>
+        {data.map((item: any, index: number) => {
+          let content = null;
+          if (Helper.isPlainObject(item)) {
+            content = renderJson(item);
+          } else {
+            content = renderText(item);
+          }
+          const marginLeft = index === 0 ? 0 : 6;
+          return (
+            <span key={index} style={{ marginLeft }}>
+              {content}
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 const MyConsole: React.FC = () => {
   const [filter, setFilter] = useState('');
@@ -166,24 +250,9 @@ const MyConsole: React.FC = () => {
   const renderLogPanel = (logList: ILog[]) => {
     return (
       <div className={styles.logPanel}>
-        {logList.map((log: ILog, index: number) => {
-          const { icon, textColor, bgColor, borderColor } = hijackMap[log.type];
-          const logLineStyle = {
-            color: textColor,
-            backgroundColor: bgColor,
-            borderTopColor: borderColor,
-            borderBottomColor: borderColor
-          };
-          // TODO: use react-json-view to render object
-          return (
-            <div key={index} className={styles.logLine} style={logLineStyle}>
-              {icon}
-              <div className={styles.logText}>
-                {log.strVal}
-              </div>
-            </div>
-          );
-        })}
+        {logList.map((log: ILog, index: number) => (
+          <LogLine key={index} {...log} />
+        ))}
       </div>
     );
   };
