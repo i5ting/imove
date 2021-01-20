@@ -25,7 +25,12 @@ const Checkbox: React.FC<IProps> = (props) => {
   return (
     <div className={styles.container}>
       <p className={styles.titleText}>{title}</p>
-      <AntdCheckbox name={name} checked={value} disabled={disabled} onChange={onChange} />
+      <AntdCheckbox
+        name={name}
+        checked={value}
+        disabled={disabled}
+        onChange={onChange}
+      />
     </div>
   );
 };

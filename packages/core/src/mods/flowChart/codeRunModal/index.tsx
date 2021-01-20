@@ -1,8 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback
-} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import styles from './index.module.less';
 
@@ -16,7 +12,6 @@ interface IEditModalProps {
 }
 
 const CodeRunModal: React.FC<IEditModalProps> = (props): JSX.Element => {
-
   const { title = '执行代码', flowChart } = props;
   const [visible, setVisible] = useState(false);
 
@@ -42,7 +37,7 @@ const CodeRunModal: React.FC<IEditModalProps> = (props): JSX.Element => {
       footer={null}
       onCancel={onClose}
     >
-      <CodeRun flowChart={flowChart}/>
+      <CodeRun flowChart={flowChart} />
     </Modal>
   );
 };

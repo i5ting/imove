@@ -1,8 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import styles from './index.module.less';
 
@@ -26,7 +22,7 @@ const defaultInput = {
   pipe: {},
   context: {},
   payload: {},
-  config: {}
+  config: {},
 };
 
 interface ICardProps {
@@ -39,9 +35,7 @@ const Card: React.FC<ICardProps> = (props) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardTitleText}>{title}</div>
-      <div className={styles.cardBody}>
-        {props.children}
-      </div>
+      <div className={styles.cardBody}>{props.children}</div>
     </div>
   );
 };
@@ -51,8 +45,7 @@ interface ICodeRunProps {
 }
 
 const CodeRun: React.FC<ICodeRunProps> = (props) => {
-
-  const {flowChart} = props;
+  const { flowChart } = props;
   const [isRunning, setIsRunning] = useState(false);
   const [input, setInput] = useState(defaultInput);
   const [output, setOutput] = useState({});
@@ -98,10 +91,7 @@ const CodeRun: React.FC<ICodeRunProps> = (props) => {
                 )}
               </div>
               <Card title={'输入'}>
-                <InputPanel
-                  data={input}
-                  onChange={onChangeInput}
-                />
+                <InputPanel data={input} onChange={onChangeInput} />
               </Card>
             </Pane>
             <Pane className={styles.pane}>
@@ -124,6 +114,6 @@ const CodeRun: React.FC<ICodeRunProps> = (props) => {
       </SplitPane>
     </div>
   );
-}
+};
 
 export default CodeRun;

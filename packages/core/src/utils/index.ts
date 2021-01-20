@@ -37,7 +37,7 @@ export const parseQuery = (): { [key: string]: any } => {
   return parse(location.search, parseConfig);
 };
 
-export const executeScript = (code: string, type: string = 'module') => {
+export const executeScript = (code: string, type = 'module') => {
   const script = document.createElement('script');
   script.type = type;
   script.text = code;

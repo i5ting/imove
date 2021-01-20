@@ -7,7 +7,10 @@ import { Graph } from '@antv/x6';
 import { safeGet } from '../../../utils';
 import XIcon from '../../../components/xIcon';
 import makeDropdownWidget from './common/makeDropdownWidget';
-import { hasEdgeSelected, getSelectedEdges } from '../../../utils/flowChartUtils';
+import {
+  hasEdgeSelected,
+  getSelectedEdges,
+} from '../../../utils/flowChartUtils';
 
 interface IProps {
   flowChart: Graph;
@@ -65,7 +68,9 @@ const LineStyle: React.FC<IProps> = makeDropdownWidget({
     );
   },
   handler: (flowChart: Graph, value: any) => {
-    getSelectedEdges(flowChart).forEach((edge) => edge.setAttrs({ line: value }));
+    getSelectedEdges(flowChart).forEach((edge) =>
+      edge.setAttrs({ line: value }),
+    );
   },
   disabled(flowChart: Graph) {
     return !hasEdgeSelected(flowChart);

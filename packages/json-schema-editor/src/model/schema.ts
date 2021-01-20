@@ -1,4 +1,10 @@
-export type SchemaType = 'string' | 'number' | 'object' | 'array' | 'boolean' | 'integer';
+export type SchemaType =
+  | 'string'
+  | 'number'
+  | 'object'
+  | 'array'
+  | 'boolean'
+  | 'integer';
 
 type basicSchemaType = 'string' | 'number' | 'boolean' | 'integer';
 

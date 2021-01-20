@@ -1,8 +1,4 @@
-import {
-  useRef,
-  useEffect,
-  MutableRefObject
-} from 'react';
+import { useRef, useEffect, MutableRefObject } from 'react';
 
 type EventType = MouseEvent | TouchEvent;
 type TargetElement = HTMLElement | Element | Document | Window;

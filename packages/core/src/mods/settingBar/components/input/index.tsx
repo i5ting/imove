@@ -24,7 +24,12 @@ const Input: React.FC<IProps> = (props) => {
   return (
     <div>
       <p className={styles.titleText}>{title}</p>
-      <AntdInput name={name} value={value} disabled={disabled} onChange={onChange} />
+      <AntdInput
+        name={name}
+        value={value}
+        disabled={disabled}
+        onChange={onChange}
+      />
     </div>
   );
 };

@@ -1,8 +1,4 @@
-import React, {
-  useRef,
-  useState,
-  useEffect
-} from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 import styles from './index.module.less';
 
@@ -29,7 +25,7 @@ const defaultMenuInfo = {
   x: 0,
   y: 0,
   scene: 'blank',
-  visible: false
+  visible: false,
 };
 
 const FlowChart: React.FC<IProps> = (props) => {
@@ -38,7 +34,9 @@ const FlowChart: React.FC<IProps> = (props) => {
   const graphRef = useRef<HTMLDivElement>(null);
   const miniMapRef = useRef<HTMLDivElement>(null);
   const [flowChart, setFlowChart] = useState<Graph>();
-  const [contextMenuInfo, setContextMenuInfo] = useState<IMenuInfo>(defaultMenuInfo);
+  const [contextMenuInfo, setContextMenuInfo] = useState<IMenuInfo>(
+    defaultMenuInfo,
+  );
 
   useEffect(() => {
     if (graphRef.current && miniMapRef.current) {
@@ -53,7 +51,7 @@ const FlowChart: React.FC<IProps> = (props) => {
   useEffect(() => {
     const handler = () => {
       requestAnimationFrame(() => {
-        if(flowChart && wrapperRef && wrapperRef.current) {
+        if (flowChart && wrapperRef && wrapperRef.current) {
           const width = wrapperRef.current.clientWidth;
           const height = wrapperRef.current.clientHeight;
           flowChart.resize(width, height);
@@ -85,7 +83,7 @@ const FlowChart: React.FC<IProps> = (props) => {
         flowChart.off('graph:showContextMenu', showHandler);
         flowChart.off('graph:hideContextMenu', hideHandler);
       }
-    }
+    };
   }, [flowChart]);
 
   const fetchData = (flowChart: Graph) => {
@@ -104,9 +102,11 @@ const FlowChart: React.FC<IProps> = (props) => {
     <div className={styles.container} ref={wrapperRef}>
       <div className={styles.flowChart} ref={graphRef} />
       <div className={styles.miniMap} ref={miniMapRef} />
-      {flowChart && <CodeRunModal flowChart={flowChart}/>}
-      {flowChart && <CodeEditorModal flowChart={flowChart}/>}
-      {flowChart && <FlowChartContextMenu {...contextMenuInfo} flowChart={flowChart} />}
+      {flowChart && <CodeRunModal flowChart={flowChart} />}
+      {flowChart && <CodeEditorModal flowChart={flowChart} />}
+      {flowChart && (
+        <FlowChartContextMenu {...contextMenuInfo} flowChart={flowChart} />
+      )}
     </div>
   );
 };

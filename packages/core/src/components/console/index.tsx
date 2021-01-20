@@ -3,7 +3,7 @@ import React, {
   useState,
   useEffect,
   useCallback,
-  ChangeEvent
+  ChangeEvent,
 } from 'react';
 
 import styles from './index.module.less';
@@ -14,7 +14,7 @@ import {
   BugOutlined,
   CloseCircleOutlined,
   ClearOutlined,
-  FilterOutlined
+  FilterOutlined,
 } from '@ant-design/icons';
 import JsonView from 'react-json-view';
 import { Button, Input, Select, Tabs } from 'antd';
@@ -38,15 +38,17 @@ const Helper = {
     return typeof value === 'object' && value !== null;
   },
   getArgsToString(args: any[]): string {
-    return args.map(o => {
-      if (Helper.isPlainObject(o)) {
-        return JSON.stringify(o);
-      } else {
-        return o;
-      }
-    }).join(' ');
-  }
-}
+    return args
+      .map((o) => {
+        if (Helper.isPlainObject(o)) {
+          return JSON.stringify(o);
+        } else {
+          return o;
+        }
+      })
+      .join(' ');
+  },
+};
 
 const hijackMap: { [key: string]: any } = {
   log: {
@@ -54,62 +56,63 @@ const hijackMap: { [key: string]: any } = {
     textColor: '#ffffff',
     borderColor: 'rgba(128, 128, 128, 0.35)',
     icon: <div className={styles.logIcon} />,
-    originMethod: console.log
+    originMethod: console.log,
   },
   info: {
     bgColor: '#272823',
     textColor: '#ffffff',
     borderColor: 'rgba(128, 128, 128, 0.35)',
     icon: <InfoCircleOutlined className={styles.logIcon} />,
-    originMethod: console.info
+    originMethod: console.info,
   },
   warn: {
     bgColor: 'rgb(51, 42, 0)',
     textColor: 'rgb(245, 211, 150)',
     borderColor: 'rgb(102, 85, 0)',
     icon: <WarningOutlined className={styles.logIcon} />,
-    originMethod: console.warn
+    originMethod: console.warn,
   },
   debug: {
     bgColor: '#272823',
     textColor: 'rgb(77, 136, 255)',
     borderColor: 'rgba(128, 128, 128, 0.35)',
     icon: <BugOutlined className={styles.logIcon} />,
-    originMethod: console.debug
+    originMethod: console.debug,
   },
   error: {
     bgColor: 'rgb(40, 0, 0)',
     textColor: 'rgb(254, 127, 127)',
     borderColor: 'rgb(91, 0, 0)',
     icon: <CloseCircleOutlined className={styles.logIcon} />,
-    originMethod: console.error
-  }
-}
+    originMethod: console.error,
+  },
+};
 
 const LogLine: React.FC<ILog> = (props) => {
-
   const { type, data } = props;
 
   const renderLink = (data: string) => {
-    return <a href={data} target={'_blank'}>{data}</a>
+    return (
+      <a href={data} target={'_blank'}>
+        {data}
+      </a>
+    );
   };
 
   const renderText = (data: any) => {
-    if(typeof data !== 'string') {
+    if (typeof data !== 'string') {
       return data;
     } else {
       const arr = data.split(linkRegex);
       return arr.map((str, index) => {
         return (
-          <span key={index}>
-            {Helper.isLink(str) ? renderLink(str) : str}
-          </span>
+          <span key={index}>{Helper.isLink(str) ? renderLink(str) : str}</span>
         );
-      })
+      });
     }
   };
 
-  const renderJson = (data: Object) => {
+  const renderJson = (data: Record<string, any>) => {
     return (
       <JsonView
         name={null}
@@ -124,18 +127,13 @@ const LogLine: React.FC<ILog> = (props) => {
     );
   };
 
-  const {
-    icon,
-    textColor,
-    bgColor,
-    borderColor
-  } = hijackMap[type];
+  const { icon, textColor, bgColor, borderColor } = hijackMap[type];
 
   const logLineStyle = {
     color: textColor,
     backgroundColor: bgColor,
     borderTopColor: borderColor,
-    borderBottomColor: borderColor
+    borderBottomColor: borderColor,
   };
 
   return (
@@ -176,36 +174,36 @@ const MyConsole: React.FC = () => {
 
   useEffect(() => {
     const filteredLogs = cache.current.allLogs
-      .filter(log => {
+      .filter((log) => {
         if (level === 'all') {
           return true;
         } else {
           return log.type === level;
         }
       })
-      .filter(log => {
+      .filter((log) => {
         return log.strVal.indexOf(filter) > -1;
       });
     setLogList(filteredLogs);
   }, [filter, level]);
 
   const hijackConsole = () => {
-    Object.keys(hijackMap).forEach(method => {
+    Object.keys(hijackMap).forEach((method) => {
       // @ts-ignore
       window.console[method] = (...args: any[]) => {
         hijackMap[method].originMethod(...args);
         cache.current.allLogs = cache.current.allLogs.concat({
           type: method,
           data: args,
-          strVal: Helper.getArgsToString(args)
+          strVal: Helper.getArgsToString(args),
         });
         setLogList(cache.current.allLogs);
       };
     });
-  }
+  };
 
   const resetConsole = () => {
-    Object.keys(hijackMap).forEach(method => {
+    Object.keys(hijackMap).forEach((method) => {
       // @ts-ignore
       window.console[method] = hijackMap[method].originMethod;
     });
@@ -233,8 +231,12 @@ const MyConsole: React.FC = () => {
           prefix={<FilterOutlined />}
           onChange={onChangeFilter}
         />
-        <Select className={styles.levels} defaultValue={'all'} onChange={onChangeLevel}>
-          {['all', 'info', 'warn', 'error', 'debug'].map(method => (
+        <Select
+          className={styles.levels}
+          defaultValue={'all'}
+          onChange={onChangeLevel}
+        >
+          {['all', 'info', 'warn', 'error', 'debug'].map((method) => (
             <Select.Option key={method} value={method}>
               {method}
             </Select.Option>

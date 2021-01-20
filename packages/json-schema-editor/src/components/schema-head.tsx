@@ -79,10 +79,18 @@ function EditorHead(): JSX.Element {
             </Select>
           </Col>
           <Col span="5">
-            <Input value="" placeholder={t('title')} addonAfter={<EditIcon />} />
+            <Input
+              value=""
+              placeholder={t('title')}
+              addonAfter={<EditIcon />}
+            />
           </Col>
           <Col span="5">
-            <Input value="" placeholder={t('description')} addonAfter={<EditIcon />} />
+            <Input
+              value=""
+              placeholder={t('description')}
+              addonAfter={<EditIcon />}
+            />
           </Col>
           <Col span="3">
             <Tooltip placement="top" title={t('setting')}>

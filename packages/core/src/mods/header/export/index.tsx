@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import styles from './index.module.less';
 
@@ -10,9 +10,8 @@ interface IProps {
   flowChart: Graph;
 }
 
-const Export: React.FC<IProps> = props => {
-
-  const {flowChart} = props;
+const Export: React.FC<IProps> = (props) => {
+  const { flowChart } = props;
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const onOpenModal = () => setModalVisible(true);
@@ -20,7 +19,9 @@ const Export: React.FC<IProps> = props => {
 
   return (
     <div className={styles.container}>
-      <Button type={'primary'} size={'small'} onClick={onOpenModal}>导出</Button>
+      <Button type={'primary'} size={'small'} onClick={onOpenModal}>
+        导出
+      </Button>
       <ExportModal
         flowChart={flowChart}
         visible={modalVisible}

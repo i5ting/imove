@@ -8,7 +8,10 @@ import { safeGet } from '../../../utils';
 import { HighlightOutlined } from '@ant-design/icons';
 import ColorPicker from '../../../components/colorPicker';
 import makeDropdownWidget from './common/makeDropdownWidget';
-import { hasNodeSelected, getSelectedNodes } from '../../../utils/flowChartUtils';
+import {
+  hasNodeSelected,
+  getSelectedNodes,
+} from '../../../utils/flowChartUtils';
 
 interface IProps {
   flowChart: Graph;
@@ -29,17 +32,24 @@ const options = {
     return (
       <div className={styles.borderColorContainer}>
         <HighlightOutlined className={styles.borderColorIcon} />
-        <div className={styles.colorPreview} style={{ backgroundColor: borderColor }} />
+        <div
+          className={styles.colorPreview}
+          style={{ backgroundColor: borderColor }}
+        />
       </div>
     );
   },
   getOverlay(flowChart: Graph, onChange: (data: any) => void) {
     const borderColor = options.getCurBorderColor(flowChart);
     const onChangeComplete = (color: string) => onChange(color);
-    return <ColorPicker color={borderColor} onChangeComplete={onChangeComplete} />;
+    return (
+      <ColorPicker color={borderColor} onChangeComplete={onChangeComplete} />
+    );
   },
   handler: (flowChart: Graph, value: any) => {
-    getSelectedNodes(flowChart).forEach((node) => node.setAttrs({ body: { stroke: value } }));
+    getSelectedNodes(flowChart).forEach((node) =>
+      node.setAttrs({ body: { stroke: value } }),
+    );
   },
   disabled(flowChart: Graph) {
     return !hasNodeSelected(flowChart);

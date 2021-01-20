@@ -14,7 +14,11 @@ const CELL_SCALE = 0.7;
 const GENERAL_GROUP = {
   key: 'general',
   name: '通用元件',
-  cells: ['imove-start-preview', 'imove-branch-preview', 'imove-behavior-preview'],
+  cells: [
+    'imove-start-preview',
+    'imove-branch-preview',
+    'imove-behavior-preview',
+  ],
 };
 const SHAPE_REFLECT_MAP: { [key: string]: string } = {
   'imove-start-preview': 'imove-start',
@@ -47,7 +51,10 @@ const SideBar: React.FC<ISideBarProps> = (props) => {
   return (
     <div className={styles.container}>
       {dnd && (
-        <Collapse className={styles.collapse} defaultActiveKey={['general', 'custom']}>
+        <Collapse
+          className={styles.collapse}
+          defaultActiveKey={['general', 'custom']}
+        >
           {groups.map((group) => (
             <Panel key={group.key} header={group.name}>
               <PanelContent dnd={dnd} cells={group.cells} />

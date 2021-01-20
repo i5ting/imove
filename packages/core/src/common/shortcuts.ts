@@ -77,10 +77,18 @@ const shortcuts: { [key: string]: Shortcut } = {
       const onEdgeDel = (edge: Edge) => {
         const srcNode = edge.getSourceNode() as Node;
         const isSrcNodeInDelCells = !!toDelCells.find((c) => c === srcNode);
-        if (srcNode && srcNode.shape === 'imove-branch' && !isSrcNodeInDelCells) {
+        if (
+          srcNode &&
+          srcNode.shape === 'imove-branch' &&
+          !isSrcNodeInDelCells
+        ) {
           const portId = edge.getSourcePortId();
           if (portId === 'right' || portId === 'bottom') {
-            const edgeLabel = safeGet(edge.getLabelAt(0), 'attrs.label.text', '');
+            const edgeLabel = safeGet(
+              edge.getLabelAt(0),
+              'attrs.label.text',
+              '',
+            );
             srcNode.setPortProp(portId, 'attrs/text/text', edgeLabel);
           }
         }
@@ -109,9 +117,12 @@ const shortcuts: { [key: string]: Shortcut } = {
     handler(flowChart: Graph) {
       const cells = flowChart.getSelectedCells();
       if (cells.length > 0) {
-        const isAlreadyBold = safeGet(cells, '0.attrs.label.fontWeight', 'normal') === 'bold';
+        const isAlreadyBold =
+          safeGet(cells, '0.attrs.label.fontWeight', 'normal') === 'bold';
         cells.forEach((cell) => {
-          cell.setAttrs({ label: { fontWeight: isAlreadyBold ? 'normal' : 'bold' } });
+          cell.setAttrs({
+            label: { fontWeight: isAlreadyBold ? 'normal' : 'bold' },
+          });
         });
         flowChart.trigger('toolBar:forceUpdate');
       }
@@ -123,9 +134,12 @@ const shortcuts: { [key: string]: Shortcut } = {
     handler(flowChart: Graph) {
       const cells = flowChart.getSelectedCells();
       if (cells.length > 0) {
-        const isAlreadyItalic = safeGet(cells, '0.attrs.label.fontStyle', 'normal') === 'italic';
+        const isAlreadyItalic =
+          safeGet(cells, '0.attrs.label.fontStyle', 'normal') === 'italic';
         cells.forEach((cell) => {
-          cell.setAttrs({ label: { fontStyle: isAlreadyItalic ? 'normal' : 'italic' } });
+          cell.setAttrs({
+            label: { fontStyle: isAlreadyItalic ? 'normal' : 'italic' },
+          });
         });
         flowChart.trigger('toolBar:forceUpdate');
       }
@@ -138,9 +152,14 @@ const shortcuts: { [key: string]: Shortcut } = {
       const cells = flowChart.getSelectedCells();
       if (cells.length > 0) {
         const isAlreadyUnderline =
-          safeGet(cells, '0.attrs.label.textDecoration', 'none') === 'underline';
+          safeGet(cells, '0.attrs.label.textDecoration', 'none') ===
+          'underline';
         cells.forEach((cell) => {
-          cell.setAttrs({ label: { textDecoration: isAlreadyUnderline ? 'none' : 'underline' } });
+          cell.setAttrs({
+            label: {
+              textDecoration: isAlreadyUnderline ? 'none' : 'underline',
+            },
+          });
         });
         flowChart.trigger('toolBar:forceUpdate');
       }
@@ -151,14 +170,14 @@ const shortcuts: { [key: string]: Shortcut } = {
     keys: 'meta + ]',
     handler(flowChart: Graph) {
       getSelectedNodes(flowChart).forEach((node) => node.toFront());
-    }
+    },
   },
   bringToBack: {
     keys: 'meta + [',
     handler(flowChart: Graph) {
       getSelectedNodes(flowChart).forEach((node) => node.toBack());
-    }
-  }
+    },
+  },
 };
 
 export default shortcuts;

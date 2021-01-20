@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  useEffect
-} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import 'antd/es/modal/style';
 import styles from './index.module.less';
@@ -19,16 +16,14 @@ interface IProps {
 }
 
 const CodeEditModal: React.FC<IProps> = (props) => {
-
   const { title = '编辑代码', flowChart } = props;
   const [code, setCode] = useState<string>('');
   const [visible, setVisible] = useState<boolean>(false);
 
   const updateNodeCode = (code: string): void => {
-
     const cell = flowChart.getSelectedCells()[0];
     const { code: oldCode, dependencies } = cell.getData();
-    if(code === oldCode) {
+    if (code === oldCode) {
       return;
     }
 
@@ -55,7 +50,7 @@ const CodeEditModal: React.FC<IProps> = (props) => {
             const newDeps = { ...excludeDeps, ...deps };
             cell.setData({
               code,
-              dependencies: JSON.stringify(newDeps, null, 2)
+              dependencies: JSON.stringify(newDeps, null, 2),
             });
             // NOTE: notify basic panel to update dependency
             flowChart.trigger('settingBar.basicPanel:forceUpdate');
@@ -110,9 +105,15 @@ const CodeEditModal: React.FC<IProps> = (props) => {
       visible={visible}
       onCancel={onCancel}
       footer={[
-        <Button key={'cancel'} onClick={onCancel}>取消</Button>,
-        <Button key={'runCode'} type={'primary'} ghost onClick={onRunCode}>运行代码</Button>,
-        <Button key={'saveCode'} type={'primary'} onClick={onOk}>保存</Button>,
+        <Button key={'cancel'} onClick={onCancel}>
+          取消
+        </Button>,
+        <Button key={'runCode'} type={'primary'} ghost onClick={onRunCode}>
+          运行代码
+        </Button>,
+        <Button key={'saveCode'} type={'primary'} onClick={onOk}>
+          保存
+        </Button>,
       ]}
     >
       <CodeEditor

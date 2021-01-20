@@ -29,7 +29,10 @@ function SchemaForm({ data, keyRoute }: SchemaFormProps): JSX.Element {
             keyRoute={fieldKeyRoute}
           >
             {itemData.type === 'object' && !isUndefined(itemData.properties) ? (
-              <SchemaForm data={itemData} keyRoute={fieldKeyRoute.concat('properties')} />
+              <SchemaForm
+                data={itemData}
+                keyRoute={fieldKeyRoute.concat('properties')}
+              />
             ) : null}
           </SchemaItem>
         );

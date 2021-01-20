@@ -37,7 +37,11 @@ const makeDropdownWidget = (options: IOptions) => {
     };
     return (
       <Tooltip title={tooltip}>
-        <Dropdown disabled={disabled} overlay={getOverlay(flowChart, onChange)} trigger={['click']}>
+        <Dropdown
+          disabled={disabled}
+          overlay={getOverlay(flowChart, onChange)}
+          trigger={['click']}
+        >
           <div className={iconWrapperCls.join(' ')}>
             {getIcon(flowChart)} <CaretDownOutlined className={styles.caret} />
           </div>

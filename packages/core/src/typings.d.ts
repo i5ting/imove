@@ -8,12 +8,11 @@ declare module '*.less' {
   export default classes;
 }
 
-
 declare module 'fr-generator' {
   import React from 'react';
   export interface FRProps {
-    settings?: object
+    settings?: object;
   }
-  class FormRender extends React.Component<FRProps> { }
+  class FormRender extends React.Component<FRProps> {}
   export default FRGenerator;
 }

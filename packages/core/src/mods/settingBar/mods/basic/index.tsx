@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styles from './index.module.less';
 
@@ -64,7 +61,12 @@ const Basic: React.FC<IProps> = (props) => {
   return (
     <div className={styles.container}>
       <Card title="名称">
-        <Input name={'label'} title={'节点显示名称'} value={label} onValueChange={onChangeLabel} />
+        <Input
+          name={'label'}
+          title={'节点显示名称'}
+          value={label}
+          onValueChange={onChangeLabel}
+        />
         {selectedCell.shape === 'imove-start' && (
           <div className={styles.input}>
             <Input

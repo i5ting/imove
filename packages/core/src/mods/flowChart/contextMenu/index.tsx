@@ -1,7 +1,4 @@
-import React, {
-  useRef,
-  useCallback
-} from 'react';
+import React, { useRef, useCallback } from 'react';
 
 import styles from '../index.module.less';
 
@@ -30,25 +27,31 @@ interface IMenuConfig {
 
 const menuConfigMap: { [scene: string]: IMenuConfig[] } = {
   node: nodeMenuConfig,
-  blank: blankMenuConfig
+  blank: blankMenuConfig,
 };
 
-const FlowChartContextMenu: React.FC<IProps> = props => {
+const FlowChartContextMenu: React.FC<IProps> = (props) => {
   const menuRef = useRef(null);
   const { x, y, scene, visible, flowChart } = props;
   const menuConfig = menuConfigMap[scene];
 
   useClickAway(() => onClickAway(), menuRef);
 
-  const onClickAway = useCallback(() => flowChart.trigger('graph:hideContextMenu'), [flowChart]);
-  const onClickMenu = useCallback(({ key }) => {
-    const handlerMap = Helper.makeMenuHandlerMap(menuConfig);
-    const handler = handlerMap[key];
-    if (handler) {
-      onClickAway();
-      handler(flowChart);
-    }
-  }, [flowChart, menuConfig]);
+  const onClickAway = useCallback(
+    () => flowChart.trigger('graph:hideContextMenu'),
+    [flowChart],
+  );
+  const onClickMenu = useCallback(
+    ({ key }) => {
+      const handlerMap = Helper.makeMenuHandlerMap(menuConfig);
+      const handler = handlerMap[key];
+      if (handler) {
+        onClickAway();
+        handler(flowChart);
+      }
+    },
+    [flowChart, menuConfig],
+  );
 
   return !visible ? null : (
     <div
@@ -56,11 +59,7 @@ const FlowChartContextMenu: React.FC<IProps> = props => {
       className={styles.contextMenu}
       style={{ left: x, top: y }}
     >
-      <Menu
-        mode={'vertical'}
-        selectable={false}
-        onClick={onClickMenu}
-      >
+      <Menu mode={'vertical'} selectable={false} onClick={onClickMenu}>
         {Helper.makeMenuContent(flowChart, menuConfig)}
       </Menu>
     </div>
@@ -83,15 +82,27 @@ const Helper = {
   },
   makeMenuContent(flowChart: Graph, menuConfig: IMenuConfig[]) {
     const loop = (config: IMenuConfig[]) => {
-      return config.map(item => {
+      return config.map((item) => {
         let content = null;
-        let { key, title, icon, children, disabled = false, showDividerBehind } = item;
+        let {
+          key,
+          title,
+          icon,
+          children,
+          disabled = false,
+          showDividerBehind,
+        } = item;
         if (typeof disabled === 'function') {
           disabled = disabled(flowChart);
         }
         if (children && children.length > 0) {
           content = (
-            <Menu.SubMenu key={key} icon={icon} title={title} disabled={disabled}>
+            <Menu.SubMenu
+              key={key}
+              icon={icon}
+              title={title}
+              disabled={disabled}
+            >
               {loop(children)}
             </Menu.SubMenu>
           );
@@ -102,14 +113,11 @@ const Helper = {
             </Menu.Item>
           );
         }
-        return [
-          content,
-          showDividerBehind && <Menu.Divider />
-        ];
+        return [content, showDividerBehind && <Menu.Divider />];
       });
     };
     return loop(menuConfig);
-  }
+  },
 };
 
 export default FlowChartContextMenu;

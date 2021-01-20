@@ -10,15 +10,15 @@ const blankMenuConfig = [
     key: 'selectAll',
     title: '全选',
     icon: <XIcon type={'icon-select-all'} />,
-    handler: shortcuts.selectAll.handler
+    handler: shortcuts.selectAll.handler,
   },
   {
     key: 'paste',
     title: '粘贴',
     icon: <SnippetsOutlined />,
     disabled: (flowChart: Graph) => flowChart.isClipboardEmpty(),
-    handler: shortcuts.paste.handler
-  }
+    handler: shortcuts.paste.handler,
+  },
 ];
 
 export default blankMenuConfig;

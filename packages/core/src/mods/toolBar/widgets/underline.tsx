@@ -22,7 +22,9 @@ const Underline: React.FC<IProps> = makeBtnWidget({
   selected(flowChart: Graph) {
     const cells = flowChart.getSelectedCells();
     if (cells.length > 0) {
-      return safeGet(cells, '0.attrs.label.textDecoration', 'none') === 'underline';
+      return (
+        safeGet(cells, '0.attrs.label.textDecoration', 'none') === 'underline'
+      );
     } else {
       return false;
     }

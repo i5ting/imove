@@ -1,14 +1,10 @@
-import React, {
-  useMemo,
-  useState,
-  useEffect
-} from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 
 import {
   monaco,
   EditorDidMount,
   ControlledEditor,
-  ControlledEditorProps
+  ControlledEditorProps,
 } from '@monaco-editor/react';
 
 import monokaiTheme from './theme-monokai';
@@ -22,7 +18,7 @@ monaco.init().then((monaco) => {
 });
 
 const CODE_EDITOR_OPTIONS = {
-  fontSize: 14
+  fontSize: 14,
 };
 
 interface IProps extends ControlledEditorProps {
@@ -30,7 +26,7 @@ interface IProps extends ControlledEditorProps {
 }
 
 export const CodeEditor: React.FC<IProps> = (props) => {
-  const {options, editorDidMount, onSave, ...rest} = props;
+  const { options, editorDidMount, onSave, ...rest } = props;
   const [editorInst, setEditorInst] = useState<any>();
 
   const editorOptions = useMemo(() => {

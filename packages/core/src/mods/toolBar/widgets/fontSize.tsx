@@ -36,7 +36,9 @@ const FontSize: React.FC<IProps> = makeDropdownWidget({
     );
   },
   handler: (flowChart: Graph, value: any) => {
-    flowChart.getSelectedCells().forEach((cell) => cell.setAttrs({ label: { fontSize: value } }));
+    flowChart
+      .getSelectedCells()
+      .forEach((cell) => cell.setAttrs({ label: { fontSize: value } }));
   },
   disabled(flowChart: Graph) {
     return flowChart.getSelectedCellCount() === 0;

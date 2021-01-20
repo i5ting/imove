@@ -1,7 +1,4 @@
-import React, {
-  useRef,
-  useEffect,
-} from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import styles from './index.module.less';
 
@@ -33,7 +30,7 @@ const VisualFormItem: React.FC<IVisualFormItemProps> = (props) => {
       <Form.List name={type}>
         {(fields, { add, remove }) => (
           <React.Fragment>
-            {fields.map(field => (
+            {fields.map((field) => (
               <Space key={field.key} align={'baseline'}>
                 <Form.Item
                   {...field}
@@ -73,7 +70,7 @@ const VisualFormItem: React.FC<IVisualFormItemProps> = (props) => {
 
 interface IVisualPanelProps {
   data: any;
-  onChange: (value: object) => void
+  onChange: (value: object) => void;
 }
 
 const VisualPanel: React.FC<IVisualPanelProps> = (props) => {
@@ -84,7 +81,10 @@ const VisualPanel: React.FC<IVisualPanelProps> = (props) => {
     const filedsValue: { [key: string]: any } = {};
     for (const { type } of inputItems) {
       const mockValue = data[type] || {};
-      filedsValue[type] = Object.keys(mockValue).map(key => ({ key, value: mockValue[key] }));
+      filedsValue[type] = Object.keys(mockValue).map((key) => ({
+        key,
+        value: mockValue[key],
+      }));
     }
     form.setFieldsValue(filedsValue);
   }, [data]);
@@ -94,28 +94,23 @@ const VisualPanel: React.FC<IVisualPanelProps> = (props) => {
     const filedsValue = form.getFieldsValue();
     for (const { type } of inputItems) {
       const mockValue = filedsValue[type] || [];
-      input[type] = mockValue.reduce((prev: any, cur: { key: string, value: any }) => {
-        const { key, value } = cur;
-        prev[key] = value;
-        return prev;
-      }, {});
+      input[type] = mockValue.reduce(
+        (prev: any, cur: { key: string; value: any }) => {
+          const { key, value } = cur;
+          prev[key] = value;
+          return prev;
+        },
+        {},
+      );
     }
     onChange(input);
   };
 
   return (
     <div className={styles.visualInput}>
-      <Form
-        form={form}
-        autoComplete={'on'}
-        onChange={onFormChange}
-      >
+      <Form form={form} autoComplete={'on'} onChange={onFormChange}>
         {inputItems.map(({ type, desc }, index) => (
-          <VisualFormItem
-            key={index}
-            type={type}
-            desc={desc}
-          />
+          <VisualFormItem key={index} type={type} desc={desc} />
         ))}
       </Form>
     </div>
@@ -148,7 +143,11 @@ const InputPanel: React.FC<IInputPanelProps> = (props) => {
 
   return (
     <Tabs type={'card'} defaultActiveKey={'visualTab'}>
-      <Tabs.TabPane className={styles.tabPane} tab={'可视化模式'} key={'visualTab'}>
+      <Tabs.TabPane
+        className={styles.tabPane}
+        tab={'可视化模式'}
+        key={'visualTab'}
+      >
         <VisualPanel data={data} onChange={onVisualChange} />
       </Tabs.TabPane>
       <Tabs.TabPane className={styles.tabPane} tab={'源码模式'} key={'jsonTab'}>

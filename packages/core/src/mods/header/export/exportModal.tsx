@@ -15,7 +15,6 @@ interface IExportModalProps {
 }
 
 const ExportModal: React.FC<IExportModalProps> = (props) => {
-
   const { flowChart, visible, onClose } = props;
   const onExportDSL = () => {
     const dsl = JSON.stringify(flowChart.toJSON(), null, 2);
@@ -32,9 +31,12 @@ const ExportModal: React.FC<IExportModalProps> = (props) => {
     });
   };
   const onExportFlowChart = () => {
-    flowChart.toPNG((dataUri: string) => {
-      DataUri.downloadDataUri(dataUri, 'flowChart.png');
-    }, { padding: 50, ratio: '3.0' });
+    flowChart.toPNG(
+      (dataUri: string) => {
+        DataUri.downloadDataUri(dataUri, 'flowChart.png');
+      },
+      { padding: 50, ratio: '3.0' },
+    );
   };
 
   return (
@@ -48,15 +50,24 @@ const ExportModal: React.FC<IExportModalProps> = (props) => {
     >
       <div className={styles.modalContent}>
         <div className={styles.downloadWrap} onClick={onExportDSL}>
-          <img className={styles.picPreview} src="//img.alicdn.com/imgextra/i2/O1CN01lvanDL1YKp54hGgMS_!!6000000003041-2-tps-247-247.png" />
+          <img
+            className={styles.picPreview}
+            src="//img.alicdn.com/imgextra/i2/O1CN01lvanDL1YKp54hGgMS_!!6000000003041-2-tps-247-247.png"
+          />
           <span>DSL</span>
         </div>
         <div className={styles.downloadWrap} onClick={onExportCode}>
-          <img className={styles.picPreview} src="//img.alicdn.com/imgextra/i3/O1CN01V3wg6S27JuqePTXZv_!!6000000007777-2-tps-247-247.png" />
+          <img
+            className={styles.picPreview}
+            src="//img.alicdn.com/imgextra/i3/O1CN01V3wg6S27JuqePTXZv_!!6000000007777-2-tps-247-247.png"
+          />
           <span>代码</span>
         </div>
         <div className={styles.downloadWrap} onClick={onExportFlowChart}>
-          <img className={styles.picPreview} src="//img.alicdn.com/imgextra/i1/O1CN01sVItyC1exeLraUhf6_!!6000000003938-2-tps-247-247.png" />
+          <img
+            className={styles.picPreview}
+            src="//img.alicdn.com/imgextra/i1/O1CN01sVItyC1exeLraUhf6_!!6000000003938-2-tps-247-247.png"
+          />
           <span>流程图</span>
         </div>
       </div>
@@ -78,7 +89,7 @@ const Helper = {
         Helper.recursiveZip(dir, val);
       }
     }
-  }
-}
+  },
+};
 
 export default ExportModal;

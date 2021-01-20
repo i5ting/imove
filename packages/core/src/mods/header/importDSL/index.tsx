@@ -9,16 +9,15 @@ interface IProps {
   flowChart: Graph;
 }
 
-const ImportDSL: React.FC<IProps> = props => {
-
-  const {flowChart} = props;
+const ImportDSL: React.FC<IProps> = (props) => {
+  const { flowChart } = props;
   const [disabled, setDisabled] = useState(false);
   const beforeUpload = (file: any) => {
     setDisabled(true);
     const reader = new FileReader();
     reader.onload = (evt) => {
       setDisabled(false);
-      if(!evt.target) {
+      if (!evt.target) {
         message.error('加载文件失败!');
       } else {
         const dsl = evt.target.result as string;
@@ -41,7 +40,9 @@ const ImportDSL: React.FC<IProps> = props => {
       showUploadList={false}
       beforeUpload={beforeUpload}
     >
-      <Button type={'primary'} size={'small'}>导入DSL</Button>
+      <Button type={'primary'} size={'small'}>
+        导入DSL
+      </Button>
     </Upload>
   );
 };

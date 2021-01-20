@@ -33,7 +33,12 @@ const SettingBar: React.FC<IProps> = (props) => {
         <Tabs
           tabBarGutter={0}
           defaultActiveKey={'basic'}
-          tabBarStyle={{ display: 'flex', flex: 1, justifyContent: 'center', alignItems: 'center' }}
+          tabBarStyle={{
+            display: 'flex',
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
         >
           <TabPane tab={'节点配置'} key={'basic'}>
             <Basic selectedCell={nodes[0]} flowChart={flowChart} />
@@ -47,7 +52,10 @@ const SettingBar: React.FC<IProps> = (props) => {
   } else {
     return (
       <div className={`${styles.container} ${styles.center}`}>
-        <Empty description={'请选择一个节点'} image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        <Empty
+          description={'请选择一个节点'}
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
+        />
       </div>
     );
   }
