@@ -59,7 +59,7 @@ const useClickAway = (
     return () => {
       document.removeEventListener(eventName, handler);
     };
-  }, [target, eventName]);
+  }, [target, eventName, onClickAwayRef.current]);
 };
 
 export default useClickAway;
