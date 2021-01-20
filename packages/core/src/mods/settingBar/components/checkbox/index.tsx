@@ -18,7 +18,6 @@ interface IProps {
 const Checkbox: React.FC<IProps> = (props) => {
   const { name, title, value, disabled, onValueChange } = props;
   const onChange = (evt: CheckboxChangeEvent): void => {
-    console.log(evt.target.checked);
     if (evt.target.checked !== value) {
       onValueChange(evt.target.checked);
     }

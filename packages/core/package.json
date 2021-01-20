@@ -1,6 +1,6 @@
 {
   "name": "@imove/core",
-  "version": "0.3.5",
+  "version": "0.3.7",
   "description": "流程编排",
   "keywords": [
     "imove",
@@ -37,16 +37,19 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.0.6",
-    "@antv/x6": "^1.3.0",
+    "@antv/x6": "^1.7.12",
     "@imove/compile-code": "^0.0.1",
     "@monaco-editor/react": "^3.7.4",
     "antd": "^4.5.3",
     "axios": "^0.21.0",
+    "form-render": "^0.9.5",
+    "fr-generator": "^1.0.0",
     "jszip": "^3.5.0",
     "lodash.merge": "^4.6.2",
     "query-string": "^6.13.7",
     "react-color": "^2.18.1",
-    "react-json-view": "^1.19.1"
+    "react-json-view": "^1.19.1",
+    "react-split-pane": "^2.0.3"
   },
   "devDependencies": {
     "@types/lodash.merge": "^4.6.6",

@@ -80,7 +80,6 @@ export const registerServerStorage = (flowChart: Graph) => {
     const events = nodeActionEventMap[actionType];
     events.forEach((event) => {
       flowChart.on(event, (args: any) => {
-        console.log('node event:', event, 'args:', args);
         save(flowChart, 'node', actionType as ActionType, args.node.toJSON());
       });
     });

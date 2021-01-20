@@ -2,7 +2,7 @@
   "default": [
     {
       "position": {
-        "x": 450,
+        "x": 460,
         "y": 50
       },
       "size": {
@@ -12,7 +12,7 @@
       "shape": "imove-behavior",
       "data": {
         "label": "处理",
-        "configSchema": "{\n  \n}",
+        "configSchema": "{\n  \"schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"textarea_FyaArd\": {\n        \"title\": \"Textarea\",\n        \"type\": \"string\",\n        \"format\": \"textarea\",\n        \"description\": \"文本编辑框\"\n      },\n      \"select_jrGW8n\": {\n        \"title\": \"Select\",\n        \"type\": \"string\",\n        \"enum\": [\n          \"a\",\n          \"b\",\n          \"c\"\n        ],\n        \"enumNames\": [\n          \"早\",\n          \"中\",\n          \"晚\"\n        ],\n        \"description\": \"下拉单选\"\n      }\n    },\n    \"ui:displayType\": \"row\",\n    \"ui:showDescIcon\": true\n  },\n  \"displayType\": \"row\",\n  \"showDescIcon\": true\n}",
         "configData": {},
         "dependencies": "{\n  \n}",
         "code": "export default async function(ctx) {\n  console.log('1212')\n}"
@@ -102,7 +102,7 @@
       "shape": "imove-start",
       "data": {
         "label": "开始",
-        "configSchema": "{\n  \n}",
+        "configSchema": "{\n  \"schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"input_1aWdPV\": {\n        \"title\": \"Input\",\n        \"type\": \"string\",\n        \"description\": \"输入框\"\n      },\n      \"dateRangeSelect_mPNhq_\": {\n        \"title\": \"DateRange\",\n        \"type\": \"range\",\n        \"format\": \"date\",\n        \"description\": \"日期范围选择\"\n      }\n    },\n    \"ui:displayType\": \"row\",\n    \"ui:showDescIcon\": true\n  },\n  \"displayType\": \"row\",\n  \"showDescIcon\": true\n}",
         "configData": {},
         "trigger": "start",
         "dependencies": "{\n  \n}",
@@ -193,7 +193,7 @@
       "shape": "imove-branch",
       "data": {
         "label": "判断",
-        "configSchema": "{\n  \n}",
+        "configSchema": "{\"schema\":{\"type\":\"object\",\"properties\":{\"input_MudoMs\":{\"title\":\"Input\",\"type\":\"string\",\"description\":\"输入框\"}},\"ui:displayType\":\"row\",\"ui:showDescIcon\":true},\"displayType\":\"row\",\"showDescIcon\":true}",
         "configData": {},
         "dependencies": "{\n  \n}",
         "ports": {
@@ -344,7 +344,7 @@
       "shape": "imove-behavior",
       "data": {
         "label": "处理",
-        "configSchema": "{\n  \n}",
+        "configSchema": "{\n  \"schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"textarea_rdO5RK\": {\n        \"title\": \"Textarea\",\n        \"type\": \"string\",\n        \"format\": \"textarea\",\n        \"description\": \"文本编辑框\"\n      }\n    },\n    \"ui:displayType\": \"row\",\n    \"ui:showDescIcon\": true\n  },\n  \"displayType\": \"row\",\n  \"showDescIcon\": true\n}",
         "configData": {},
         "dependencies": "{\n  \n}",
         "code": "export default async function(ctx) {\n  console.log('test')\n}"
@@ -443,6 +443,101 @@
           }
         }
       ]
+    },
+    {
+      "position": {
+        "x": 56,
+        "y": 380
+      },
+      "size": {
+        "width": 100,
+        "height": 40
+      },
+      "attrs": {
+        "label": {
+          "text": "在线运行测试"
+        }
+      },
+      "shape": "imove-behavior",
+      "data": {
+        "label": "在线运行测试",
+        "configSchema": "{\n  \"schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"input_CCw1sQ\": {\n        \"title\": \"Input\",\n        \"type\": \"string\",\n        \"description\": \"输入框\"\n      },\n      \"allBoolean_fREQq-\": {\n        \"title\": \"Switch\",\n        \"type\": \"boolean\",\n        \"ui:widget\": \"switch\",\n        \"description\": \"开关控制\"\n      }\n    },\n    \"ui:displayType\": \"row\",\n    \"ui:showDescIcon\": true\n  },\n  \"displayType\": \"row\",\n  \"showDescIcon\": true\n}",
+        "configData": {},
+        "dependencies": "{\n  \"lodash.get\": \"4.4.2\"\n}",
+        "code": "import fpget from 'lodash.get';\n\nexport default async function(ctx) {\n  const obj = {a: {b: 'hello imove~'}};\n  console.log(fpget(obj, 'a.b'));\n  return ctx.getPipe();\n}"
+      },
+      "ports": {
+        "groups": {
+          "top": {
+            "position": "top",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "right": {
+            "position": "right",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "bottom": {
+            "position": "bottom",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          },
+          "left": {
+            "position": "left",
+            "attrs": {
+              "circle": {
+                "r": 3,
+                "magnet": true,
+                "stroke": "#666",
+                "strokeWidth": 1,
+                "fill": "#fff"
+              }
+            }
+          }
+        },
+        "items": [
+          {
+            "id": "top",
+            "group": "top"
+          },
+          {
+            "id": "right",
+            "group": "right"
+          },
+          {
+            "id": "bottom",
+            "group": "bottom"
+          },
+          {
+            "id": "left",
+            "group": "left"
+          }
+        ]
+      },
+      "id": "1d174369-929b-4bd5-8841-f271399c4a4f",
+      "zIndex": 9
     }
   ]
 }

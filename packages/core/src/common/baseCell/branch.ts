@@ -20,6 +20,7 @@ const schema = {
       fontSize: 14,
       textAnchor: 'middle',
       textVerticalAnchor: 'middle',
+      textWrap: { width: '100%' },
     },
   },
   ports: {

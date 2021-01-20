@@ -1,0 +1,62 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+
+  .pane {
+    position: relative;
+    display: flex;
+    flex: 1;
+
+    .runWrapper {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #ffffff;
+
+  .cardTitleText {
+    margin: 10px 24px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000000;
+  }
+
+  .cardBody {
+    padding: 10px 24px;
+    height: 100%;
+    overflow: scroll;
+  }
+}
+
+:global {
+  .ant-tabs {
+    height: 100%;
+  }
+
+  .ant-tabs-content-holder {
+    height: 100%;
+  }
+
+  .ant-tabs-content {
+    height: 100%;
+    overflow: scroll;
+  }
+
+  .sc-bdVaJa.cjjWdp {
+    opacity: 1;
+    background-color: #efefef;
+
+    &:hover {
+      border-color: transparent;
+    }
+  }
+}

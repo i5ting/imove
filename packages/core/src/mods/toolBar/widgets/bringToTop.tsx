@@ -3,8 +3,9 @@ import React from 'react';
 
 import { Graph } from '@antv/x6';
 import XIcon from '../../../components/xIcon';
+import shortcuts from '../../../common/shortcuts';
 import makeBtnWidget from './common/makeBtnWidget';
-import { getSelectedNodes, hasNodeSelected } from '../../../utils/flowChartUtils';
+import { hasNodeSelected } from '../../../utils/flowChartUtils';
 
 interface IProps {
   flowChart: Graph;
@@ -12,11 +13,9 @@ interface IProps {
 
 const BringToTop: React.FC<IProps> = makeBtnWidget({
   tooltip: '置于顶层',
+  handler: shortcuts.bringToTop.handler,
   getIcon() {
-    return <XIcon type={'icon-bringtotop'} />;
-  },
-  handler(flowChart: Graph) {
-    getSelectedNodes(flowChart).forEach((node) => node.toFront());
+    return <XIcon type={'icon-bring-to-top'} />;
   },
   disabled(flowChart: Graph) {
     return !hasNodeSelected(flowChart);

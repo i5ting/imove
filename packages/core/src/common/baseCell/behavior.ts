@@ -13,6 +13,7 @@ const schema = {
     },
     label: {
       fill: '#333',
+      textWrap: { width: '100%' },
     },
   },
   ports: {

@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState,
+  useEffect,
+} from 'react';
 
 import styles from './index.module.less';
 
+import { Card } from 'antd';
 import { Cell, Graph } from '@antv/x6';
 import Json from '../../components/json';
-import Code from '../../components/code';
 import Input from '../../components/input';
 
 interface IProps {
@@ -14,7 +17,6 @@ interface IProps {
 
 interface IBasicData {
   label: string;
-  code: string;
   trigger?: string;
   dependencies: string;
   configSchema: string;
@@ -22,19 +24,28 @@ interface IBasicData {
 
 const Basic: React.FC<IProps> = (props) => {
   const { selectedCell, flowChart } = props;
-  const [data, setData] = useState<IBasicData>();
-  const { label, code, trigger, dependencies, configSchema } = data || {};
+  const [data, setData] = useState<IBasicData>(selectedCell.getData());
+  const { label, trigger, dependencies, configSchema } = data || {};
 
   // life
   useEffect(() => {
     setData(selectedCell.getData());
-    
+  }, [selectedCell]);
+  useEffect(() => {
+    const handler = () => setData(selectedCell.getData());
+    flowChart.on('settingBar.basicPanel:forceUpdate', handler);
+    return () => {
+      flowChart.off('settingBar.basicPanel:forceUpdate', handler);
+    };
   }, [selectedCell]);
 
   // events
+  const batchUpdate = (newData: { [key: string]: any }): void => {
+    selectedCell.setData(newData);
+    setData(Object.assign({}, data, newData));
+  };
   const commonChange = (key: string, val: string): void => {
-    selectedCell.setData({ [key]: val });
-    setData(Object.assign({}, data, { [key]: val }));
+    batchUpdate({ [key]: val });
   };
   const onChangeLabel = (val: string): void => {
     commonChange('label', val);
@@ -42,35 +53,43 @@ const Basic: React.FC<IProps> = (props) => {
   };
   const onChangeConfigSchema = (val: string): void => {
     commonChange('configSchema', val);
-    selectedCell.trigger('change:configSchema', { configSchema: val });
   };
-  const onChangeCode = (val: string): void => commonChange('code', val);
-  const onChangeTrigger = (val: string): void => commonChange('trigger', val);
-  const onChangeDependencies = (val: string): void => commonChange('dependencies', val);
+  const onChangeTrigger = (val: string): void => {
+    commonChange('trigger', val);
+  };
+  const onChangeDependencies = (val: string): void => {
+    commonChange('dependencies', val);
+  };
 
   return (
     <div className={styles.container}>
-      <Input name={'label'} title={'显示名称'} value={label} onValueChange={onChangeLabel} />
-      {selectedCell.shape === 'imove-start' && (
-        <Input
-          name={'trigger'}
-          title={'逻辑触发名称'}
-          value={trigger}
-          onValueChange={onChangeTrigger}
-        />
-      )}
-      <Code name={'code'} title={'代码'} value={code} onValueChange={onChangeCode} flowChart={flowChart} />
-      <Json
-        name={'configSchema'}
-        title={'投放配置schema'}
-        value={configSchema}
-        onValueChange={onChangeConfigSchema}
-      />
+      <Card title="名称">
+        <Input name={'label'} title={'节点显示名称'} value={label} onValueChange={onChangeLabel} />
+        {selectedCell.shape === 'imove-start' && (
+          <div className={styles.input}>
+            <Input
+              name={'trigger'}
+              title={'逻辑触发名称'}
+              value={trigger}
+              onValueChange={onChangeTrigger}
+            />
+          </div>
+        )}
+      </Card>
       <Json
         name={'dependencies'}
         title={'依赖'}
         value={dependencies}
+        isConfig={false}
         onValueChange={onChangeDependencies}
+      />
+      <Json
+        name={'configSchema'}
+        title={'投放配置'}
+        selectedCell={selectedCell}
+        value={configSchema}
+        isConfig={true}
+        onValueChange={onChangeConfigSchema}
       />
     </div>
   );

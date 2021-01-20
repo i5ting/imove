@@ -8,7 +8,7 @@ interface IconFontProps {
 }
 
 const XIcon: React.SFC<IconFontProps> = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_2024452_zgg5gvivois.js',
+  scriptUrl: '//at.alicdn.com/t/font_2024452_r7nz0cw949.js',
 });
 
 export default XIcon;

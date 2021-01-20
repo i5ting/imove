@@ -1,5 +1,6 @@
 import pkg from './package.json';
 import postcss from 'rollup-plugin-postcss';
+import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript';
 import rollupBaseConfig from '../../rollup.config';
 
@@ -7,6 +8,7 @@ export default Object.assign(rollupBaseConfig, {
   plugins: [
     postcss(),
     typescript(),
+    commonjs()
   ],
   output: [
     {

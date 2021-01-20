@@ -2,7 +2,7 @@ export default `import nodeFns from './nodeFns';
 import Context from './context';
 import EventEmitter from 'eventemitter3';
 
-const LIFECYCLE = new Set(['ctxCreated']);
+const LIFECYCLE = new Set(['ctxCreated', 'enterNode', 'leaveNode']);
 const SHAPES = {
   START: 'imove-start',
   BRANCH: 'imove-branch',
@@ -30,6 +30,11 @@ export default class Logic extends EventEmitter {
 
   get edges() {
     return this.cells.filter((cell) => cell.shape === 'edge');
+  }
+
+  _getUnsafeCtx() {
+    // NOTE: don't use in prod
+    return this._unsafeCtx;
   }
 
   _runLifecycleEvent(eventName, ctx) {
@@ -108,28 +113,32 @@ export default class Logic extends EventEmitter {
     }
   }
 
-  async _execNode(ctx, curNode, lastRet) {
+  async _execNode(ctx, curNode, lastRet, callback) {
     ctx._transitTo(curNode, lastRet);
     const fn = nodeFns[curNode.id];
+    this._runLifecycleEvent('enterNode', ctx);
     const curRet = await fn(ctx);
+    this._runLifecycleEvent('leaveNode', ctx);
     if (curNode.shape !== SHAPES.BRANCH) {
       lastRet = curRet;
     }
     const nextNodes = this._getNextNodes(ctx, curNode, curRet);
     if (nextNodes.length > 0) {
       nextNodes.forEach(async (node) => {
-        await this._execNode(ctx, node, lastRet);
+        await this._execNode(ctx, node, lastRet, callback);
       });
+    } else {
+      callback && callback(lastRet);
     }
   }
 
-  async invoke(trigger, data) {
+  async invoke(trigger, data, callback) {
     const curNode = this._getStartNode(trigger);
     if (!curNode) {
       return Promise.reject(new Error(\`Invoke failed! No logic-start named \${trigger} found!\`));
     }
-    const ctx = this._createCtx({ payload: data });
-    await this._execNode(ctx, curNode);
+    this._unsafeCtx = this._createCtx({ payload: data });
+    await this._execNode(this._unsafeCtx, curNode, undefined, callback);
   }
 }
 `;
