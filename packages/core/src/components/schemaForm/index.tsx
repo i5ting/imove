@@ -126,7 +126,7 @@ const SchemaForm: React.FC<IProps> = (props) => {
             ele = <RangePicker />;
           }
           return (
-            <FormItem label={obj.title} name={key}>
+            <FormItem label={obj.title} name={key} key={key}>
               {ele}
             </FormItem>
           );
