@@ -91,6 +91,7 @@ const SchemaForm: React.FC<IProps> = (props) => {
           return <FormItem
             label={obj.title}
             name={key}
+            key={key}
           >
             {ele}
           </FormItem>
