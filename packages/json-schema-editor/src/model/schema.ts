@@ -15,7 +15,7 @@ export interface ObjectSchemaItem {
   properties: {
     [field: string]: SchemaItem;
   };
-  required: string[];
+  required?: string[];
 }
 
 export interface ArraySchemaItem {
