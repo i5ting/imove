@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const Base = require('../base');
 const mergePkg = require('./mergePkg');
-const compileCode = require('@imove/compile-code');
+const { compileForProject } = require('@imove/compile-code');
 const { createServer } = require('../../utils/server');
 
 const noop = () => {};
@@ -38,7 +38,7 @@ class Dev extends Base {
     // compile
     try {
       const { dsl } = req.body;
-      const output = compileCode(dsl, plugins);
+      const output = compileForProject(dsl, plugins);
       await this.writeOutputIntoFiles(outputPath, output);
       await mergePkg(dsl, this.projectPath);
       await fs.outputFile(CACHE_DSL_FILE, JSON.stringify(dsl, null, 2));
