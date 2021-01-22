@@ -19,10 +19,11 @@ const inputItems = [
 interface IVisualFormItemProps {
   type: string;
   desc: string;
+  markAdded: () => any;
 }
 
 const VisualFormItem: React.FC<IVisualFormItemProps> = (props) => {
-  const { type, desc } = props;
+  const { type, desc, markAdded } = props;
 
   return (
     <React.Fragment>
@@ -59,7 +60,7 @@ const VisualFormItem: React.FC<IVisualFormItemProps> = (props) => {
                 block={true}
                 type={'dashed'}
                 icon={<PlusOutlined />}
-                onClick={() => add()}
+                onClick={() => add(markAdded())}
               >
                 新增
               </Button>
@@ -80,6 +81,10 @@ const VisualPanel: React.FC<IVisualPanelProps> = (props) => {
   const { data, onChange } = props;
   const [form] = Form.useForm();
 
+  // a flag, when add a form-item marked it true.
+  const addRef = useRef(false);
+  const markAdded = () => addRef.current = true;
+
   useEffect(() => {
     const filedsValue: { [key: string]: any } = {};
     for (const { type } of inputItems) {
@@ -90,13 +95,19 @@ const VisualPanel: React.FC<IVisualPanelProps> = (props) => {
   }, [data]);
 
   const onFormChange = () => {
+
+    // if mark add, ignore it
+    if (addRef.current) return (addRef.current = false);
+
     const input: { [key: string]: any } = {};
     const filedsValue = form.getFieldsValue();
     for (const { type } of inputItems) {
       const mockValue = filedsValue[type] || [];
       input[type] = mockValue.reduce((prev: any, cur: { key: string, value: any }) => {
-        const { key, value } = cur;
-        prev[key] = value;
+        if (cur) {
+          const { key, value } = cur;
+          prev[key] = value;
+        }
         return prev;
       }, {});
     }
@@ -108,13 +119,14 @@ const VisualPanel: React.FC<IVisualPanelProps> = (props) => {
       <Form
         form={form}
         autoComplete={'on'}
-        onChange={onFormChange}
+        onValuesChange={onFormChange}
       >
         {inputItems.map(({ type, desc }, index) => (
           <VisualFormItem
             key={index}
             type={type}
             desc={desc}
+            markAdded={markAdded}
           />
         ))}
       </Form>
