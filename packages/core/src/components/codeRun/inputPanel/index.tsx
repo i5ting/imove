@@ -89,14 +89,14 @@ const VisualPanel: React.FC<IVisualPanelProps> = (props) => {
     form.setFieldsValue(filedsValue);
   }, [data]);
 
-  const onFormChange = () => {
+  const onFormValuesChange = () => {
     const input: { [key: string]: any } = {};
     const filedsValue = form.getFieldsValue();
     for (const { type } of inputItems) {
       const mockValue = filedsValue[type] || [];
       input[type] = mockValue.reduce(
         (prev: any, cur: { key: string; value: any }) => {
-          const { key, value } = cur;
+          const { key = '', value } = cur || {};
           prev[key] = value;
           return prev;
         },
@@ -108,7 +108,7 @@ const VisualPanel: React.FC<IVisualPanelProps> = (props) => {
 
   return (
     <div className={styles.visualInput}>
-      <Form form={form} autoComplete={'on'} onChange={onFormChange}>
+      <Form form={form} autoComplete={'on'} onValuesChange={onFormValuesChange}>
         {inputItems.map(({ type, desc }, index) => (
           <VisualFormItem key={index} type={type} desc={desc} />
         ))}
@@ -136,7 +136,7 @@ const InputPanel: React.FC<IInputPanelProps> = (props) => {
       try {
         onChange(JSON.parse(newCode));
       } catch (err) {
-        console.log(err);
+        // cancel log to avoid wasting Console outputs
       }
     }, 1000);
   };
