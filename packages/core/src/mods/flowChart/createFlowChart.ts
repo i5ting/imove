@@ -2,18 +2,15 @@ import shortcuts from '../../common/shortcuts';
 import { Cell, Edge, Graph, Node } from '@antv/x6';
 import { MIN_ZOOM, MAX_ZOOM } from '../../common/const';
 import baseCellSchemaMap from '../../common/baseCell';
-import previewCellSchemaMap from '../../common/previewCell';
 import { getSelectedEdges } from '../../utils/flowChartUtils';
 import { registerServerStorage } from './registerServerStorage';
 import MiniMapSimpleNode from '../../components/miniMapSimpleNode';
 
-// X6 register base/preview cell shape
-[baseCellSchemaMap, previewCellSchemaMap].forEach((schemas) =>
-  Object.values(schemas).forEach((schema) => {
-    const { base, ...rest } = schema;
-    base.define(rest);
-  }),
-);
+// X6 register base cell shape
+Object.values(baseCellSchemaMap).forEach((schema) => {
+  const { base, ...rest } = schema;
+  base.define(rest);
+});
 
 const registerEvents = (flowChart: Graph): void => {
   flowChart.on('node:added', (args) => {
