@@ -8,7 +8,10 @@ import { safeGet } from '../../../utils';
 import XIcon from '../../../components/xIcon';
 import ColorPicker from '../../../components/colorPicker';
 import makeDropdownWidget from './common/makeDropdownWidget';
-import { hasNodeSelected, getSelectedNodes } from '../../../utils/flowChartUtils';
+import {
+  hasNodeSelected,
+  getSelectedNodes,
+} from '../../../utils/flowChartUtils';
 
 interface IProps {
   flowChart: Graph;
@@ -29,17 +32,24 @@ const options = {
     return (
       <div className={styles.textColorContainer}>
         <XIcon className={styles.textIcon} type={'icon-font'} />
-        <div className={styles.colorPreview} style={{ backgroundColor: textColor }} />
+        <div
+          className={styles.colorPreview}
+          style={{ backgroundColor: textColor }}
+        />
       </div>
     );
   },
   getOverlay(flowChart: Graph, onChange: (data: any) => void) {
     const textColor = options.getCurTextColor(flowChart);
     const onChangeComplete = (color: string) => onChange(color);
-    return <ColorPicker color={textColor} onChangeComplete={onChangeComplete} />;
+    return (
+      <ColorPicker color={textColor} onChangeComplete={onChangeComplete} />
+    );
   },
   handler: (flowChart: Graph, value: any) => {
-    flowChart.getSelectedCells().forEach((node) => node.setAttrs({ label: { fill: value } }));
+    flowChart
+      .getSelectedCells()
+      .forEach((node) => node.setAttrs({ label: { fill: value } }));
   },
   disabled(flowChart: Graph) {
     return !hasNodeSelected(flowChart);

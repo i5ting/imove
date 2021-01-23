@@ -18,7 +18,13 @@ const ColorPicker: React.FC<IProps> = (props) => {
   const onChange = (color: ColorResult): void => setCurColor(color.hex);
   const onChangeComplete = (color: ColorResult): void => changeCb(color.hex);
 
-  return <SketchPicker color={curColor} onChange={onChange} onChangeComplete={onChangeComplete} />;
+  return (
+    <SketchPicker
+      color={curColor}
+      onChange={onChange}
+      onChangeComplete={onChangeComplete}
+    />
+  );
 };
 
 export default ColorPicker;

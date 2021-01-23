@@ -14,9 +14,14 @@ const extractDep = (dsl) => {
       const { dependencies } = cell.data || {};
       try {
         const json = JSON.parse(dependencies);
-        Object.keys(json).forEach((key) => (mergedDependencies[key] = json[key]));
+        Object.keys(json).forEach(
+          (key) => (mergedDependencies[key] = json[key]),
+        );
       } catch (error) {
-        console.log('extract dependencies failed, the error is:', error.message);
+        console.log(
+          'extract dependencies failed, the error is:',
+          error.message,
+        );
       }
     });
   return mergedDependencies;

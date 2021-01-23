@@ -8,7 +8,10 @@ import { safeGet } from '../../../utils';
 import XIcon from '../../../components/xIcon';
 import ColorPicker from '../../../components/colorPicker';
 import makeDropdownWidget from './common/makeDropdownWidget';
-import { hasNodeSelected, getSelectedNodes } from '../../../utils/flowChartUtils';
+import {
+  hasNodeSelected,
+  getSelectedNodes,
+} from '../../../utils/flowChartUtils';
 
 interface IProps {
   flowChart: Graph;
@@ -29,7 +32,10 @@ const options = {
     return (
       <div className={styles.bgColorContainer}>
         <XIcon className={styles.fillIcon} type={'icon-fill'} />
-        <div className={styles.colorPreview} style={{ backgroundColor: bgColor }} />
+        <div
+          className={styles.colorPreview}
+          style={{ backgroundColor: bgColor }}
+        />
       </div>
     );
   },
@@ -39,7 +45,9 @@ const options = {
     return <ColorPicker color={bgColor} onChangeComplete={onChangeComplete} />;
   },
   handler: (flowChart: Graph, value: any) => {
-    getSelectedNodes(flowChart).forEach((node) => node.setAttrs({ body: { fill: value } }));
+    getSelectedNodes(flowChart).forEach((node) =>
+      node.setAttrs({ body: { fill: value } }),
+    );
   },
   disabled(flowChart: Graph) {
     return !hasNodeSelected(flowChart);

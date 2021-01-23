@@ -1,4 +1,4 @@
-import {Cell} from '@antv/x6';
+import { Cell } from '@antv/x6';
 
 interface DSL {
   cells: Cell.Properties[];
@@ -34,8 +34,8 @@ const genNodeFns = (dsl: DSL): INodesFns => {
     data: { label, code },
   } of nodes) {
     const fileName: string = id + '.js';
-    const descData: string = `// ${shape}: ${label}\n`;
-    const saveData: string = `${descData}\n${code}`;
+    const descData = `// ${shape}: ${label}\n`;
+    const saveData = `${descData}\n${code}`;
     nodeFns[fileName] = saveData;
   }
   return nodeFns;
@@ -43,7 +43,7 @@ const genNodeFns = (dsl: DSL): INodesFns => {
 
 const extract = (dsl: DSL): INodesFns => {
   const nodeFns = genNodeFns(dsl);
-  const nodeIds = Object.keys(nodeFns).map(fileName => fileName.slice(0, -3));
+  const nodeIds = Object.keys(nodeFns).map((fileName) => fileName.slice(0, -3));
   const entryFileContent = genEntryFile(nodeIds);
   nodeFns['index.js'] = entryFileContent;
   return nodeFns;

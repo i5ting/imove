@@ -1,0 +1,41 @@
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  font-size: 11px;
+  color: #FFF;
+  background-color: #333;
+}
+
+.rect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 30px;
+  font-size: 11px;
+  color: #333;
+  background-color: #AACCF7;
+  border: 2px solid #5E9CEE;
+}
+
+.diamond {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  font-size: 11px;
+
+  .text {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 30px;
+    text-align: center;
+  }
+}

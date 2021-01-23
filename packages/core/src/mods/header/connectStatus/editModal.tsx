@@ -56,10 +56,18 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
       onCancel={onCancel}
     >
       <Form ref={formRef} labelCol={{ span: 4 }} initialValues={localConfig}>
-        <Form.Item label={'ip'} name={'ip'} rules={makeRules(IP_REGEX, 'IP格式不合法')}>
+        <Form.Item
+          label={'ip'}
+          name={'ip'}
+          rules={makeRules(IP_REGEX, 'IP格式不合法')}
+        >
           <Input />
         </Form.Item>
-        <Form.Item label={'port'} name={'port'} rules={makeRules(PORT_REGEX, 'port格式不合法')}>
+        <Form.Item
+          label={'port'}
+          name={'port'}
+          rules={makeRules(PORT_REGEX, 'port格式不合法')}
+        >
           <Input />
         </Form.Item>
       </Form>

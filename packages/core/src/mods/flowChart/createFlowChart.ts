@@ -2,18 +2,15 @@ import shortcuts from '../../common/shortcuts';
 import { Cell, Edge, Graph, Node } from '@antv/x6';
 import { MIN_ZOOM, MAX_ZOOM } from '../../common/const';
 import baseCellSchemaMap from '../../common/baseCell';
-import previewCellSchemaMap from '../../common/previewCell';
 import { getSelectedEdges } from '../../utils/flowChartUtils';
 import { registerServerStorage } from './registerServerStorage';
 import MiniMapSimpleNode from '../../components/miniMapSimpleNode';
 
-// X6 register base/preview cell shape
-[baseCellSchemaMap, previewCellSchemaMap].forEach((schemas) =>
-  Object.values(schemas).forEach((schema) => {
-    const { base, ...rest } = schema;
-    base.define(rest);
-  })
-);
+// X6 register base cell shape
+Object.values(baseCellSchemaMap).forEach((schema) => {
+  const { base, ...rest } = schema;
+  base.define(rest);
+});
 
 const registerEvents = (flowChart: Graph): void => {
   flowChart.on('node:added', (args) => {
@@ -59,18 +56,31 @@ const registerEvents = (flowChart: Graph): void => {
     flowChart.trigger('graph:editCode');
   });
   flowChart.on('blank:contextmenu', (args) => {
-    const { e: { clientX, clientY } } = args;
+    const {
+      e: { clientX, clientY },
+    } = args;
     flowChart.cleanSelection();
-    flowChart.trigger('graph:showContextMenu', { x: clientX, y: clientY, scene: 'blank' });
+    flowChart.trigger('graph:showContextMenu', {
+      x: clientX,
+      y: clientY,
+      scene: 'blank',
+    });
   });
   flowChart.on('node:contextmenu', (args) => {
-    const { e: { clientX, clientY }, node } = args;
+    const {
+      e: { clientX, clientY },
+      node,
+    } = args;
     // NOTE: if the clicked node is not in the selected nodes, then clear selection
-    if(!flowChart.getSelectedCells().includes(node)) {
+    if (!flowChart.getSelectedCells().includes(node)) {
       flowChart.cleanSelection();
       flowChart.select(node);
     }
-    flowChart.trigger('graph:showContextMenu', { x: clientX, y: clientY, scene: 'node' });
+    flowChart.trigger('graph:showContextMenu', {
+      x: clientX,
+      y: clientY,
+      scene: 'node',
+    });
   });
 };
 
@@ -81,7 +91,10 @@ const registerShortcuts = (flowChart: Graph): void => {
   });
 };
 
-const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivElement): Graph => {
+const createFlowChart = (
+  container: HTMLDivElement,
+  miniMapContainer: HTMLDivElement,
+): Graph => {
   const flowChart = new Graph({
     container,
     rotating: false,
@@ -101,7 +114,12 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
       router: {
         name: 'manhattan',
       },
-      validateConnection({ sourceView, targetView, sourceMagnet, targetMagnet }) {
+      validateConnection({
+        sourceView,
+        targetView,
+        sourceMagnet,
+        targetMagnet,
+      }) {
         if (!sourceMagnet) {
           return false;
         } else if (!targetMagnet) {
@@ -126,7 +144,7 @@ const createFlowChart = (container: HTMLDivElement, miniMapContainer: HTMLDivEle
       rubberband: true,
       movable: true,
       strict: true,
-      showNodeSelectionBox: true
+      showNodeSelectionBox: true,
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/snapline
     snapline: {

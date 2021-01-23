@@ -25,9 +25,19 @@ export const defaultSchema = {
   },
 };
 
-export const schemaType = ['string', 'number', 'array', 'object', 'boolean', 'integer'];
+export const schemaType = [
+  'string',
+  'number',
+  'array',
+  'object',
+  'boolean',
+  'integer',
+];
 
-export const setAllFieldRequired = (schema: SchemaItem, checked: boolean): void => {
+export const setAllFieldRequired = (
+  schema: SchemaItem,
+  checked: boolean,
+): void => {
   if (schema.type === 'object') {
     const { properties } = schema;
     const fields = Object.keys(properties);

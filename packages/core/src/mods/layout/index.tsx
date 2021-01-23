@@ -4,6 +4,11 @@ import styles from './index.module.less';
 
 import { Graph } from '@antv/x6';
 
+// @ts-ignore
+import SplitPane from 'react-split-pane/lib/SplitPane';
+// @ts-ignore
+import Pane from 'react-split-pane/lib/Pane';
+
 interface ISubComponentProps {
   flowChart: Graph;
 }
@@ -30,14 +35,28 @@ const Layout: React.FC<IProps> = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>{header}</div>
-      <div className={styles.body}>
-        <div className={styles.sideBar}>{sideBar}</div>
-        <div className={styles.full}>
-          <div className={styles.toolBar}>{toolBar}</div>
+      <div className={styles.toolBar}>{toolBar}</div>
+      <SplitPane split={'vertical'}>
+        <Pane
+          className={styles.sideBar}
+          minSize={'145px'}
+          maxSize={'443px'}
+          initialSize={'267px'}
+        >
+          {sideBar}
+        </Pane>
+        <SplitPane split={'vertical'}>
           {props.children}
-        </div>
-        <div className={styles.settingBar}>{settingBar}</div>
-      </div>
+          <Pane
+            className={styles.settingBar}
+            minSize={'350px'}
+            maxSize={'500px'}
+            initialSize={'350px'}
+          >
+            {settingBar}
+          </Pane>
+        </SplitPane>
+      </SplitPane>
     </div>
   );
 };

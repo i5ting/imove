@@ -6,7 +6,10 @@ import { Menu } from 'antd';
 import { Graph } from '@antv/x6';
 import { safeGet } from '../../../utils';
 import makeDropdownWidget from './common/makeDropdownWidget';
-import { hasNodeSelected, getSelectedNodes } from '../../../utils/flowChartUtils';
+import {
+  hasNodeSelected,
+  getSelectedNodes,
+} from '../../../utils/flowChartUtils';
 import {
   VerticalAlignTopOutlined,
   VerticalAlignMiddleOutlined,
@@ -93,7 +96,9 @@ const VerticalAlign: React.FC<IProps> = makeDropdownWidget({
     );
   },
   handler: (flowChart: Graph, value: any) => {
-    getSelectedNodes(flowChart).forEach((node) => node.setAttrs({ label: value }));
+    getSelectedNodes(flowChart).forEach((node) =>
+      node.setAttrs({ label: value }),
+    );
   },
   disabled(flowChart: Graph) {
     return !hasNodeSelected(flowChart);

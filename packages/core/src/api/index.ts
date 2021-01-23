@@ -86,7 +86,10 @@ export const queryGraph = (projectId: string) => {
   });
 };
 
-export const modifyGraph = (projectId: string, actions: IModifyGraphAction[]) => {
+export const modifyGraph = (
+  projectId: string,
+  actions: IModifyGraphAction[],
+) => {
   return request({
     url: '/api/modifyGraph',
     params: {

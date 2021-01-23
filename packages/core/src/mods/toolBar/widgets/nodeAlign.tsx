@@ -25,14 +25,16 @@ const ALIGN_MAP: { [key: string]: AlignItem } = {
     icon: <XIcon type={'icon-align-left'} />,
     handler(selectedNodes: Cell[]) {
       let minLeftValue = Infinity;
-      selectedNodes.forEach(node => {
-        const { x } = node.getProp<{ x: number, y: number }>('position');
+      selectedNodes.forEach((node) => {
+        const { x } = node.getProp<{ x: number; y: number }>('position');
         if (x < minLeftValue) {
           minLeftValue = x;
         }
       });
-      selectedNodes.forEach(node => node.setProp({ position: { x: minLeftValue } }));
-    }
+      selectedNodes.forEach((node) =>
+        node.setProp({ position: { x: minLeftValue } }),
+      );
+    },
   },
   horizontalCenter: {
     text: '水平居中',
@@ -40,9 +42,11 @@ const ALIGN_MAP: { [key: string]: AlignItem } = {
     handler(selectedNodes: Cell[]) {
       let minLeftValue = Infinity;
       let maxRightValue = -Infinity;
-      selectedNodes.forEach(node => {
-        const { x } = node.getProp<{ x: number, y: number }>('position');
-        const { width } = node.getProp<{ width: number, height: number }>('size');
+      selectedNodes.forEach((node) => {
+        const { x } = node.getProp<{ x: number; y: number }>('position');
+        const { width } = node.getProp<{ width: number; height: number }>(
+          'size',
+        );
         if (x < minLeftValue) {
           minLeftValue = x;
         }
@@ -51,43 +55,51 @@ const ALIGN_MAP: { [key: string]: AlignItem } = {
         }
       });
       const centerValue = (minLeftValue + maxRightValue) / 2;
-      selectedNodes.forEach(node => {
-        const { width } = node.getProp<{ width: number, height: number }>('size');
+      selectedNodes.forEach((node) => {
+        const { width } = node.getProp<{ width: number; height: number }>(
+          'size',
+        );
         node.setProp({ position: { x: centerValue - width / 2 } });
       });
-    }
+    },
   },
   right: {
     text: '右对齐',
     icon: <XIcon type={'icon-align-right'} />,
     handler(selectedNodes: Cell[]) {
       let maxRightValue = -Infinity;
-      selectedNodes.forEach(node => {
-        const { x } = node.getProp<{ x: number, y: number }>('position');
-        const { width } = node.getProp<{ width: number, height: number }>('size');
+      selectedNodes.forEach((node) => {
+        const { x } = node.getProp<{ x: number; y: number }>('position');
+        const { width } = node.getProp<{ width: number; height: number }>(
+          'size',
+        );
         if (x + width > maxRightValue) {
           maxRightValue = x + width;
         }
       });
-      selectedNodes.forEach(node => {
-        const { width } = node.getProp<{ width: number, height: number }>('size');
-        node.setProp({ position: { x: maxRightValue - width } })
+      selectedNodes.forEach((node) => {
+        const { width } = node.getProp<{ width: number; height: number }>(
+          'size',
+        );
+        node.setProp({ position: { x: maxRightValue - width } });
       });
-    }
+    },
   },
   top: {
     text: '顶部对齐',
     icon: <XIcon type={'icon-align-top'} />,
     handler(selectedNodes: Cell[]) {
       let minTopValue = Infinity;
-      selectedNodes.forEach(node => {
-        const { y } = node.getProp<{ x: number, y: number }>('position');
+      selectedNodes.forEach((node) => {
+        const { y } = node.getProp<{ x: number; y: number }>('position');
         if (y < minTopValue) {
           minTopValue = y;
         }
       });
-      selectedNodes.forEach(node => node.setProp({ position: { y: minTopValue } }));
-    }
+      selectedNodes.forEach((node) =>
+        node.setProp({ position: { y: minTopValue } }),
+      );
+    },
   },
   verticalCenter: {
     text: '垂直居中',
@@ -95,9 +107,11 @@ const ALIGN_MAP: { [key: string]: AlignItem } = {
     handler(selectedNodes: Cell[]) {
       let minTopValue = Infinity;
       let maxBottomValue = -Infinity;
-      selectedNodes.forEach(node => {
-        const { y } = node.getProp<{ x: number, y: number }>('position');
-        const { height } = node.getProp<{ width: number, height: number }>('size');
+      selectedNodes.forEach((node) => {
+        const { y } = node.getProp<{ x: number; y: number }>('position');
+        const { height } = node.getProp<{ width: number; height: number }>(
+          'size',
+        );
         if (y < minTopValue) {
           minTopValue = y;
         }
@@ -106,30 +120,36 @@ const ALIGN_MAP: { [key: string]: AlignItem } = {
         }
       });
       const centerValue = (minTopValue + maxBottomValue) / 2;
-      selectedNodes.forEach(node => {
-        const { height } = node.getProp<{ width: number, height: number }>('size');
+      selectedNodes.forEach((node) => {
+        const { height } = node.getProp<{ width: number; height: number }>(
+          'size',
+        );
         node.setProp({ position: { y: centerValue - height / 2 } });
       });
-    }
+    },
   },
   bottom: {
     text: '底部对齐',
     icon: <XIcon type={'icon-align-bottom'} />,
     handler(selectedNodes: Cell[]) {
       let maxTopValue = -Infinity;
-      selectedNodes.forEach(node => {
-        const { y } = node.getProp<{ x: number, y: number }>('position');
-        const { height } = node.getProp<{ width: number, height: number }>('size');
+      selectedNodes.forEach((node) => {
+        const { y } = node.getProp<{ x: number; y: number }>('position');
+        const { height } = node.getProp<{ width: number; height: number }>(
+          'size',
+        );
         if (y + height > maxTopValue) {
           maxTopValue = y + height;
         }
       });
-      selectedNodes.forEach(node => {
-        const { height } = node.getProp<{ width: number, height: number }>('size');
-        node.setProp({ position: { y: maxTopValue - height } })
+      selectedNodes.forEach((node) => {
+        const { height } = node.getProp<{ width: number; height: number }>(
+          'size',
+        );
+        node.setProp({ position: { y: maxTopValue - height } });
       });
-    }
-  }
+    },
+  },
 };
 
 const NodeAlign: React.FC<IProps> = makeDropdownWidget({

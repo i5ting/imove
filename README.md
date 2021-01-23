@@ -23,7 +23,7 @@
 - [x] **适用于JavaScript所有场景**：比如前端点击事件，Ajax 请求和 Node.js 后端 API等
 - [ ] **多语言编译**：无语言编译出码限制（例：支持 JavaScript, Java 编译出码）
 
-在线示例 https://65hzt.sse.codesandbox.io/
+在线示例 https://oyg3y.sse.codesandbox.io/
 
 ## 使用场景
 

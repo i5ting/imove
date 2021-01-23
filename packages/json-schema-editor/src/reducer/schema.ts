@@ -1,6 +1,12 @@
 import produce, { Draft } from 'immer';
 import { get, set, unset, remove } from 'lodash-es';
-import { SchemaType, SchemaItem, SchemaState, SchemaAction, KeyRoute } from '../model';
+import {
+  SchemaType,
+  SchemaItem,
+  SchemaState,
+  SchemaAction,
+  KeyRoute,
+} from '../model';
 import { defaultSchema, setAllFieldRequired } from '../utils/schema';
 
 let fieldNum = 0;
@@ -25,7 +31,11 @@ const removeRequired = (state: SchemaState, keyRoute: KeyRoute): void => {
   set(state, requiredKeyRoute, required);
 };
 
-const changeRequiredField = (state: SchemaState, oldKeyRoute: KeyRoute, newField: string): void => {
+const changeRequiredField = (
+  state: SchemaState,
+  oldKeyRoute: KeyRoute,
+  newField: string,
+): void => {
   const oldField = oldKeyRoute.slice(-1)[0];
   const requiredKeyRoute = oldKeyRoute.slice(0, -2).concat('required');
   const required = get(state, requiredKeyRoute) || [];
@@ -76,7 +86,11 @@ const removeField = (state: SchemaState, keyRoute: KeyRoute): void => {
   removeRequired(state, keyRoute);
 };
 
-const changeField = (state: SchemaState, keyRoute: KeyRoute, newField: string): void => {
+const changeField = (
+  state: SchemaState,
+  keyRoute: KeyRoute,
+  newField: string,
+): void => {
   const oldField = keyRoute.slice(-1)[0];
   const parentKeyRoute = keyRoute.slice(0, -1);
   const properties = get(state, parentKeyRoute);
@@ -99,18 +113,30 @@ const changeField = (state: SchemaState, keyRoute: KeyRoute, newField: string): 
   changeRequiredField(state, keyRoute, newField);
 };
 
-const changeType = (state: SchemaState, keyRoute: KeyRoute, fieldType: SchemaType): void => {
+const changeType = (
+  state: SchemaState,
+  keyRoute: KeyRoute,
+  fieldType: SchemaType,
+): void => {
   // set field new value
   set(state, keyRoute, defaultSchema[fieldType]);
 };
 
-const changeTitle = (state: SchemaState, keyRoute: KeyRoute, title: string): void => {
+const changeTitle = (
+  state: SchemaState,
+  keyRoute: KeyRoute,
+  title: string,
+): void => {
   // point to title and set new value
   const titleKeyRoute = keyRoute.concat('title');
   set(state, titleKeyRoute, title);
 };
 
-const changeDesc = (state: SchemaState, keyRoute: KeyRoute, desc: string): void => {
+const changeDesc = (
+  state: SchemaState,
+  keyRoute: KeyRoute,
+  desc: string,
+): void => {
   // point to desc and set new value
   const descKeyRoute = keyRoute.concat('description');
   set(state, descKeyRoute, desc);

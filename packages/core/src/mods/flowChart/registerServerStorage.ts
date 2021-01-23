@@ -22,11 +22,12 @@ const enqueue = (cellType: string, actionType: ActionType, data: any) => {
     return;
   }
 
-  const foundIndex = memQueue.findIndex((item) => (
-    item.type === cellType &&
-    item.actionType === actionType &&
-    item.data.id === data.id
-  ));
+  const foundIndex = memQueue.findIndex(
+    (item) =>
+      item.type === cellType &&
+      item.actionType === actionType &&
+      item.data.id === data.id,
+  );
   if (foundIndex > -1) {
     const deleted = memQueue.splice(foundIndex, 1)[0];
     merge(deleted.data, data);
@@ -34,8 +35,13 @@ const enqueue = (cellType: string, actionType: ActionType, data: any) => {
   memQueue.push({ type: cellType, actionType, data });
 };
 
-let modifyActionTimer: number = -1;
-const save = (flowChart: Graph, cellType: string, actionType: ActionType, data: any) => {
+let modifyActionTimer = -1;
+const save = (
+  flowChart: Graph,
+  cellType: string,
+  actionType: ActionType,
+  data: any,
+) => {
   enqueue(cellType, actionType, data);
   clearTimeout(modifyActionTimer);
   modifyActionTimer = window.setTimeout(() => {

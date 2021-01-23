@@ -51,7 +51,10 @@ function SchemaFormItem(props: SchemaItemProps): JSX.Element {
   };
 
   const addChildField = (): void => {
-    schemaDispatch({ type: 'ADD_CHILD_FIELD', keyRoute: keyRoute.concat('properties') });
+    schemaDispatch({
+      type: 'ADD_CHILD_FIELD',
+      keyRoute: keyRoute.concat('properties'),
+    });
   };
 
   const addSiblingField = (): void => {
@@ -84,8 +87,12 @@ function SchemaFormItem(props: SchemaItemProps): JSX.Element {
         <Col span="8" css={{ paddingLeft: `${keyRoute.length * 10}px` }}>
           <Row align="middle">
             <Col span="2">
-              {data.type === 'object' && visible && <CaretDownIcon onClick={toggleFormVisible} />}
-              {data.type === 'object' && !visible && <CaretRightIcon onClick={toggleFormVisible} />}
+              {data.type === 'object' && visible && (
+                <CaretDownIcon onClick={toggleFormVisible} />
+              )}
+              {data.type === 'object' && !visible && (
+                <CaretRightIcon onClick={toggleFormVisible} />
+              )}
             </Col>
             <Col span="22">
               <FieldInput
@@ -128,7 +135,10 @@ function SchemaFormItem(props: SchemaItemProps): JSX.Element {
           </Tooltip>
           <CloseIcon onClick={removeField} />
           {data.type === 'object' ? (
-            <AddNode addChildField={addChildField} addSiblingField={addSiblingField} />
+            <AddNode
+              addChildField={addChildField}
+              addSiblingField={addSiblingField}
+            />
           ) : (
             <Tooltip placement="top" title={t('add_sibling_node')}>
               <PlusIcon onClick={addSiblingField} />
@@ -136,7 +146,9 @@ function SchemaFormItem(props: SchemaItemProps): JSX.Element {
           )}
         </Col>
       </Row>
-      {visible && children ? <div css={{ marginTop: '10px' }}>{children}</div> : null}
+      {visible && children ? (
+        <div css={{ marginTop: '10px' }}>{children}</div>
+      ) : null}
     </div>
   );
 }

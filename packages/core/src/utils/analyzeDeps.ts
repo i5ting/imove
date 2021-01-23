@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { safeGet } from './index';
 
-const regex = /import\s([\s\S]*?)\sfrom\s(?:('[@\.\/\-\w]+')|("[@\.\/\-\w]+"))/mg;
+const regex = /import\s([\s\S]*?)\sfrom\s(?:('[@\.\/\-\w]+')|("[@\.\/\-\w]+"))/gm;
 
 const extractPkgs = (code: string, excludePkgs?: string[]): string[] => {
   let matchRet = null;
   const pkgNames: string[] = [];
   while ((matchRet = regex.exec(code)) != null) {
-    let pkgName = (matchRet[2] || matchRet[3]);
+    let pkgName = matchRet[2] || matchRet[3];
     pkgName = pkgName.slice(1, pkgName.length - 1);
     // NOTE: ignore relative path (./ and ../) and excludePkgs
     if (
@@ -22,26 +22,31 @@ const extractPkgs = (code: string, excludePkgs?: string[]): string[] => {
 };
 
 const getPkgLatestVersion = (pkg: string): Promise<string[]> => {
-  return axios.get(`https://registry.npm.taobao.org/${pkg}`)
-    .then(res => {
+  return axios
+    .get(`https://registry.npm.taobao.org/${pkg}`)
+    .then((res) => {
       return [pkg, safeGet(res, 'data.dist-tags.latest', '*')];
-    }).catch(err => {
+    })
+    .catch((err) => {
       console.log(`get package ${pkg} info failed, the error is:`, err);
       return [pkg, '*'];
     });
 };
 
-const analyzeDeps = (code: string, excludePkgs?: string[]): Promise<{ [pkgName: string]: string }> => {
+const analyzeDeps = (
+  code: string,
+  excludePkgs?: string[],
+): Promise<{ [pkgName: string]: string }> => {
   const pkgs = extractPkgs(code, excludePkgs);
-  return Promise
-    .all(pkgs.map(pkg => getPkgLatestVersion(pkg)))
-    .then(pkgResults => {
+  return Promise.all(pkgs.map((pkg) => getPkgLatestVersion(pkg)))
+    .then((pkgResults) => {
       const map: any = {};
       pkgResults.forEach(([pkg, version]) => {
         map[pkg] = version;
       });
       return map;
-    }).catch(err => {
+    })
+    .catch((err) => {
       console.log('analyze deps failed, the error is:', err);
     });
 };

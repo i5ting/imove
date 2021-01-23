@@ -9,14 +9,15 @@ const makeCode = (mockNode: any, mockInput: any) => `
   // Logic
   ${logic
     .split('\n')
-    .filter(line => !line.match(/import nodeFns/) && !line.match(/import Context/))
+    .filter(
+      (line) => !line.match(/import nodeFns/) && !line.match(/import Context/),
+    )
     .join('\n')
     .replace(/export\s+default/, '')
     .replace(
       `import EventEmitter from 'eventemitter3';`,
-      `const EventEmitter = (await import('https://jspm.dev/eventemitter3')).default;`
-    )
-  }
+      `const EventEmitter = (await import('https://jspm.dev/eventemitter3')).default;`,
+    )}
 
   // DSL
   // define dsl here

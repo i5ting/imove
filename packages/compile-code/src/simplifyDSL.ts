@@ -1,10 +1,13 @@
-import {Cell} from '@antv/x6';
+import { Cell } from '@antv/x6';
 
 interface DSL {
   cells: Cell.Properties[];
 }
 
-const extractObj = (obj: Cell.Properties = {}, keys: string[] = []): Cell.Properties => {
+const extractObj = (
+  obj: Cell.Properties = {},
+  keys: string[] = [],
+): Cell.Properties => {
   const ret: Cell.Properties = {};
   keys.forEach((key) => {
     if (obj[key]) {
@@ -22,7 +25,11 @@ const simplifyDSL = (dsl: DSL): Cell.Properties => {
         return extractObj(cell, ['id', 'shape', 'source', 'target']);
       } else {
         const newCell = extractObj(cell, ['id', 'shape', 'data']);
-        newCell.data = extractObj(cell.data, ['trigger', 'configData', 'ports']);
+        newCell.data = extractObj(cell.data, [
+          'trigger',
+          'configData',
+          'ports',
+        ]);
         return newCell;
       }
     }),

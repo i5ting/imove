@@ -10,11 +10,10 @@ const CACHE_PATH = path.join(process.cwd(), './.cache');
 const CACHE_DSL_FILE = path.join(CACHE_PATH, 'imove.dsl.json');
 
 class Dev extends Base {
-
   async writeOutputIntoFiles(curPath, output) {
-    for(let key in output) {
+    for (const key in output) {
       const newPath = path.join(curPath, key);
-      if(path.extname(newPath)) {
+      if (path.extname(newPath)) {
         await fs.writeFile(newPath, output[key]);
       } else {
         await fs.ensureDir(newPath);

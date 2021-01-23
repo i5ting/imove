@@ -1,8 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback
-} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import { Modal } from 'antd';
 import { Graph } from '@antv/x6';
@@ -28,11 +24,7 @@ const TestCase: React.FC<IProps> = (props) => {
   const closeModal = useCallback(() => setVisible(false), []);
 
   return (
-    <EditModal
-      visible={visible}
-      flowChart={flowChart}
-      onClose={closeModal}
-    />
+    <EditModal visible={visible} flowChart={flowChart} onClose={closeModal} />
   );
 };
 
@@ -55,7 +47,7 @@ const EditModal: React.FC<IEditModalProps> = (props): JSX.Element => {
       footer={null}
       onCancel={onClose}
     >
-      <CodeRun flowChart={flowChart}/>
+      <CodeRun flowChart={flowChart} />
     </Modal>
   );
 };
