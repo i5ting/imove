@@ -11,7 +11,7 @@ import { queryGraph } from '../../api';
 import { parseQuery } from '../../utils';
 import createFlowChart from './createFlowChart';
 import CodeRunModal from './codeRunModal';
-import CodeEditorModal from './codeEditorModel';
+import CodeEditorModal from './codeEditorModal';
 import FlowChartContextMenu from './contextMenu';
 
 interface IProps {
@@ -104,8 +104,8 @@ const FlowChart: React.FC<IProps> = (props) => {
     <div className={styles.container} ref={wrapperRef}>
       <div className={styles.flowChart} ref={graphRef} />
       <div className={styles.miniMap} ref={miniMapRef} />
-      {flowChart && <CodeRunModal flowChart={flowChart}/>}
-      {flowChart && <CodeEditorModal flowChart={flowChart}/>}
+      {flowChart && <CodeRunModal flowChart={flowChart} />}
+      {flowChart && <CodeEditorModal flowChart={flowChart} />}
       {flowChart && <FlowChartContextMenu {...contextMenuInfo} flowChart={flowChart} />}
     </div>
   );
