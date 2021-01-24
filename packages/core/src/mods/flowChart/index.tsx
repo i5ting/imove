@@ -7,7 +7,7 @@ import { queryGraph } from '../../api';
 import { parseQuery } from '../../utils';
 import createFlowChart from './createFlowChart';
 import CodeRunModal from './codeRunModal';
-import CodeEditorModal from './codeEditorModel';
+import CodeEditorModal from './codeEditorModal';
 import FlowChartContextMenu from './contextMenu';
 
 interface IProps {
