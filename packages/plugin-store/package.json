@@ -1,6 +1,6 @@
 {
   "name": "@imove/plugin-store",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "iMove plugin that supports persisting data",
   "keywords": [
     "imove",
