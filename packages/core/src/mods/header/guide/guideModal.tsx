@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/es/modal/style';
-import './index.less';
+import styles from './index.module.less';
 import { Modal, Tabs } from 'antd';
 const { TabPane } = Tabs;
 interface IExportModalProps {
@@ -23,17 +23,17 @@ $ npm run example`)}
       打开 <a href="http://localhost:8000/">http://localhost:8000/</a>
       <img
         width="100%"
-        src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/317407/1610523659304-84fc5548-3203-48b6-9ec8-81f0b0228245.png"
+        src="https://img.alicdn.com/imgextra/i2/O1CN01h8YOPl2AAhk6yQz6P_!!6000000008163-2-tps-3570-1986.png"
       />
       <h2>绘制流程图、编写代码</h2>
       <p>根据你的业务逻辑绘制流程图。双击各节点，完成每个节点的函数编写。</p>
       <img
         width="100%"
-        src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/317407/1610529557793-63ef6842-079c-498a-8ad3-dfbdad7549bb.png"
+        src="https://img.alicdn.com/imgextra/i3/O1CN01HxT0mY1MMP4TlvwMp_!!6000000001420-2-tps-2250-598.png"
       />
       <img
         width="100%"
-        src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/317407/1610523745104-24e94b10-f8d7-4eb2-a282-ca32a19f7ccd.png"
+        src="https://img.alicdn.com/imgextra/i3/O1CN01e2bC7824KsqtVLLJe_!!6000000007373-2-tps-3550-1750.png"
       />
       <h2>在项目中使用</h2>
       <p>这时有两种方式：</p>
@@ -44,7 +44,7 @@ $ npm run example`)}
       <h3>1. 在线打包出码</h3>
       <img
         width="100%"
-        src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/317407/1610523805396-4211e9c2-b501-4b23-aeae-f55147d67e8d.png"
+        src="https://img.alicdn.com/imgextra/i4/O1CN01ysTe3s1UjJoSBs6PE_!!6000000002553-2-tps-3260-1800.png"
       />
       <p>
         点击页面右上方的导出按钮后，可以在弹窗内选择导出
@@ -61,7 +61,7 @@ $ npm run example`)}
       <p>本地启动成功之后，可以看到原来的页面右上角会显示连接成功。</p>
       <img
         width="100%"
-        src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/317407/1610529177065-5000bb28-10f2-4053-a4bb-af98139f488e.png"
+        src="https://img.alicdn.com/imgextra/i4/O1CN01lKVzHY1J7LCMgTrwC_!!6000000000981-2-tps-3148-1750.png"
       />
       <p>
         此时页面上触发 <b>保存快捷键 Ctrl + S</b> 时，可以看到当前项目的 src
@@ -93,7 +93,7 @@ const CreateNode: React.FC = () => {
       <img
         width="100%"
         alt="创建节点"
-        src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/317407/1610528033956-df4c7cb8-2b35-4065-8f51-a8d98c02f532.png"
+        src="https://img.alicdn.com/imgextra/i2/O1CN01TMgmco1mbgIBQLLQy_!!6000000004973-2-tps-3268-1834.png"
       ></img>
     </div>
   );
@@ -119,7 +119,7 @@ const NodeType: React.FC = () => {
       <img
         width="100%"
         alt="节点类型"
-        src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/317407/1610528367101-6ff34826-8658-41e8-bb8b-66b254f14cde.png"
+        src="https://img.alicdn.com/imgextra/i3/O1CN01hPtj531F1bmJDXpfy_!!6000000000427-2-tps-3266-1820.png"
       ></img>
     </div>
   );
@@ -133,7 +133,7 @@ const ConfigNode: React.FC = () => {
       <img
         width="100%"
         alt="配置节点"
-        src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/317407/1610528399738-19c54ce9-25f4-4fc0-93a8-580f9eb9f20f.png"
+        src="https://img.alicdn.com/imgextra/i2/O1CN01SQPxKi29ufsfQCtmY_!!6000000008128-2-tps-3266-1832.png"
       ></img>
       <p>通常来说，基础信息配置使用频率最高的有：</p>
       <ul>
@@ -155,7 +155,7 @@ const CodeStyle: React.FC = () => {
       <img
         width="100%"
         alt="节点代码规范"
-        src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/317407/1610528493678-c08c4d08-380e-44ca-8dfd-33adb5c1604f.png"
+        src="https://img.alicdn.com/imgextra/i4/O1CN01tJ0gmo1oxKF3eOLkH_!!6000000005291-2-tps-3268-1826.png"
       ></img>
       <p>
         每个节点的代码等价于一个 js
@@ -253,7 +253,7 @@ const HowToUse: React.FC = () => {
       <h3>1. 在线打包出码</h3>
       <img
         width="100%"
-        src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/317407/1610523805396-4211e9c2-b501-4b23-aeae-f55147d67e8d.png"
+        src="https://img.alicdn.com/imgextra/i3/O1CN01r14VoI1eH3X0RiR2M_!!6000000003845-2-tps-3260-1800.png"
       />
       <p>
         点击页面右上方的导出按钮后，可以在弹窗内选择导出
@@ -272,7 +272,7 @@ const HowToUse: React.FC = () => {
       <p>本地启动成功之后，可以看到原来的页面右上角会显示连接成功。</p>
       <img
         width="100%"
-        src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/317407/1610529177065-5000bb28-10f2-4053-a4bb-af98139f488e.png"
+        src="https://img.alicdn.com/imgextra/i4/O1CN01NVwf2k248W9lahjm3_!!6000000007346-2-tps-3148-1750.png"
       />
 
       <p>
@@ -299,7 +299,7 @@ const HowToUse: React.FC = () => {
 const Document: React.FC = () => {
   return (
     <div>
-      <h2>使用文档</h2>
+      <h2>文档汇总</h2>
       <div>
         <a target="blank" href="https://www.yuque.com/imove/docs">
           详细使用文档
@@ -311,6 +311,30 @@ const Document: React.FC = () => {
           href="https://github.com/imgcook/imove/blob/master/README.md"
         >
           github README
+        </a>
+      </div>
+      <div>
+        <a
+          target="blank"
+          href="https://mp.weixin.qq.com/s/cfGdGp1VAVn_bUqXUspvJg"
+        >
+          登上 github 趋势榜，iMove 原理技术大揭秘!
+        </a>
+      </div>
+      <div>
+        <a
+          target="blank"
+          href="https://www.infoq.cn/article/hMVR8kJvRhXxod8ydiBt"
+        >
+          imove基于 x6 + form-render 背后的思考
+        </a>
+      </div>
+      <div>
+        <a
+          target="blank"
+          href="https://mp.weixin.qq.com/s/tqZaZTTrjZlo9T7f9sLNIA"
+        >
+          "所见即所得!" iMove 在线执行代码探索
         </a>
       </div>
     </div>
@@ -329,30 +353,30 @@ const GuideModal: React.FC<IExportModalProps> = (props) => {
       onOk={onClose}
       onCancel={onClose}
     >
-      <div className="guide-container">
+      <div className={styles.guideContainer}>
         <Tabs tabPosition="left">
-          <TabPane className="tabPane" tab="简单上手" key="1">
+          <TabPane className={styles.tabPane} tab="简单上手" key="1">
             <QuickStart />
           </TabPane>
-          <TabPane className="tabPane" tab="创建节点" key="2">
+          <TabPane className={styles.tabPane} tab="创建节点" key="2">
             <CreateNode />
           </TabPane>
-          <TabPane className="tabPane" tab="节点类型" key="3">
+          <TabPane className={styles.tabPane} tab="节点类型" key="3">
             <NodeType />
           </TabPane>
-          <TabPane className="tabPane" tab="配置节点" key="4">
+          <TabPane className={styles.tabPane} tab="配置节点" key="4">
             <ConfigNode />
           </TabPane>
-          <TabPane className="tabPane" tab="节点代码规范" key="5">
+          <TabPane className={styles.tabPane} tab="节点代码规范" key="5">
             <CodeStyle />
           </TabPane>
-          <TabPane className="tabPane" tab="节点间数据通信" key="6">
+          <TabPane className={styles.tabPane} tab="节点间数据通信" key="6">
             <NodeConnect />
           </TabPane>
-          <TabPane className="tabPane" tab="如何在项目中使用" key="7">
+          <TabPane className={styles.tabPane} tab="如何在项目中使用" key="7">
             <HowToUse />
           </TabPane>
-          <TabPane className="tabPane" tab="使用文档" key="8">
+          <TabPane className={styles.tabPane} tab="文档汇总" key="8">
             <Document />
           </TabPane>
         </Tabs>
