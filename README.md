@@ -38,7 +38,7 @@
 下载仓库，安装并启动
 
 ```bash
-$ git clone https://github.com/imgcook/imove.git
+$ git clone git@github.com:imgcook/imove.git
 $ cd imove
 $ npm install
 $ npm run example
