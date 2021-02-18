@@ -70,6 +70,8 @@ $ npm run example
 * iloveyou11 - 冷卉「Core Team」
 * i5ting - 狼叔「Core Team」
 
+团队博客： https://www.yuque.com/imove/blog
+
 See also the list of [contributors](https://github.com/imgcook/imove/graphs/contributors) who participated in this project.
 
 ## 贡献
