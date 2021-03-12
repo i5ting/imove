@@ -38,7 +38,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.0.6",
     "@antv/x6": "^1.7.12",
-    "@imove/compile-code": "^0.0.1",
+    "@imove/compile-code": "^0.1.0",
     "@monaco-editor/react": "^3.7.4",
     "antd": "^4.5.3",
     "axios": "^0.21.0",

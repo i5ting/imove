@@ -1,6 +1,6 @@
 {
   "name": "@imove/cli",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "imove client",
   "main": "index.js",
   "bin": {
@@ -20,7 +20,7 @@
   "author": "smallstonesk",
   "license": "MIT",
   "dependencies": {
-    "@imove/compile-code": "^0.0.1",
+    "@imove/compile-code": "^0.1.0",
     "body-parser": "^1.19.0",
     "commander": "^6.0.0",
     "cors": "^2.8.5",

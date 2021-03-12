@@ -1,6 +1,6 @@
 {
   "name": "@imove/compile-code",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "imove compile code",
   "main": "dist/core.common.js",
   "module": "dist/core.esm.js",

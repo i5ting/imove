@@ -30,7 +30,9 @@
 Download this project, install dependencies and start the project.
 
 ```bash
-$ git clone https://github.com/imgcook/imove.git
+$ git clone https://github.com/ykfe/imove.git
+$ cd imove
+$ npm install
 $ npm run example
 ```
 <!-- markdown-link-check-disable -->

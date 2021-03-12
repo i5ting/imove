@@ -23,8 +23,6 @@
 - [x] **适用于JavaScript所有场景**：比如前端点击事件，Ajax 请求和 Node.js 后端 API等
 - [ ] **多语言编译**：无语言编译出码限制（例：支持 JavaScript, Java 编译出码）
 
-在线示例 https://oyg3y.sse.codesandbox.io/
-
 ## 使用场景
 
 ![usage](https://img.alicdn.com/imgextra/i1/O1CN01kRXnfQ1LFhesOA6cn_!!6000000001270-2-tps-2212-1166.png)
@@ -40,7 +38,7 @@
 下载仓库，安装并启动
 
 ```bash
-$ git clone git@github.com:imgcook/imove.git
+$ git clone https://github.com/ykfe/imove.git
 $ cd imove
 $ npm install
 $ npm run example
@@ -71,6 +69,8 @@ $ npm run example
 * suanmei - 拾邑「Core Team」
 * iloveyou11 - 冷卉「Core Team」
 * i5ting - 狼叔「Core Team」
+
+团队博客，各种原理，设计初衷，实现，思考等都在这里： https://www.yuque.com/imove/blog
 
 See also the list of [contributors](https://github.com/imgcook/imove/graphs/contributors) who participated in this project.
 
