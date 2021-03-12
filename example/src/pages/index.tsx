@@ -1,5 +1,5 @@
 import * as React from 'react';
-import IMove from '../../../packages/core/dist/core.esm.js';
+import IMove from '@imove/core';
 
 const onSave = (data: { nodes: any; edges: any }): void => {
   console.log(data);
