@@ -39,9 +39,9 @@
 
 ```bash
 $ git clone https://github.com/ykfe/imove.git
-$ cd imove
+$ cd imove/example
 $ npm install
-$ npm run example
+$ npm start
 ```
 
 <!-- markdown-link-check-disable -->

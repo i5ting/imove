@@ -31,9 +31,9 @@ Download this project, install dependencies and start the project.
 
 ```bash
 $ git clone https://github.com/ykfe/imove.git
-$ cd imove
+$ cd imove/example
 $ npm install
-$ npm run example
+$ npm start
 ```
 <!-- markdown-link-check-disable -->
 Open http://localhost:8000/ and you can see the online effect.
