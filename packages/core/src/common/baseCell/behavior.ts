@@ -3,16 +3,20 @@ import { Shape } from '@antv/x6';
 const schema = {
   base: Shape.Rect,
   shape: 'imove-behavior',
-  width: 80,
-  height: 40,
+  width: 60,
+  height: 30,
   label: '处理',
   attrs: {
     body: {
-      fill: '#AACCF7',
-      stroke: '#5E9CEE',
+      fill: '#BCD0FF',
+      stroke: '#6B8CD7',
+      rx: 4,
+      ry: 4,
     },
     label: {
       fill: '#333',
+      fontSize: 13,
+      fontWeight: 500,
       textWrap: { width: '100%' },
     },
   },
@@ -22,10 +26,10 @@ const schema = {
         position: 'top',
         attrs: {
           circle: {
-            r: 3,
+            r: 2.5,
             magnet: true,
-            stroke: '#666',
-            strokeWidth: 1,
+            stroke: '#4E68A3',
+            strokeWidth: 2,
             fill: '#fff',
           },
         },
@@ -34,10 +38,10 @@ const schema = {
         position: 'right',
         attrs: {
           circle: {
-            r: 3,
+            r: 2.5,
             magnet: true,
-            stroke: '#666',
-            strokeWidth: 1,
+            stroke: '#4E68A3',
+            strokeWidth: 2,
             fill: '#fff',
           },
         },
@@ -46,10 +50,10 @@ const schema = {
         position: 'bottom',
         attrs: {
           circle: {
-            r: 3,
+            r: 2.5,
             magnet: true,
-            stroke: '#666',
-            strokeWidth: 1,
+            stroke: '#4E68A3',
+            strokeWidth: 2,
             fill: '#fff',
           },
         },
@@ -58,10 +62,10 @@ const schema = {
         position: 'left',
         attrs: {
           circle: {
-            r: 3,
+            r: 2.5,
             magnet: true,
-            stroke: '#666',
-            strokeWidth: 1,
+            stroke: '#4E68A3',
+            strokeWidth: 2,
             fill: '#fff',
           },
         },
