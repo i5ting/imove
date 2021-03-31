@@ -144,7 +144,7 @@ const createFlowChart = (
       rubberband: true,
       movable: true,
       strict: true,
-      showNodeSelectionBox: true,
+      showNodeSelectionBox: false,
     },
     // https://x6.antv.vision/zh/docs/tutorial/basic/snapline
     snapline: {
