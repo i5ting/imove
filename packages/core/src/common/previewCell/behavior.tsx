@@ -9,8 +9,10 @@ interface IProps {
 const Cell: React.FC<IProps> = (props) => {
   const { title = '处理', ...rest } = props;
   return (
-    <div className={styles.rect} {...rest}>
-      {title}
+    <div className={styles.box} {...rest}>
+      <div className={styles.rect}>
+        <span className={styles.text}>{title}</span>
+      </div>
     </div>
   );
 };
