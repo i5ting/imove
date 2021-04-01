@@ -9,8 +9,10 @@ interface IProps extends React.HTMLProps<HTMLDivElement> {
 const Cell: React.FC<IProps> = (props) => {
   const { title = '开始', ...rest } = props;
   return (
-    <div className={styles.circle} {...rest}>
-      {title}
+    <div className={styles.box} {...rest}>
+      <div className={styles.circle}>
+        <span className={styles.text}>{title}</span>
+      </div>
     </div>
   );
 };
