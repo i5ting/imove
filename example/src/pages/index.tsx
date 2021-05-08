@@ -7,8 +7,8 @@ const onSave = (data: { nodes: any; edges: any }): void => {
 
 function Arrange(): JSX.Element {
   return (
-    <div style={{height: '100vh'}}>
-      <IMove onSave={onSave}/>
+    <div style={{ height: '100vh' }}>
+      <IMove onSave={onSave} />
     </div>
   );
 }

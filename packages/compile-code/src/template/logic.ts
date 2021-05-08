@@ -63,23 +63,30 @@ export default class Logic extends EventEmitter {
 
   _getNextNodes(ctx, curNode, curRet) {
     const nodes = [];
-    for (const edge of this.edges) {
-      let isMatched = edge.source.cell === curNode.id;
-      // NOTE: if it is a imove-branch node, each port's condition should be tested whether it is matched
-      if (curNode.shape === SHAPES.BRANCH) {
-        let matchedPort = '';
-        const { ports } = curNode.data;
-        for (const key in ports) {
-          const { condition } = ports[key];
-          const ret = new Function('ctx', 'return ' + condition)(ctx);
-          if (ret === Boolean(curRet)) {
-            matchedPort = key;
-            break;
-          }
+
+    // NOTE: if it is a imove-branch node, find out which port match the curRet condition
+    const isCurNodeShapeBranch = curNode.shape === SHAPES.BRANCH;
+    let curNodeMatchedPort = '';
+    if (isCurNodeShapeBranch) {
+      const { ports } = curNode.data;
+      for (const key in ports) {
+        const { condition } = ports[key];
+        // eslint-disable-next-line no-new-func
+        const ret = new Function('ctx', 'return ' + condition)(ctx);
+        if (ret === Boolean(curRet)) {
+          curNodeMatchedPort = key;
+          break; // for (const key in ports)
         }
-        isMatched = isMatched && edge.source.port === matchedPort;
       }
-      if (isMatched) {
+    }
+
+    // NOTE: find out next node via edges which source is curNode
+    for (const edge of this.edges) {
+      // edge's source is curNode
+      const isMatchedSource = edge.source.cell === curNode.id;
+      // if it is a imove-branch node, edge.source.port match curRet condition
+      const isMatchedPort = !isCurNodeShapeBranch || edge.source.port === curNodeMatchedPort;
+      if (isMatchedSource && isMatchedPort) {
         // NOTE: not each edge both has source and target
         const nextNode = this.nodes.find((item) => item.id === edge.target.cell);
         nextNode && nodes.push(nextNode);
