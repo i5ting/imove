@@ -119,10 +119,10 @@ See also the list of [contributors](https://github.com/imgcook/imove/graphs/cont
 [pr-welcoming-image]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [pr-welcoming-url]: https://github.com/imgcook/imove/pull/new
 
-## 开发者交流群
-
-<img src="https://img.alicdn.com/imgextra/i3/O1CN01bXX2E41LqLLM1BZGH_!!6000000001350-2-tps-859-1184.png" width='400px'>
-
 ## 项目 Star 数增长趋势
 
 [![Stargazers over time](https://starchart.cc/ykfe/imove.svg)](https://starchart.cc/ykfe/imove)
+
+## 开发者交流群
+
+<img src="https://img.alicdn.com/imgextra/i3/O1CN01bXX2E41LqLLM1BZGH_!!6000000001350-2-tps-859-1184.png" width='400px'>
