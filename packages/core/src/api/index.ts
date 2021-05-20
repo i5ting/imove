@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { message } from 'antd';
 
+const LOCAL_CONFIG_KEY = 'IMOVE:LOCAL_CONFIG_KEY';
 export interface ILocalConfig {
   ip: string;
   port: string;
+  npmRegistry: string;
 }
 
 export enum ActionType {
@@ -52,17 +54,38 @@ const request = (function () {
   };
 })();
 
-export const localConfig: ILocalConfig = {
-  ip: '127.0.0.1',
-  port: '3500',
+/**
+ * get local config data (saved in localStorage)
+ * @returns local config
+ */
+export const getLocalConfig = (): ILocalConfig => {
+  const savedConfigString = localStorage.getItem(LOCAL_CONFIG_KEY) || '';
+  let savedConfig = {} as ILocalConfig;
+  try {
+    savedConfig = JSON.parse(savedConfigString);
+  } catch (e) {}
+  return {
+    ip: savedConfig.ip || '127.0.0.1',
+    port: savedConfig.port || '3500',
+    npmRegistry: savedConfig.npmRegistry || 'https://registry.npm.taobao.org',
+  };
 };
 
+// export const localConfig: ILocalConfig = getLocalConfig();
+
+/**
+ * get local config data (saved in localStorage)
+ */
 export const updateLocalConfig = (config: ILocalConfig) => {
-  localConfig.ip = config.ip || localConfig.ip;
-  localConfig.port = config.port || localConfig.port;
+  const savedConfig = getLocalConfig();
+  savedConfig.ip = config.ip || savedConfig.ip;
+  savedConfig.port = config.port || savedConfig.port;
+  savedConfig.npmRegistry = config.npmRegistry || savedConfig.npmRegistry;
+  localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(savedConfig));
 };
 
 export const localConnect = () => {
+  const localConfig = getLocalConfig();
   return fetch(`http://${localConfig.ip}:${localConfig.port}/api/connect`, {
     method: 'GET',
     headers: { 'content-type': 'application/json' },
@@ -70,6 +93,7 @@ export const localConnect = () => {
 };
 
 export const localSave = (data: any) => {
+  const localConfig = getLocalConfig();
   fetch(`http://${localConfig.ip}:${localConfig.port}/api/save`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },

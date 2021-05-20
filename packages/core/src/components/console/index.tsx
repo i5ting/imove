@@ -93,7 +93,7 @@ const LogLine: React.FC<ILog> = (props) => {
 
   const renderLink = (data: string) => {
     return (
-      <a href={data} target={'_blank'}>
+      <a href={data} target={'_blank'} rel="noreferrer">
         {data}
       </a>
     );
