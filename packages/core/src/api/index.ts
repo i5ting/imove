@@ -71,8 +71,6 @@ export const getLocalConfig = (): ILocalConfig => {
   };
 };
 
-// export const localConfig: ILocalConfig = getLocalConfig();
-
 /**
  * get local config data (saved in localStorage)
  */
@@ -80,7 +78,9 @@ export const updateLocalConfig = (config: ILocalConfig) => {
   const savedConfig = getLocalConfig();
   savedConfig.ip = config.ip || savedConfig.ip;
   savedConfig.port = config.port || savedConfig.port;
-  savedConfig.npmRegistry = config.npmRegistry || savedConfig.npmRegistry;
+  savedConfig.npmRegistry = (
+    config.npmRegistry || savedConfig.npmRegistry
+  ).replace(/\/$/, '');
   localStorage.setItem(LOCAL_CONFIG_KEY, JSON.stringify(savedConfig));
 };
 
