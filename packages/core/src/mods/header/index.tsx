@@ -25,7 +25,6 @@ const Header: React.FC<IProps> = (props: IProps) => {
     return localConnect()
       .then((res) => res.json())
       .then((data = {}) => {
-        console.log(data);
         setStatus(Status.connected);
         setProjectName(data.projectName);
         return data;
