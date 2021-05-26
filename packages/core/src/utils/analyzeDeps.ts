@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { safeGet } from './index';
+import { getLocalConfig } from '../api';
 
 const regex = /import\s([\s\S]*?)\sfrom\s(?:('[@\.\/\-\w]+')|("[@\.\/\-\w]+"))/gm;
 
@@ -22,9 +23,10 @@ const extractPkgs = (code: string, excludePkgs?: string[]): string[] => {
 };
 
 const getPkgLatestVersion = (pkg: string): Promise<string[]> => {
+  const localConfig = getLocalConfig();
   return axios
-    .get(`https://registry.npm.taobao.org/${pkg}`)
-    .then((res) => {
+    .get(`${localConfig.npmRegistry}/${pkg}`)
+    .then((res: any) => {
       return [pkg, safeGet(res, 'data.dist-tags.latest', '*')];
     })
     .catch((err) => {
