@@ -2,20 +2,15 @@ import axios from 'axios';
 import { safeGet } from './index';
 import { getLocalConfig } from '../api';
 
-const regex = /import\s([\s\S]*?)\sfrom\s(?:('[@\.\/\-\w]+')|("[@\.\/\-\w]+"))/gm;
+const regex = /import\s([\s\S]*?)\sfrom\s('|")((@\w[\w\.\-]+\/)?(\w[\w\.\-]+))(\/[\w\.\-]+)*\2/gm;
+//                     (1       )        (2  )(3(4            ) (5          ))(6          )
 
 const extractPkgs = (code: string, excludePkgs?: string[]): string[] => {
   let matchRet = null;
   const pkgNames: string[] = [];
   while ((matchRet = regex.exec(code)) != null) {
-    let pkgName = matchRet[2] || matchRet[3];
-    pkgName = pkgName.slice(1, pkgName.length - 1);
-    // NOTE: ignore relative path (./ and ../) and excludePkgs
-    if (
-      pkgName.indexOf('./') === -1 &&
-      pkgName.indexOf('../') === -1 &&
-      excludePkgs?.indexOf(pkgName) === -1
-    ) {
+    const pkgName = matchRet[3];
+    if (excludePkgs?.indexOf(pkgName) === -1) {
       pkgNames.push(pkgName);
     }
   }

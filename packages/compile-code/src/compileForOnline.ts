@@ -23,7 +23,7 @@ interface DSL {
 
 const INSERT_DSL_COMMENT = '// define dsl here';
 const INSERT_NODE_FNS_COMMENT = '// define nodeFns here';
-const importRegex = /import\s+([\s\S]*?)\s+from\s+(?:('[@\.\/\-\w]+')|("[@\.\/\-\w]+"))\s*;?/gm;
+const importRegex = /import\s([\s\S]*?)\sfrom\s('|")((@\w[\w\.\-]+\/)?(\w[\w\.\-\/]+))\2/gm;
 const virtualSourceNode = {
   id: 'virtual-imove-start',
   shape: 'imove-start',
@@ -92,8 +92,7 @@ const compileNodeFn = (node: Cell.Properties): string => {
     .replace(
       importRegex,
       (match: string, p1: string, p2: string, p3: string) => {
-        const pkgName = (p2 || p3).replace(/('|")/g, '');
-        return `const ${p1} = (await import('https://jspm.dev/${pkgName}')).default;`;
+        return `const ${p1} = (await import('https://jspm.dev/${p3}')).default;`;
       },
     )
     .replace(/export\s+default/, 'return');
