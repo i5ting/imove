@@ -15,17 +15,17 @@ const renderCode = (code: any) => {
 const QuickStart: React.FC = () => {
   return (
     <div>
-      <h2>启动项目</h2>
-      {renderCode(`$ git clone git@github.com:imgcook/imove.git\n
+      <h2>第一步：启动项目</h2>
+      {renderCode(`$ git clone git@github.com:ykfe/imove.git\n
 $ cd imove\n
 $ npm install\n
 $ npm run example`)}
       打开 <a href="http://localhost:8000/">http://localhost:8000/</a>
       <img
         width="100%"
-        src="https://img.alicdn.com/imgextra/i2/O1CN01h8YOPl2AAhk6yQz6P_!!6000000008163-2-tps-3570-1986.png"
+        src="https://img.alicdn.com/imgextra/i1/O1CN01ZbXvzj1L0acWkakIY_!!6000000001237-2-tps-3570-2004.png"
       />
-      <h2>绘制流程图、编写代码</h2>
+      <h2>第二步：绘制流程图、编写代码</h2>
       <p>根据你的业务逻辑绘制流程图。双击各节点，完成每个节点的函数编写。</p>
       <img
         width="100%"
@@ -33,25 +33,48 @@ $ npm run example`)}
       />
       <img
         width="100%"
-        src="https://img.alicdn.com/imgextra/i3/O1CN01e2bC7824KsqtVLLJe_!!6000000007373-2-tps-3550-1750.png"
+        src="https://img.alicdn.com/imgextra/i1/O1CN01OTlOHH26ehF6ke7nO_!!6000000007687-2-tps-3540-1978.png"
       />
-      <h2>在项目中使用</h2>
+      <h2>第三步：在项目中使用编排结果</h2>
       <p>这时有两种方式：</p>
       <ol>
-        <li>在线打包出码</li>
-        <li>本地启动开发模式</li>
+        <li>直接导出压缩包，解压引入项目</li>
+        <li>实时同步编排结果到本地项目</li>
       </ol>
-      <h3>1. 在线打包出码</h3>
+      <h3>方法1. 直接导出压缩包，解压引入项目</h3>
       <img
         width="100%"
-        src="https://img.alicdn.com/imgextra/i4/O1CN01ysTe3s1UjJoSBs6PE_!!6000000002553-2-tps-3260-1800.png"
+        src="https://img.alicdn.com/imgextra/i2/O1CN018aCSNB26WuVoXXaBQ_!!6000000007670-2-tps-3546-1996.png"
       />
       <p>
         点击页面右上方的导出按钮后，可以在弹窗内选择导出
         代码，此时流程图编译后的代码将以 zip
         包的形式下载到本地，你可以解压后再引入项目中使用。
       </p>
-      <h3>2. 本地命令行出码</h3>
+      <p>如引入的文件夹解压为以下格式：</p>
+      {renderCode(`└── logic\n
+\t├── context.js\n
+\t├── dsl.json\n
+\t├── index.js\n
+\t├── logic.js\n
+\t└── nodeFns\n
+\t\t├── 02698b0f-3a1e-4dc0-ae67-83c9db1138ce.js\n
+\t\t├── 3174c241-ef8d-4059-96a0-62332a625851.js\n
+\t\t├── 53b1ee17-f180-41d7-a6cf-fca44d7228b5.js\n
+\t\t└── index.js\n
+`)}
+      <p>这时，我们可以在自己的项目中使用了：</p>
+      {renderCode(`import React, {useEffect} from 'react';\n
+import logic from './logic';\n
+const App = () => {\n
+  useEffect(() => {\n
+    logic.on('a', (data) => {}); // 事件监听——在节点代码中，通过ctx.emit('a')执行a事件\n
+    logic.invoke('b'); // 执行一条流程——触发执行“开始节点”逻辑触发名称为b的那条流程\n
+    return <div>xxx</div>\n
+  };\n
+export default App;
+`)}
+      <h3>方法2. 实时同步编排结果到本地项目</h3>
       <p>安装 CLI</p>
       <pre>$ npm install -g @imove/cli</pre>
       <p>进入项目根目录，imove 初始化</p>
@@ -61,12 +84,12 @@ $ npm run example`)}
       <p>本地启动成功之后，可以看到原来的页面右上角会显示连接成功。</p>
       <img
         width="100%"
-        src="https://img.alicdn.com/imgextra/i4/O1CN01lKVzHY1J7LCMgTrwC_!!6000000000981-2-tps-3148-1750.png"
+        src="https://img.alicdn.com/imgextra/i3/O1CN01mZpmD626XpIunS7G6_!!6000000007672-2-tps-3548-1974.png"
       />
       <p>
         此时页面上触发 <b>保存快捷键 Ctrl + S</b> 时，可以看到当前项目的 src
         目录下会多出一个 <strong>logic</strong> 目录，这就是 imove
-        编译生成的代码，此时你只要在你的组件中调用它即可。
+        编译生成的代码，此时你只要在你的组件中调用它即可。调用方法与上述”直接导出压缩包引入项目“一致，这个方法的好处是能实时同步编排结果。
       </p>
       <b>如上代码所示，需要注意两点：</b>
       <ol>
@@ -83,22 +106,6 @@ $ npm run example`)}
   );
 };
 
-const CreateNode: React.FC = () => {
-  return (
-    <div>
-      <h2>创建节点</h2>
-      <p>
-        项目启动成功后，可以从左侧面板中依次拖动节点至中间的画布，从而完成流程图的绘制工作
-      </p>
-      <img
-        width="100%"
-        alt="创建节点"
-        src="https://img.alicdn.com/imgextra/i2/O1CN01TMgmco1mbgIBQLLQy_!!6000000004973-2-tps-3268-1834.png"
-      ></img>
-    </div>
-  );
-};
-
 const NodeType: React.FC = () => {
   return (
     <div>
@@ -111,15 +118,15 @@ const NodeType: React.FC = () => {
         <li>行为节点：逻辑执行，可以是一次网络请求/一次改变状态/发送埋点等</li>
         <li>分支节点：逻辑路由，根据不同的逻辑执行结果跳转到不同的节点</li>
       </ol>
-      <b>（注：一条逻辑流程必须以 开始节点 为起始）</b>
+      <b>（注：一条逻辑流程必须以“开始节点”为起始）</b>
       <p>
         根据上述的规范描述，我们可以绘制出各种各样的逻辑流程图，例如
-        <b>获取个人数据</b>的逻辑流程图如下所示：
+        “获取个人数据”的逻辑流程图如下所示：
       </p>
       <img
         width="100%"
         alt="节点类型"
-        src="https://img.alicdn.com/imgextra/i3/O1CN01hPtj531F1bmJDXpfy_!!6000000000427-2-tps-3266-1820.png"
+        src="https://img.alicdn.com/imgextra/i4/O1CN01xTktqe20VBK1DEZdf_!!6000000006854-2-tps-3558-1868.png"
       ></img>
     </div>
   );
@@ -128,12 +135,12 @@ const NodeType: React.FC = () => {
 const ConfigNode: React.FC = () => {
   return (
     <div>
-      <h2>配置节点</h2>
+      <h2>节点信息配置</h2>
       <p>依次选中图中的节点，完成右边面板中的基础配置信息填写</p>
       <img
         width="100%"
         alt="配置节点"
-        src="https://img.alicdn.com/imgextra/i2/O1CN01SQPxKi29ufsfQCtmY_!!6000000008128-2-tps-3266-1832.png"
+        src="https://img.alicdn.com/imgextra/i2/O1CN013EeAH126IFq2nblPl_!!6000000007638-2-tps-3548-1980.png"
       ></img>
       <p>通常来说，基础信息配置使用频率最高的有：</p>
       <ul>
@@ -151,11 +158,11 @@ const CodeStyle: React.FC = () => {
   return (
     <div>
       <h2>节点代码规范</h2>
-      <p>点击编辑按钮，可打开代码编辑器</p>
+      <p>双击节点，可打开代码编辑器</p>
       <img
         width="100%"
         alt="节点代码规范"
-        src="https://img.alicdn.com/imgextra/i4/O1CN01tJ0gmo1oxKF3eOLkH_!!6000000005291-2-tps-3268-1826.png"
+        src="https://img.alicdn.com/imgextra/i1/O1CN01OTlOHH26ehF6ke7nO_!!6000000007687-2-tps-3540-1978.png"
       ></img>
       <p>
         每个节点的代码等价于一个 js
@@ -166,20 +173,13 @@ const CodeStyle: React.FC = () => {
       <p>
         就拿 <b>是否登录</b> 这个分支节点为例，我们来看下节点代码该如何编写：
       </p>
-      {renderCode(`export default async function() {\n
-    return fetch('/api/isLogin')\n
-    .then(res => res.json())\n
-    .then(res => {\n
-      const {success, data: {isLogin} = {}} = res\n
-      return success && isLogin\n
-    }).catch(err => {\n
-      console.log('fetch /api/isLogin failed, the err is:', err)\n
-      return false\n
-    })\n
-}\n
-`)}
+      <img
+        width="100%"
+        alt="是否登录节点"
+        src="https://img.alicdn.com/imgextra/i1/O1CN01C3MeuT1PJbWfB6v5S_!!6000000001820-2-tps-3552-1976.png"
+      ></img>
       <p>
-        注：由于该节点是<b>分支节点</b>，因此其 boolean
+        【注】由于该节点是<b>分支节点</b>，因此其 boolean
         返回值决定了整个流程的走向
       </p>
     </div>
@@ -240,87 +240,13 @@ export default async function(ctx) {\n
   );
 };
 
-const HowToUse: React.FC = () => {
-  return (
-    <div>
-      <h2>如何在项目中使用</h2>
-      <p>这时有两种方式：</p>
-      <ol>
-        <li>在线打包出码</li>
-        <li>本地启动开发模式</li>
-      </ol>
-
-      <h3>1. 在线打包出码</h3>
-      <img
-        width="100%"
-        src="https://img.alicdn.com/imgextra/i3/O1CN01r14VoI1eH3X0RiR2M_!!6000000003845-2-tps-3260-1800.png"
-      />
-      <p>
-        点击页面右上方的导出按钮后，可以在弹窗内选择导出
-        代码，此时流程图编译后的代码将以 zip
-        包的形式下载到本地，你可以解压后再引入项目中使用。
-      </p>
-
-      <h3>2. 本地命令行出码</h3>
-      <p>安装 CLI</p>
-      <pre>$ npm install -g @imove/cli</pre>
-      <p>进入项目根目录，imove 初始化</p>
-      <pre>$ cd yourProject $ imove --init # 或 imove -i</pre>
-      <p>本地启动开发模式</p>
-      <pre>$ imove --dev # 或 imove -d</pre>
-
-      <p>本地启动成功之后，可以看到原来的页面右上角会显示连接成功。</p>
-      <img
-        width="100%"
-        src="https://img.alicdn.com/imgextra/i4/O1CN01NVwf2k248W9lahjm3_!!6000000007346-2-tps-3148-1750.png"
-      />
-
-      <p>
-        此时页面上触发 <b>保存快捷键 Ctrl + S</b> 时，可以看到当前项目的 src
-        目录下会多出一个 <strong>logic</strong> 目录，这就是 imove
-        编译生成的代码，此时你只要在你的组件中调用它即可。
-      </p>
-
-      <b>如上代码所示，需要注意两点：</b>
-      <ol>
-        <li>
-          通过 logic.on 方法监听事件，事件名和参数与流程图中节点代码的 ctx.emit
-          相对应
-        </li>
-        <li>
-          通过 logic.invoke 方法调用逻辑，事件名与流程图中的开始节点的
-          逻辑触发名称 相对应，不然会调用失败
-        </li>
-      </ol>
-    </div>
-  );
-};
-
 const Document: React.FC = () => {
   return (
     <div>
-      <h2>文档汇总</h2>
+      <h2>参考文档</h2>
       <div>
-        <a target="blank" href="https://www.yuque.com/imove/docs">
-          详细使用文档
-        </a>
-      </div>
-      <div>
-        <a
-          target="blank"
-          href="https://github.com/imgcook/imove/blob/master/README.md"
-        >
-          github README.md
-        </a>
-      </div>
-      <div>
-        <a target="blank" href="https://www.yuque.com/imove/blog/bee1ki">
-          2021年前端趋势预测
-        </a>
-      </div>
-      <div>
-        <a target="blank" href="https://www.yuque.com/imove/blog/tcdrps">
-          F2C能否让前端像运营配置一样开发？
+        <a target="blank" href="https://www.yuque.com/imove/blog/quozn2">
+          iMove 该如何使用？带你入门
         </a>
       </div>
       <div>
@@ -336,6 +262,21 @@ const Document: React.FC = () => {
       <div>
         <a target="blank" href="https://www.yuque.com/imove/blog/vgp6bb">
           所见即所得! iMove 在线执行代码探索
+        </a>
+      </div>
+      <div>
+        <a target="blank" href="https://www.yuque.com/imove/blog/bee1ki">
+          2021年前端趋势预测
+        </a>
+      </div>
+      <div>
+        <a target="blank" href="https://www.yuque.com/imove/blog/tcdrps">
+          F2C能否让前端像运营配置一样开发？
+        </a>
+      </div>
+      <div>
+        <a target="blank" href="https://www.yuque.com/imove/blog/hl22uc">
+          开源项目应该怎么做?
         </a>
       </div>
     </div>
@@ -356,28 +297,22 @@ const GuideModal: React.FC<IExportModalProps> = (props) => {
     >
       <div className={styles.guideContainer}>
         <Tabs tabPosition="left">
-          <TabPane className={styles.tabPane} tab="简单上手" key="1">
+          <TabPane className={styles.tabPane} tab="快速开始" key="1">
             <QuickStart />
           </TabPane>
-          <TabPane className={styles.tabPane} tab="创建节点" key="2">
-            <CreateNode />
-          </TabPane>
-          <TabPane className={styles.tabPane} tab="节点类型" key="3">
+          <TabPane className={styles.tabPane} tab="节点类型" key="2">
             <NodeType />
           </TabPane>
-          <TabPane className={styles.tabPane} tab="配置节点" key="4">
+          <TabPane className={styles.tabPane} tab="节点信息配置" key="3">
             <ConfigNode />
           </TabPane>
-          <TabPane className={styles.tabPane} tab="节点代码规范" key="5">
+          <TabPane className={styles.tabPane} tab="节点代码规范" key="4">
             <CodeStyle />
           </TabPane>
-          <TabPane className={styles.tabPane} tab="节点间数据通信" key="6">
+          <TabPane className={styles.tabPane} tab="节点间数据通信" key="5">
             <NodeConnect />
           </TabPane>
-          <TabPane className={styles.tabPane} tab="如何在项目中使用" key="7">
-            <HowToUse />
-          </TabPane>
-          <TabPane className={styles.tabPane} tab="文档汇总" key="8">
+          <TabPane className={styles.tabPane} tab="参考文档" key="6">
             <Document />
           </TabPane>
         </Tabs>
