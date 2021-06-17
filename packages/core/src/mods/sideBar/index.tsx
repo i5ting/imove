@@ -6,6 +6,28 @@ import styles from './index.module.less';
 import { Collapse } from 'antd';
 import { Addon, Graph, Node } from '@antv/x6';
 import cellMap from '../../common/previewCell';
+import behavior from '../../common/previewCell/behavior';
+
+let cellsMap = cellMap;
+
+// update preview cell map
+document.addEventListener(
+  'services',
+  function (evt) {
+    const dataString = evt.detail;
+    try {
+      const data = JSON.parse(dataString);
+      const extendCell: { [key: string]: any } = {};
+      data.forEach((item: { [key: string]: any }) => {
+        extendCell[`imove-behavior-${item.id}`] = behavior;
+      });
+      cellsMap = Object.assign({}, cellMap, extendCell);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  false,
+);
 
 const { Dnd } = Addon;
 const { Panel } = Collapse;
@@ -28,9 +50,10 @@ interface ISideBarProps {
 const SideBar: React.FC<ISideBarProps> = (props) => {
   const { flowChart } = props;
   const [groups, setGroups] = useState<IGroupItem[]>([]);
-  const dnd = useMemo(() => new Dnd({ target: flowChart, scaled: true }), [
-    flowChart,
-  ]);
+  const dnd = useMemo(
+    () => new Dnd({ target: flowChart, scaled: true }),
+    [flowChart],
+  );
 
   // life
   useEffect(() => {
@@ -38,11 +61,38 @@ const SideBar: React.FC<ISideBarProps> = (props) => {
     setGroups([GENERAL_GROUP]);
   }, []);
 
+  useEffect(() => {
+    // display preview cell in the sidebar
+    document.addEventListener(
+      'services',
+      function (evt) {
+        const dataString = evt.detail;
+        try {
+          const data = JSON.parse(dataString);
+          const SERVICES_GROUP = {
+            key: 'services',
+            name: '后端能力点',
+            cellTypes: data,
+          };
+          if (data.length > 0) {
+            setGroups([GENERAL_GROUP, SERVICES_GROUP]);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      },
+      false,
+    );
+    return () => {
+      document.removeEventListener('services', function (evt) {});
+    };
+  }, []);
+
   return (
     <div className={styles.container}>
       <Collapse
         className={styles.collapse}
-        defaultActiveKey={['general', 'custom']}
+        defaultActiveKey={['general', 'custom', 'services']}
       >
         {groups.map((group) => (
           <Panel key={group.key} header={group.name}>
@@ -67,12 +117,28 @@ const PanelContent: React.FC<IPanelContentProps> = (props) => {
   return (
     <div className={styles.panelContent}>
       {cellTypes.map((cellType, index) => {
-        const Component = cellMap[cellType];
-        return (
-          <div key={index} className={styles.cellWrapper}>
-            <Component onMouseDown={(evt: any) => onMouseDown(evt, cellType)} />
-          </div>
-        );
+        if (typeof cellType === 'string') {
+          const Component = cellsMap[cellType];
+          return (
+            <div key={index} className={styles.cellWrapper}>
+              <Component
+                onMouseDown={(evt: any) => onMouseDown(evt, cellType)}
+              />
+            </div>
+          );
+        } else {
+          const { id, name } = cellType;
+          const type = `imove-behavior-${id}`;
+          const Component = cellsMap[type];
+          return (
+            <div key={index} className={styles.serviceWrapper}>
+              <Component
+                onMouseDown={(evt: any) => onMouseDown(evt, type)}
+                title={name}
+              />
+            </div>
+          );
+        }
       })}
     </div>
   );

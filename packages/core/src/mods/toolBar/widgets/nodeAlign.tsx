@@ -44,9 +44,8 @@ const ALIGN_MAP: { [key: string]: AlignItem } = {
       let maxRightValue = -Infinity;
       selectedNodes.forEach((node) => {
         const { x } = node.getProp<{ x: number; y: number }>('position');
-        const { width } = node.getProp<{ width: number; height: number }>(
-          'size',
-        );
+        const { width } =
+          node.getProp<{ width: number; height: number }>('size');
         if (x < minLeftValue) {
           minLeftValue = x;
         }
@@ -56,9 +55,8 @@ const ALIGN_MAP: { [key: string]: AlignItem } = {
       });
       const centerValue = (minLeftValue + maxRightValue) / 2;
       selectedNodes.forEach((node) => {
-        const { width } = node.getProp<{ width: number; height: number }>(
-          'size',
-        );
+        const { width } =
+          node.getProp<{ width: number; height: number }>('size');
         node.setProp({ position: { x: centerValue - width / 2 } });
       });
     },
@@ -70,17 +68,15 @@ const ALIGN_MAP: { [key: string]: AlignItem } = {
       let maxRightValue = -Infinity;
       selectedNodes.forEach((node) => {
         const { x } = node.getProp<{ x: number; y: number }>('position');
-        const { width } = node.getProp<{ width: number; height: number }>(
-          'size',
-        );
+        const { width } =
+          node.getProp<{ width: number; height: number }>('size');
         if (x + width > maxRightValue) {
           maxRightValue = x + width;
         }
       });
       selectedNodes.forEach((node) => {
-        const { width } = node.getProp<{ width: number; height: number }>(
-          'size',
-        );
+        const { width } =
+          node.getProp<{ width: number; height: number }>('size');
         node.setProp({ position: { x: maxRightValue - width } });
       });
     },
@@ -109,9 +105,8 @@ const ALIGN_MAP: { [key: string]: AlignItem } = {
       let maxBottomValue = -Infinity;
       selectedNodes.forEach((node) => {
         const { y } = node.getProp<{ x: number; y: number }>('position');
-        const { height } = node.getProp<{ width: number; height: number }>(
-          'size',
-        );
+        const { height } =
+          node.getProp<{ width: number; height: number }>('size');
         if (y < minTopValue) {
           minTopValue = y;
         }
@@ -121,9 +116,8 @@ const ALIGN_MAP: { [key: string]: AlignItem } = {
       });
       const centerValue = (minTopValue + maxBottomValue) / 2;
       selectedNodes.forEach((node) => {
-        const { height } = node.getProp<{ width: number; height: number }>(
-          'size',
-        );
+        const { height } =
+          node.getProp<{ width: number; height: number }>('size');
         node.setProp({ position: { y: centerValue - height / 2 } });
       });
     },
@@ -135,17 +129,15 @@ const ALIGN_MAP: { [key: string]: AlignItem } = {
       let maxTopValue = -Infinity;
       selectedNodes.forEach((node) => {
         const { y } = node.getProp<{ x: number; y: number }>('position');
-        const { height } = node.getProp<{ width: number; height: number }>(
-          'size',
-        );
+        const { height } =
+          node.getProp<{ width: number; height: number }>('size');
         if (y + height > maxTopValue) {
           maxTopValue = y + height;
         }
       });
       selectedNodes.forEach((node) => {
-        const { height } = node.getProp<{ width: number; height: number }>(
-          'size',
-        );
+        const { height } =
+          node.getProp<{ width: number; height: number }>('size');
         node.setProp({ position: { y: maxTopValue - height } });
       });
     },

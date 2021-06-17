@@ -9,7 +9,8 @@ import { FormInstance } from 'antd/lib/form';
 import { ILocalConfig, getLocalConfig, updateLocalConfig } from '../../../api';
 
 const PORT_REGEX = /^\d{1,5}$/;
-const IP_REGEX = /^(localhost)|(((2(5[0-5]|[0-4]\d))|[01]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[01]?\d{1,2})){3})$/;
+const IP_REGEX =
+  /^(localhost)|(((2(5[0-5]|[0-4]\d))|[01]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[01]?\d{1,2})){3})$/;
 const NPM_REGISTRY_REGEX = /^https?:\/\//; // 简单 URL 检查
 
 const makeRules = (regex: RegExp, errTip: string) => {

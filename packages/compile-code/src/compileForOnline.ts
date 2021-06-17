@@ -23,7 +23,8 @@ interface DSL {
 
 const INSERT_DSL_COMMENT = '// define dsl here';
 const INSERT_NODE_FNS_COMMENT = '// define nodeFns here';
-const importRegex = /import\s([\s\S]*?)\sfrom\s('|")((@\w[\w\.\-]+\/)?(\w[\w\.\-\/]+))\2/gm;
+const importRegex =
+  /import\s([\s\S]*?)\sfrom\s('|")((@\w[\w\.\-]+\/)?(\w[\w\.\-\/]+))\2/gm;
 const virtualSourceNode = {
   id: 'virtual-imove-start',
   shape: 'imove-start',

@@ -34,9 +34,8 @@ const FlowChart: React.FC<IProps> = (props) => {
   const graphRef = useRef<HTMLDivElement>(null);
   const miniMapRef = useRef<HTMLDivElement>(null);
   const [flowChart, setFlowChart] = useState<Graph>();
-  const [contextMenuInfo, setContextMenuInfo] = useState<IMenuInfo>(
-    defaultMenuInfo,
-  );
+  const [contextMenuInfo, setContextMenuInfo] =
+    useState<IMenuInfo>(defaultMenuInfo);
 
   useEffect(() => {
     if (graphRef.current && miniMapRef.current) {

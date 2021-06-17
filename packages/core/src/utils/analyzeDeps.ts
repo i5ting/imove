@@ -2,7 +2,8 @@ import axios from 'axios';
 import { safeGet } from './index';
 import { getLocalConfig } from '../api';
 
-const regex = /import\s([\s\S]*?)\sfrom\s('|")((@\w[\w\.\-]+\/)?(\w[\w\.\-]+))(\/[\w\.\-]+)*\2/gm;
+const regex =
+  /import\s([\s\S]*?)\sfrom\s('|")((@\w[\w\.\-]+\/)?(\w[\w\.\-]+))(\/[\w\.\-]+)*\2/gm;
 //                     (1       )        (2  )(3(4            ) (5          ))(6          )
 
 const extractPkgs = (code: string, excludePkgs?: string[]): string[] => {

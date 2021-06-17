@@ -5,12 +5,41 @@ import baseCellSchemaMap from '../../common/baseCell';
 import { getSelectedEdges } from '../../utils/flowChartUtils';
 import { registerServerStorage } from './registerServerStorage';
 import MiniMapSimpleNode from '../../components/miniMapSimpleNode';
+import createNode from './createNode';
 
 // X6 register base cell shape
 Object.values(baseCellSchemaMap).forEach((schema) => {
   const { base, ...rest } = schema;
   base.define(rest);
 });
+
+// monitoring service node and register cell
+document.addEventListener(
+  'services',
+  function (evt) {
+    const dataString = evt.detail;
+    try {
+      const data = JSON.parse(dataString);
+      const extendCell: { [key: string]: any } = {};
+      data.forEach((item: { [key: string]: any }) => {
+        extendCell[`imove-behavior-${item.id}`] = createNode(
+          item.id,
+          item.name,
+          item.domain,
+          item.funcName,
+          item.provider,
+        );
+      });
+      Object.values(extendCell).forEach((schema) => {
+        const { base, ...rest } = schema;
+        base.define(rest);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  false,
+);
 
 const registerEvents = (flowChart: Graph): void => {
   flowChart.on('node:added', (args) => {
