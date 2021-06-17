@@ -3,24 +3,25 @@ import { Shape } from '@antv/x6';
 const schema = {
   base: Shape.Polygon,
   shape: 'imove-branch',
-  width: 80,
-  height: 40,
+  width: 40,
+  height: 30,
   attrs: {
     body: {
       strokeWidth: 2,
-      stroke: '#333',
-      fill: '#FFFC7C',
+      stroke: '#FFB96B',
+      fill: '#FFF6D1',
       refPoints: '0,10 10,0 20,10 10,20',
     },
     label: {
       refX: 0.5,
-      refY: 0.5,
+      refY: 1,
       text: '判断',
       fill: '#333',
-      fontSize: 14,
+      fontSize: 13,
+      fontWeight: 500,
       textAnchor: 'middle',
-      textVerticalAnchor: 'middle',
-      textWrap: { width: '100%' },
+      textVerticalAnchor: 'bottom',
+      transform: 'matrix(1,0,0,1,0,-6)',
     },
   },
   ports: {
@@ -29,23 +30,22 @@ const schema = {
         position: 'top',
         attrs: {
           circle: {
-            r: 3,
+            r: 2.5,
             magnet: true,
-            stroke: '#666',
-            strokeWidth: 1,
+            stroke: '#DD7500',
+            strokeWidth: 2,
             fill: '#fff',
           },
         },
       },
       right: {
-        zIndex: 999999999,
         position: 'right',
         attrs: {
           circle: {
-            r: 3,
+            r: 2.5,
             magnet: true,
-            stroke: '#666',
-            strokeWidth: 1,
+            stroke: '#DD7500',
+            strokeWidth: 2,
             fill: '#fff',
           },
         },
@@ -54,14 +54,13 @@ const schema = {
         },
       },
       bottom: {
-        zIndex: 999999999,
         position: 'bottom',
         attrs: {
           circle: {
-            r: 3,
+            r: 2.5,
             magnet: true,
-            stroke: '#666',
-            strokeWidth: 1,
+            stroke: '#DD7500',
+            strokeWidth: 2,
             fill: '#fff',
           },
         },
@@ -73,10 +72,10 @@ const schema = {
         position: 'left',
         attrs: {
           circle: {
-            r: 3,
+            r: 2.5,
             magnet: true,
-            stroke: '#666',
-            strokeWidth: 1,
+            stroke: '#DD7500',
+            strokeWidth: 2,
             fill: '#fff',
           },
         },
@@ -84,15 +83,11 @@ const schema = {
     },
     items: [
       {
-        id: 'top',
-        group: 'top',
-      },
-      {
         id: 'right',
         group: 'right',
         attrs: {
           text: {
-            text: '是',
+            text: '',
           },
         },
       },
@@ -101,7 +96,7 @@ const schema = {
         group: 'bottom',
         attrs: {
           text: {
-            text: '否',
+            text: '',
           },
         },
       },

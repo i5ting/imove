@@ -3,17 +3,19 @@ import { Shape } from '@antv/x6';
 const schema = {
   base: Shape.Circle,
   shape: 'imove-start',
-  width: 80,
-  height: 80,
+  width: 60,
+  height: 60,
   label: '开始',
   attrs: {
     body: {
-      fill: '#333',
-      strokeWidth: 1,
-      stroke: '#333',
+      fill: '#6B8CD7',
+      strokeWidth: 2,
+      stroke: '#4E68A3',
     },
     label: {
       fill: '#FFF',
+      fontSize: 13,
+      fontWeight: 500,
       textWrap: { width: '100%' },
     },
   },
@@ -21,48 +23,52 @@ const schema = {
     groups: {
       top: {
         position: 'top',
+        zIndex: 10,
         attrs: {
           circle: {
-            r: 3,
+            r: 2.5,
             magnet: true,
-            stroke: '#666',
-            strokeWidth: 1,
+            stroke: '#4E68A3',
+            strokeWidth: 2,
             fill: '#fff',
           },
         },
       },
       right: {
         position: 'right',
+        zIndex: 10,
         attrs: {
           circle: {
-            r: 3,
+            r: 2.5,
             magnet: true,
-            stroke: '#666',
-            strokeWidth: 1,
+            stroke: '#4E68A3',
+            strokeWidth: 2,
             fill: '#fff',
           },
         },
       },
       bottom: {
         position: 'bottom',
+        zIndex: 10,
         attrs: {
           circle: {
-            r: 3,
+            r: 2.5,
             magnet: true,
-            stroke: '#666',
-            strokeWidth: 1,
+            stroke: '#4E68A3',
+            strokeWidth: 2,
             fill: '#fff',
           },
         },
       },
       left: {
         position: 'left',
+        zIndex: 10,
         attrs: {
           circle: {
-            r: 3,
+            r: 2.5,
             magnet: true,
-            stroke: '#666',
-            strokeWidth: 1,
+            stroke: '#4E68A3',
+            strokeWidth: 2,
             fill: '#fff',
           },
         },
