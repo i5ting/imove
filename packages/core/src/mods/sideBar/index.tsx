@@ -3,7 +3,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import 'antd/es/collapse/style';
 import styles from './index.module.less';
 
-import { Collapse } from 'antd';
+import { Collapse, Card } from 'antd';
 import { Addon, Graph, Node } from '@antv/x6';
 import cellMap from '../../common/previewCell';
 import behavior from '../../common/previewCell/behavior';
@@ -28,6 +28,16 @@ document.addEventListener(
   },
   false,
 );
+
+const classifiedByKey = (objectArray: [], key: string) => {
+  const newObj = {};
+  objectArray.forEach((obj) => {
+    const array = newObj[obj[key]] || [];
+    array.push(obj);
+    newObj[obj[key]] = array;
+  });
+  return newObj;
+};
 
 const { Dnd } = Addon;
 const { Panel } = Collapse;
@@ -111,35 +121,49 @@ interface IPanelContentProps {
 
 const PanelContent: React.FC<IPanelContentProps> = (props) => {
   const { dnd, cellTypes } = props;
+  const isStringArr = typeof cellTypes[0] === 'string';
+  const isObjectArr = typeof cellTypes[0] === 'object';
   const onMouseDown = (evt: any, cellType: string) => {
     dnd.start(Node.create({ shape: cellType }), evt);
   };
+  const groupObj = isObjectArr ? classifiedByKey(cellTypes, 'domain') : {};
+
   return (
     <div className={styles.panelContent}>
-      {cellTypes.map((cellType, index) => {
-        if (typeof cellType === 'string') {
+      {/* 前端节点 */}
+      {isStringArr &&
+        cellTypes.map((cellType, index) => {
           const Component = cellsMap[cellType];
           return (
-            <div key={index} className={styles.cellWrapper}>
-              <Component
-                onMouseDown={(evt: any) => onMouseDown(evt, cellType)}
-              />
-            </div>
+            <Component
+              key={index}
+              className={styles.cellWrapper}
+              onMouseDown={(evt: any) => onMouseDown(evt, cellType)}
+            />
           );
-        } else {
-          const { id, name } = cellType;
-          const type = `imove-behavior-${id}`;
-          const Component = cellsMap[type];
+        })}
+      {/* 后端节点 */}
+      {isObjectArr &&
+        Object.keys(groupObj).map((domain) => {
+          const nodes = groupObj[domain];
           return (
-            <div key={index} className={styles.serviceWrapper}>
-              <Component
-                onMouseDown={(evt: any) => onMouseDown(evt, type)}
-                title={name}
-              />
-            </div>
+            <Card title={domain}>
+              {nodes.map((node: any) => {
+                const { id, name } = node;
+                const type = `imove-behavior-${id}`;
+                const Component = cellsMap[type];
+                return (
+                  <Component
+                    key={id}
+                    className={styles.serviceWrapper}
+                    onMouseDown={(evt: any) => onMouseDown(evt, type)}
+                    title={name}
+                  />
+                );
+              })}
+            </Card>
           );
-        }
-      })}
+        })}
     </div>
   );
 };

@@ -10,16 +10,20 @@ const createNode = (
   const schema = {
     base: Shape.Rect,
     shape: `imove-behavior-${id}`,
-    width: 80,
-    height: 40,
+    width: 60,
+    height: 30,
     label: name,
     attrs: {
       body: {
-        fill: '#AACCF7',
-        stroke: '#5E9CEE',
+        fill: '#BCD0FF',
+        stroke: '#6B8CD7',
+        rx: 4,
+        ry: 4,
       },
       label: {
         fill: '#333',
+        fontSize: 13,
+        fontWeight: 500,
         textWrap: { width: '100%' },
       },
     },
@@ -29,10 +33,10 @@ const createNode = (
           position: 'top',
           attrs: {
             circle: {
-              r: 3,
+              r: 2.5,
               magnet: true,
-              stroke: '#666',
-              strokeWidth: 1,
+              stroke: '#4E68A3',
+              strokeWidth: 2,
               fill: '#fff',
             },
           },
@@ -41,10 +45,10 @@ const createNode = (
           position: 'right',
           attrs: {
             circle: {
-              r: 3,
+              r: 2.5,
               magnet: true,
-              stroke: '#666',
-              strokeWidth: 1,
+              stroke: '#4E68A3',
+              strokeWidth: 2,
               fill: '#fff',
             },
           },
@@ -53,10 +57,10 @@ const createNode = (
           position: 'bottom',
           attrs: {
             circle: {
-              r: 3,
+              r: 2.5,
               magnet: true,
-              stroke: '#666',
-              strokeWidth: 1,
+              stroke: '#4E68A3',
+              strokeWidth: 2,
               fill: '#fff',
             },
           },
@@ -65,10 +69,10 @@ const createNode = (
           position: 'left',
           attrs: {
             circle: {
-              r: 3,
+              r: 2.5,
               magnet: true,
-              stroke: '#666',
-              strokeWidth: 1,
+              stroke: '#4E68A3',
+              strokeWidth: 2,
               fill: '#fff',
             },
           },
@@ -102,7 +106,7 @@ const createNode = (
       configSchema: '{\n  \n}',
       configData: {},
       dependencies: '{\n  \n}',
-      code: 'export default async function(ctx) {\n const {funcName, provider, id} = ctx; \n const providerClass = await ctx.payload.ctx.requestContext.getAsync(provider); \n const params = ctx.payload.body[id]; \n const rst = await providerClass[funcName](...params); \n ctx.setContext({[id]: rst}); \n return rst; \n}',
+      code: 'export default async function(ctx) {\n const { funcName, provider } = ctx.curNode.data;\n const { id } = ctx.curNode; \n const providerClass = await ctx.payload.ctx.requestContext.getAsync(provider); \n const params = ctx.payload.body[id]; \n const rst = await providerClass[funcName](...params); \n ctx.setContext({[id]: rst}); \n return rst; \n}',
     },
   };
   return schema;

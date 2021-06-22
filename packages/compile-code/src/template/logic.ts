@@ -144,7 +144,11 @@ export default class Logic extends EventEmitter {
     if (!curNode) {
       return Promise.reject(new Error(\`Invoke failed! No logic-start named \${trigger} found!\`));
     }
-    this._unsafeCtx = this._createCtx({ payload: data });
+    this._unsafeCtx = this._createCtx({
+      payload: data,
+      funcName: curNode.data.funcName || '',
+      provider: curNode.data.provider || ''
+    });
     await this._execNode(this._unsafeCtx, curNode, undefined, callback);
   }
 }

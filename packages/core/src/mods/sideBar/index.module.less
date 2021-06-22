@@ -27,11 +27,16 @@
     height: 60px;
   }
 
-  .serviceWrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    margin: auto;
+  .serviceWrapper {
+    height: 40px;
+    margin: 4px;
+  }
+
+  :global {
+    .ant-card-body {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
   }
 }
