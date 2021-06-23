@@ -16,9 +16,21 @@ const ImportNodes: React.FC = (props) => {
         try {
           const dsl = JSON.parse(dslStr);
           // 检验文件格式
-          const isOk =
-            Object.prototype.toString.call(dsl) === '[object Array]' &&
-            dsl
+          if (!(Object.prototype.toString.call(dsl) === '[object Array]')) {
+            message.error('格式错误！文件内容不是数组');
+            return;
+          }
+          if (
+            !(
+              [...new Set(dsl.map((item: any) => item.id))].length ===
+              dsl.length
+            )
+          ) {
+            message.error('内容错误！文件内容存在重复id');
+            return;
+          }
+          if (
+            !dsl
               .map((item: any) => {
                 const { domain, id, name, funcName, provider } = item;
                 if (domain && id && name && funcName && provider) {
@@ -26,14 +38,16 @@ const ImportNodes: React.FC = (props) => {
                 }
                 return false;
               })
-              .every((bool: boolean) => !!bool);
-          if (isOk) {
-            document.dispatchEvent(
-              new CustomEvent('services', { detail: dslStr }),
+              .every((bool: boolean) => !!bool)
+          ) {
+            message.error(
+              '内容错误！文件的数组元素应该包括domain, id, name, funcName, provider属性，请检查后重新上传',
             );
-          } else {
-            message.error('上传文件格式错误!');
+            return;
           }
+          document.dispatchEvent(
+            new CustomEvent('services', { detail: dslStr }),
+          );
         } catch (err) {
           console.log('解析错误！');
         }
