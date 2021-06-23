@@ -98,7 +98,7 @@ const createNode = (
       ],
     },
     data: {
-      id,
+      serviceId: id,
       label: name,
       domain,
       funcName,
@@ -106,7 +106,7 @@ const createNode = (
       configSchema: '{\n  \n}',
       configData: {},
       dependencies: '{\n  \n}',
-      code: 'export default async function(ctx) {\n const { funcName, provider } = ctx.curNode.data;\n const { id } = ctx.curNode; \n const providerClass = await ctx.payload.ctx.requestContext.getAsync(provider); \n const params = ctx.payload.body[id] || []; \n const rst = await providerClass[funcName](...params); \n ctx.setContext({[id]: rst}); \n return rst; \n}',
+      code: 'export default async function(ctx) {\n const { funcName, provider, serviceId: id } = ctx.curNode.data;\n const providerClass = await ctx.payload.ctx.requestContext.getAsync(provider); \n const params = ctx.payload.body[id] || []; \n const rst = await providerClass[funcName](...params); \n ctx.setContext({[id]: rst}); \n return rst; \n}',
     },
   };
   return schema;

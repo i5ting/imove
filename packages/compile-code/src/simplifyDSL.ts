@@ -30,6 +30,7 @@ const simplifyDSL = (dsl: DSL): Cell.Properties => {
           'configData',
           'ports',
         ]);
+        newCell.data.serviceId = cell.data.serviceId || '';
         newCell.data.funcName = cell.data.funcName || '';
         newCell.data.provider = cell.data.provider || '';
         return newCell;

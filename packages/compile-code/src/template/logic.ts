@@ -150,6 +150,7 @@ export default class Logic extends EventEmitter {
     }
     this._unsafeCtx = this._createCtx({
       payload: data,
+      serviceId: curNode.data.serviceId || '',
       funcName: curNode.data.funcName || '',
       provider: curNode.data.provider || ''
     });
