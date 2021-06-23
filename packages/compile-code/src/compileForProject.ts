@@ -14,19 +14,19 @@ interface IOutput {
   nodeFns: {
     [fileName: string]: string;
   };
-  'context.js': string;
+  'context.ts': string;
   'dsl.json': string;
-  'index.js': string;
-  'logic.js': string;
+  'index.ts': string;
+  'logic.ts': string;
 }
 
 const compile = (dsl: DSL, plugins = []): IOutput => {
   const output: IOutput = {
     nodeFns: extractNodeFns(dsl),
-    'context.js': contextTpl,
+    'context.ts': contextTpl,
     'dsl.json': JSON.stringify(simplifyDSL(dsl), null, 2),
-    'index.js': addPlugins(indexTpl, plugins),
-    'logic.js': logicTpl,
+    'index.ts': addPlugins(indexTpl, plugins),
+    'logic.ts': logicTpl,
   };
   return output;
 };

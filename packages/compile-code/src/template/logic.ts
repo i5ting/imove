@@ -1,6 +1,6 @@
 export default `import nodeFns from './nodeFns';
 import Context from './context';
-import EventEmitter from 'eventemitter3';
+const EventEmitter = require('events');
 
 const LIFECYCLE = new Set(['ctxCreated', 'enterNode', 'leaveNode']);
 const SHAPES = {
@@ -10,9 +10,13 @@ const SHAPES = {
 };
 
 export default class Logic extends EventEmitter {
+  private dsl;
+  private lifeCycleEvents;
+  private _unsafeCtx;
+
   constructor(opts = {}) {
     super();
-    this.dsl = opts.dsl;
+    this.dsl = (opts as any).dsl;
     this.lifeCycleEvents = {};
   }
 

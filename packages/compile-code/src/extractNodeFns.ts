@@ -33,7 +33,7 @@ const genNodeFns = (dsl: DSL): INodesFns => {
     shape,
     data: { label, code },
   } of nodes) {
-    const fileName: string = id + '.js';
+    const fileName: string = id + '.ts';
     const descData = `// ${shape}: ${label}\n`;
     const saveData = `${descData}\n${code}`;
     nodeFns[fileName] = saveData;
@@ -45,7 +45,7 @@ const extract = (dsl: DSL): INodesFns => {
   const nodeFns = genNodeFns(dsl);
   const nodeIds = Object.keys(nodeFns).map((fileName) => fileName.slice(0, -3));
   const entryFileContent = genEntryFile(nodeIds);
-  nodeFns['index.js'] = entryFileContent;
+  nodeFns['index.ts'] = entryFileContent;
   return nodeFns;
 };
 

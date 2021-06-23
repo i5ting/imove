@@ -1,5 +1,5 @@
 export default `import Logic from './logic';
-import dsl from './dsl.json';
+const dsl = require('./dsl.json');
 // import plugins here
 
 const logic = new Logic({ dsl });
