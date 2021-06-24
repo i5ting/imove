@@ -28,6 +28,7 @@ document.addEventListener(
           item.domain,
           item.funcName,
           item.provider,
+          item.providerType,
         );
       });
       Object.values(extendCell).forEach((schema) => {

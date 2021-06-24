@@ -32,8 +32,16 @@ const ImportNodes: React.FC = (props) => {
           if (
             !dsl
               .map((item: any) => {
-                const { domain, id, name, funcName, provider } = item;
-                if (domain && id && name && funcName && provider) {
+                const { domain, id, name, funcName, provider, providerType } =
+                  item;
+                if (
+                  domain &&
+                  id &&
+                  name &&
+                  funcName &&
+                  provider &&
+                  providerType
+                ) {
                   return true;
                 }
                 return false;
@@ -41,7 +49,7 @@ const ImportNodes: React.FC = (props) => {
               .every((bool: boolean) => !!bool)
           ) {
             message.error(
-              '内容错误！文件的数组元素应该包括domain, id, name, funcName, provider属性，请检查后重新上传',
+              '内容错误！文件的数组元素应该包括domain, id, name, funcName, provider, providerType属性，请检查后重新上传',
             );
             return;
           }

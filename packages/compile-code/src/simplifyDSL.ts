@@ -33,6 +33,7 @@ const simplifyDSL = (dsl: DSL): Cell.Properties => {
         newCell.data.serviceId = cell.data.serviceId || '';
         newCell.data.funcName = cell.data.funcName || '';
         newCell.data.provider = cell.data.provider || '';
+        newCell.data.providerType = cell.data.providerType || '';
         return newCell;
       }
     }),

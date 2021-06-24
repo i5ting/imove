@@ -6,6 +6,7 @@ const createNode = (
   domain: string,
   funcName: string,
   provider: string,
+  providerType: string,
 ) => {
   const schema = {
     base: Shape.Rect,
@@ -103,10 +104,11 @@ const createNode = (
       domain,
       funcName,
       provider,
+      providerType,
       configSchema: '{\n  \n}',
       configData: {},
       dependencies: '{\n  \n}',
-      code: 'export default async function(ctx) {\n const { funcName, provider, serviceId: id } = ctx.curNode.data;\n const providerClass = await ctx.payload.ctx.requestContext.getAsync(provider); \n const params = ctx.payload.body[id] || []; \n const rst = await providerClass[funcName](...params); \n ctx.setContext({[id]: rst}); \n return rst; \n}',
+      code: 'export default async function(ctx) {\n const { serviceId: id, funcName, provider, providerType } = ctx.curNode.data;\n const providerClass = await ctx.payload.ctx.requestContext.getAsync(provider); \n const params = ctx.payload.body[id] || []; \n const rst = await providerClass[funcName](...params); \n ctx.setContext({[id]: rst}); \n return rst; \n}',
     },
   };
   return schema;
