@@ -73,6 +73,18 @@ const registerEvents = (flowChart: Graph): void => {
   flowChart.on('edge:mouseover', (args) => {
     args.edge.attr('line/stroke', '#feb663');
     args.edge.attr('line/strokeWidth', '3px');
+    args.edge.addTools([
+      {
+        name: 'target-arrowhead',
+        args: {
+          attrs: {
+            d: 'M -8 -6 4 0 -8 6 Z',
+            fill: '#000000',
+            'stroke-width': 0,
+          },
+        },
+      },
+    ]);
   });
   flowChart.on('edge:mouseleave', (args) => {
     const { edge } = args;
@@ -81,6 +93,7 @@ const registerEvents = (flowChart: Graph): void => {
       args.edge.attr('line/stroke', '#333');
       args.edge.attr('line/strokeWidth', '2px');
     }
+    edge.removeTools();
   });
   flowChart.on('node:dblclick', () => {
     flowChart.trigger('graph:editCode');
