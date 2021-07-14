@@ -27,4 +27,7 @@ require('esbuild')
       }),
     ],
   })
+  .then(() => {
+    console.log('imove editor builded');
+  })
   .catch(() => process.exit(1));

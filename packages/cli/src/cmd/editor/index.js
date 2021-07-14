@@ -69,7 +69,7 @@ class Editor extends Base {
   }
 
   run() {
-    const server = createServer(8000);
+    const server = createServer();
     server.use(express.static(path.join(__dirname, './template')));
     server.post('/api/queryGraph', this.queryGraph.bind(this));
     server.post('/api/modifyGraph', this.modifyGraph.bind(this));
