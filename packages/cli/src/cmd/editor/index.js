@@ -32,12 +32,12 @@ class Editor extends Base {
   }
 
   get dbFile() {
-    const { dbFile } = this._dfFile || this.config || '';
+    const dbFile = this._dbFile || (this.config || '').dbFile;
     return dbFile;
   }
 
   set dbFile(val) {
-    this._dfFile = val;
+    this._dbFile = val;
   }
 
   queryGraph(req, res) {

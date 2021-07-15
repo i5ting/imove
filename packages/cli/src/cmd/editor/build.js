@@ -6,8 +6,9 @@ require('esbuild')
   .build({
     bundle: true,
     entryPoints: [path.join(__dirname, 'template/app.jsx')],
-    outfile: path.join(__dirname, 'template/app.bundle.js'),
+    outfile: path.join(__dirname, 'template/dist/app.bundle.js'),
     plugins: [
+      // fix import('antd/dist/antd.less')
       {
         name: 'resolve-antd-dist-less',
         setup: (build) => {
@@ -22,6 +23,7 @@ require('esbuild')
           );
         },
       },
+      // less
       lessLoader({
         javascriptEnabled: true,
       }),
