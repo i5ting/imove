@@ -1,8 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const cachedServer = {};
+
 const createServer = (port = 3500) => {
+  if (cachedServer[port]) {
+    return cachedServer[port];
+  }
   const app = express();
+  cachedServer[port] = app;
+
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use((req, res, next) => {

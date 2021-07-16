@@ -1,0 +1,13 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https?://0.0.0.0:\\d+"
+    },
+    {
+      "pattern": "^https?://127.0.0.1:\\d+"
+    },
+    {
+      "pattern": "^https?://localhost:\\d+"
+    }
+  ]
+}
