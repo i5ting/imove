@@ -15,7 +15,6 @@ module.exports = {
     }
   },
   rules: {
-    'import/no-extraneous-dependencies': ['error', { peerDependencies: true }],
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': ['warn', { extensions: ['.ts', '.tsx'] }], // 修复 tsx 文件引用 tsx 文件报错的问题
     "no-var": 0,//禁用var，用let和const代替
