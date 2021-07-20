@@ -11,7 +11,8 @@
     "compile"
   ],
   "scripts": {
-    "build:editor": "node src/cmd/editor/build.js"
+    "build:editor": "node src/cmd/editor/build.js",
+    "prepare": "npm run build:editor"
   },
   "repository": {
     "type": "git",
