@@ -2,6 +2,7 @@
 .vscode
 .eslintcache
 .size-snapshot.json
+.husky
 npm-debug.log*
 yarn-error.log*
 lerna-debug.log

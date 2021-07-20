@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const fs = require('fs-extra');
 const Base = require('../base');
 const mergePkg = require('./mergePkg');
 const { compileForProject } = require('@imove/compile-code');
-const { createServer } = require('../../utils/server');
+const { DEFAULT_PORT, createServer } = require('../../utils/server');
 
-const noop = () => {};
+const noop = function () {
+  /* noop function */
+};
 const CACHE_PATH = path.join(process.cwd(), './.cache');
 const CACHE_DSL_FILE = path.join(CACHE_PATH, 'imove.dsl.json');
 
@@ -56,7 +59,7 @@ class Dev extends Base {
   }
 
   run() {
-    const app = createServer();
+    const app = createServer(DEFAULT_PORT);
     app.post('/api/save', this.save.bind(this));
     app.get('/api/connect', this.connect.bind(this));
   }

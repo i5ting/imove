@@ -5,7 +5,7 @@ const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const express = require('express');
 const Base = require('../base');
-const { createServer } = require('../../utils/server');
+const { DEFAULT_PORT, createServer } = require('../../utils/server');
 
 class Editor extends Base {
   constructor(...args) {
@@ -69,7 +69,7 @@ class Editor extends Base {
   }
 
   run() {
-    const server = createServer();
+    const server = createServer(DEFAULT_PORT, true);
     server.use(express.static(path.join(__dirname, './template')));
     server.post('/api/queryGraph', this.queryGraph.bind(this));
     server.post('/api/modifyGraph', this.modifyGraph.bind(this));
