@@ -1,0 +1,6 @@
+.circleci
+.github
+.husky
+
+dist/
+node_modules/
