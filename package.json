@@ -7,7 +7,7 @@
     "doc": "dumi dev",
     "start": "concurrently \"lerna run watch --parallel\" \"cross-env APP_ROOT=example umi dev\"",
     "example": "concurrently \"lerna run watch --parallel\" \"cross-env APP_ROOT=example umi dev\" \"imove -d\"",
-    "postinstall": "npm link packages/cli && lerna init && lerna bootstrap",
+    "postinstall": "lerna init && lerna exec npm i && lerna exec npm run build && npm link packages/cli && lerna bootstrap",
     "prepare": "husky install"
   },
   "jest": {

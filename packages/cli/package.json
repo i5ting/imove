@@ -11,6 +11,7 @@
     "compile"
   ],
   "scripts": {
+    "build": "",
     "build:editor": "node src/cmd/editor/build.js",
     "postinstall": "npm run build:editor"
   },

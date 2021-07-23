@@ -2,7 +2,7 @@
   "name": "example",
   "scripts": {
     "start": "umi dev",
-    "build": "umi build",
+    "build": "",
     "postinstall": "umi generate tmp"
   },
   "dependencies": {
