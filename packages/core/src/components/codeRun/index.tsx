@@ -11,12 +11,9 @@ import { executeScript } from '../../utils';
 import { PlayCircleFilled, LoadingOutlined } from '@ant-design/icons';
 import { compileForOnline } from '@imove/compile-code';
 import { toSelectedCellsJSON } from '../../utils/flowChartUtils';
+import SplitPane from 'react-split-pane-v2';
 
-// FIXME: https://github.com/tomkp/react-split-pane/issues/541
-// @ts-ignore
-import SplitPane from 'react-split-pane/lib/SplitPane';
-// @ts-ignore
-import Pane from 'react-split-pane/lib/Pane';
+const Pane = SplitPane.Pane;
 
 const defaultInput = {
   pipe: {},

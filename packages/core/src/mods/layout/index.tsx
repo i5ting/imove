@@ -3,11 +3,9 @@ import React from 'react';
 import styles from './index.module.less';
 
 import { Graph } from '@antv/x6';
+import SplitPane from 'react-split-pane-v2';
 
-// @ts-ignore
-import SplitPane from 'react-split-pane/lib/SplitPane';
-// @ts-ignore
-import Pane from 'react-split-pane/lib/Pane';
+const Pane = SplitPane.Pane;
 
 interface ISubComponentProps {
   flowChart: Graph;

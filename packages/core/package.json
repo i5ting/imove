@@ -48,7 +48,7 @@
     "query-string": "^6.13.7",
     "react-color": "^2.18.1",
     "react-json-view": "^1.19.1",
-    "react-split-pane": "^2.0.3"
+    "react-split-pane-v2": "^1.0.3"
   },
   "devDependencies": {
     "@types/lodash.merge": "^4.6.6",
