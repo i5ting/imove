@@ -174,7 +174,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
     try {
       const codeObj = JSON.parse(json);
       formRef.current && formRef.current.setValue(codeObj);
-    } catch (error) {
+    } catch (error: any) {
       console.log(
         "can't parse code string to form schema, the error is:",
         error.message,
@@ -213,7 +213,7 @@ const EditModal: React.FC<IEditorModalProps> = (props) => {
         JSON.parse(json);
         onOk(json);
       }
-    } catch (error) {
+    } catch (error: any) {
       message.error('内容必须是合法json');
       console.log('save failed, the error is:', error.message);
     }
