@@ -41,6 +41,11 @@ interface ICodeRunProps {
   flowChart: Graph;
 }
 
+function isJson(obj: any) {
+  var t = typeof obj;
+  return ['boolean', 'number', 'string', 'symbol', 'function'].indexOf(t) == -1;
+}
+
 const CodeRun: React.FC<ICodeRunProps> = (props) => {
   const { flowChart } = props;
   const [isRunning, setIsRunning] = useState(false);
@@ -51,7 +56,12 @@ const CodeRun: React.FC<ICodeRunProps> = (props) => {
     // NOTE: listen the event that iMove online exec ends
     const handler = (data: any) => {
       setIsRunning(false);
-      setOutput(data.detail || {});
+      // console.dir(data)
+
+      if (isJson(data.detail) == true) {
+        setOutput(data.detail || {});
+        // console.dir( data.detail)
+      }
     };
     window.addEventListener('iMoveOnlineExecEnds', handler);
     return () => {

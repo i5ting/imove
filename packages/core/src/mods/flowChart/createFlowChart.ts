@@ -53,7 +53,11 @@ const registerEvents = (flowChart: Graph): void => {
     }
   });
   flowChart.on('node:dblclick', () => {
-    flowChart.trigger('graph:editCode');
+    if (flowChart.getSelectedCells()[0]['shape'] === "imove-start") {
+      alert('起始节点，不允许编写代码')
+    } else {
+      flowChart.trigger('graph:editCode');
+    }
   });
   flowChart.on('blank:contextmenu', (args) => {
     const {
