@@ -10,7 +10,7 @@
 </div>
 
 <p align="center">
-  iMove 是一个逻辑可复用的，面向函数的，流程可视化的 JavaScript 工具库。
+  INACTIVE: iMove 是一个逻辑可复用的，面向函数的，流程可视化的 JavaScript 工具库。
 </p>
 
 [English](./README.en-US.md) | 简体中文
